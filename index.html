@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>MY‑AI™ Search</title>
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0a;font-family:-apple-system,'Segoe UI',Roboto,system-ui,sans-serif;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:20px 16px 40px;color:#e0e0e0}.container{max-width:720px;width:100%}.brand{text-align:center;margin-bottom:30px}.brand .eye-icon{font-size:3.2rem;line-height:1;display:block;margin-bottom:4px;filter:drop-shadow(0 0 6px rgba(192,192,192,0.3))}.brand h1{font-size:2.2rem;font-weight:300;letter-spacing:2px;color:#c0c0c0;margin-top:2px}.brand h1 small{font-size:1rem;font-weight:400;color:#888;letter-spacing:1px}.brand .byline{font-size:0.9rem;color:#666;margin-top:4px}.brand .byline a{color:#aaa;text-decoration:none;border-bottom:1px dotted #555}.brand .byline a:hover{color:#fff}.search-area{background:#1a1a1a;border-radius:60px;padding:8px 8px 8px 20px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.8);border:1px solid #333;margin-bottom:12px}.search-area input[type="text"]{flex:1;background:transparent;border:none;padding:14px 0;font-size:1.1rem;color:#e0e0e0;outline:none;min-width:0}.search-area input::placeholder{color:#666;font-style:italic}.search-area button{background:#c0c0c0;border:none;border-radius:40px;padding:12px 28px;font-weight:600;font-size:1rem;color:#0a0a0a;cursor:pointer;transition:background .2s,transform .1s;white-space:nowrap}.search-area button:hover{background:#d8d8d8}.search-area button:active{transform:scale(.97)}.mode-toggle{display:flex;gap:6px;margin-bottom:18px;justify-content:center}.mode-toggle button{background:#1a1a1a;border:1px solid #444;border-radius:40px;padding:8px 24px;font-size:.9rem;font-weight:500;color:#aaa;cursor:pointer;transition:all .2s}.mode-toggle button.active{background:#c0c0c0;color:#0a0a0a;border-color:#c0c0c0;box-shadow:0 0 12px rgba(192,192,192,0.2)}.mode-toggle button:hover{background:#2a2a2a;color:#fff}.geo-toggle{display:flex;justify-content:flex-end;gap:12px;margin:0 0 16px;font-size:.9rem}.geo-toggle label{display:flex;align-items:center;gap:6px;color:#999;cursor:pointer}.geo-toggle input[type="radio"]{accent-color:#c0c0c0;width:16px;height:16px}.geo-toggle input[type="radio"]:checked+span{color:#f0f0f0;font-weight:500}.ai-overview{background:#1e1e1e;border-left:4px solid #c0c0c0;border-radius:8px;padding:16px 20px;margin-bottom:20px;display:none}.ai-overview.visible{display:block}.ai-overview .label{font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:#aaa;display:flex;align-items:center;gap:8px;margin-bottom:4px}.ai-overview .label span{background:#c0c0c0;color:#0a0a0a;padding:0 10px;border-radius:12px;font-weight:600;font-size:.7rem}.ai-overview .summary{font-size:1rem;line-height:1.5;color:#e8e8e8}.best-link{background:#2a2a2a;border:1px solid #c0c0c0;border-radius:12px;padding:16px 20px;margin-bottom:20px;display:none}.best-link.visible{display:block}.best-link .badge{display:inline-block;background:#c0c0c0;color:#0a0a0a;font-size:.7rem;font-weight:700;padding:2px 12px;border-radius:20px;letter-spacing:.5px;margin-bottom:6px}.best-link a{color:#c0c0c0;text-decoration:none;font-weight:600;font-size:1.1rem}.best-link a:hover{text-decoration:underline}.best-link .url{font-size:.8rem;color:#888;word-break:break-all}.best-link .snippet{font-size:.95rem;color:#ccc;margin-top:4px}#results{margin-top:0}.result-card{background:#c0c0c0;color:#0a0a0a;border-radius:12px;padding:16px 20px;margin-bottom:12px;box-shadow:0 2px 8px rgba(192,192,192,.08);transition:transform .15s;word-break:break-word}.result-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(192,192,192,.15)}.result-card h3{font-size:1.1rem;font-weight:600;margin-bottom:4px}.result-card h3 a{color:#0a0a0a;text-decoration:none}.result-card h3 a:hover{text-decoration:underline}.result-card .url{font-size:.8rem;color:#333;opacity:.7;margin-bottom:4px;word-break:break-all}.result-card .snippet{font-size:.95rem;line-height:1.4;color:#1a1a1a}.result-card .badge{display:inline-block;background:#0a0a0a20;padding:2px 10px;border-radius:20px;font-size:.7rem;font-weight:500;letter-spacing:.3px;color:#222;margin-top:6px}.image-card{background:#1a1a1a;border-radius:12px;overflow:hidden;margin-bottom:16px;border:1px solid #333;transition:transform .15s}.image-card:hover{transform:scale(1.01)}.image-card img{width:100%;height:200px;object-fit:cover;display:block}.image-card .info{padding:12px 16px;color:#ddd}.image-card .info h4{font-weight:500;font-size:1rem;margin-bottom:4px}.image-card .info h4 a{color:#c0c0c0;text-decoration:none}.image-card .info h4 a:hover{text-decoration:underline}.image-card .info .photographer{font-size:.85rem;color:#888}.image-card .info .photographer a{color:#aaa;text-decoration:none}.image-card .info .photographer a:hover{color:#fff}.info-message{text-align:center;color:#666;padding:30px 0;font-style:italic}.loader{text-align:center;color:#888;padding:20px 0;display:none}.loader .spinner{display:inline-block;width:24px;height:24px;border:3px solid #333;border-top:3px solid #c0c0c0;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.footer{margin-top:40px;text-align:center;font-size:.75rem;color:#444;border-top:1px solid #1a1a1a;padding-top:20px;letter-spacing:.5px}.footer a{color:#777;text-decoration:none}.footer a:hover{color:#ccc}@media(max-width:480px){.search-area{border-radius:40px;padding:4px 4px 4px 16px}.search-area input[type="text"]{font-size:1rem;padding:12px 0}.search-area button{padding:10px 18px;font-size:.9rem}.brand h1{font-size:1.8rem}.brand .eye-icon{font-size:2.6rem}.image-card img{height:150px}}
+    /* (same as before – keep your CSS, no changes needed) */
+    *{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0a;font-family:-apple-system,'Segoe UI',Roboto,system-ui,sans-serif;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:20px 16px 40px;color:#e0e0e0}.container{max-width:720px;width:100%}.brand{text-align:center;margin-bottom:30px}.brand .eye-icon{font-size:3.2rem;line-height:1;display:block;margin-bottom:4px;filter:drop-shadow(0 0 6px rgba(192,192,192,0.3))}.brand h1{font-size:2.2rem;font-weight:300;letter-spacing:2px;color:#c0c0c0;margin-top:2px}.brand h1 small{font-size:1rem;font-weight:400;color:#888;letter-spacing:1px}.brand .byline{font-size:0.9rem;color:#666;margin-top:4px}.brand .byline a{color:#aaa;text-decoration:none;border-bottom:1px dotted #555}.brand .byline a:hover{color:#fff}.search-area{background:#1a1a1a;border-radius:60px;padding:8px 8px 8px 20px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.8);border:1px solid #333;margin-bottom:12px}.search-area input[type="text"]{flex:1;background:transparent;border:none;padding:14px 0;font-size:1.1rem;color:#e0e0e0;outline:none;min-width:0}.search-area input::placeholder{color:#666;font-style:italic}.search-area button{background:#c0c0c0;border:none;border-radius:40px;padding:12px 28px;font-weight:600;font-size:1rem;color:#0a0a0a;cursor:pointer;transition:background .2s,transform .1s;white-space:nowrap}.search-area button:hover{background:#d8d8d8}.search-area button:active{transform:scale(.97)}.mode-toggle{display:flex;gap:6px;margin-bottom:18px;justify-content:center}.mode-toggle button{background:#1a1a1a;border:1px solid #444;border-radius:40px;padding:8px 24px;font-size:.9rem;font-weight:500;color:#aaa;cursor:pointer;transition:all .2s}.mode-toggle button.active{background:#c0c0c0;color:#0a0a0a;border-color:#c0c0c0;box-shadow:0 0 12px rgba(192,192,192,0.2)}.mode-toggle button:hover{background:#2a2a2a;color:#fff}.geo-toggle{display:flex;justify-content:flex-end;gap:12px;margin:0 0 16px;font-size:.9rem}.geo-toggle label{display:flex;align-items:center;gap:6px;color:#999;cursor:pointer}.geo-toggle input[type="radio"]{accent-color:#c0c0c0;width:16px;height:16px}.geo-toggle input[type="radio"]:checked+span{color:#f0f0f0;font-weight:500}.ai-overview{background:#1e1e1e;border-left:4px solid #c0c0c0;border-radius:8px;padding:16px 20px;margin-bottom:20px;display:none}.ai-overview.visible{display:block}.ai-overview .label{font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:#aaa;display:flex;align-items:center;gap:8px;margin-bottom:4px}.ai-overview .label span{background:#c0c0c0;color:#0a0a0a;padding:0 10px;border-radius:12px;font-weight:600;font-size:.7rem}.ai-overview .summary{font-size:1rem;line-height:1.5;color:#e8e8e8}.best-link{background:#2a2a2a;border:1px solid #c0c0c0;border-radius:12px;padding:16px 20px;margin-bottom:20px;display:none}.best-link.visible{display:block}.best-link .badge{display:inline-block;background:#c0c0c0;color:#0a0a0a;font-size:.7rem;font-weight:700;padding:2px 12px;border-radius:20px;letter-spacing:.5px;margin-bottom:6px}.best-link a{color:#c0c0c0;text-decoration:none;font-weight:600;font-size:1.1rem}.best-link a:hover{text-decoration:underline}.best-link .url{font-size:.8rem;color:#888;word-break:break-all}.best-link .snippet{font-size:.95rem;color:#ccc;margin-top:4px}#results{margin-top:0}.result-card{background:#c0c0c0;color:#0a0a0a;border-radius:12px;padding:16px 20px;margin-bottom:12px;box-shadow:0 2px 8px rgba(192,192,192,.08);transition:transform .15s;word-break:break-word}.result-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(192,192,192,.15)}.result-card h3{font-size:1.1rem;font-weight:600;margin-bottom:4px}.result-card h3 a{color:#0a0a0a;text-decoration:none}.result-card h3 a:hover{text-decoration:underline}.result-card .url{font-size:.8rem;color:#333;opacity:.7;margin-bottom:4px;word-break:break-all}.result-card .snippet{font-size:.95rem;line-height:1.4;color:#1a1a1a}.result-card .badge{display:inline-block;background:#0a0a0a20;padding:2px 10px;border-radius:20px;font-size:.7rem;font-weight:500;letter-spacing:.3px;color:#222;margin-top:6px}.image-card{background:#1a1a1a;border-radius:12px;overflow:hidden;margin-bottom:16px;border:1px solid #333;transition:transform .15s}.image-card:hover{transform:scale(1.01)}.image-card img{width:100%;height:200px;object-fit:cover;display:block}.image-card .info{padding:12px 16px;color:#ddd}.image-card .info h4{font-weight:500;font-size:1rem;margin-bottom:4px}.image-card .info h4 a{color:#c0c0c0;text-decoration:none}.image-card .info h4 a:hover{text-decoration:underline}.image-card .info .photographer{font-size:.85rem;color:#888}.image-card .info .photographer a{color:#aaa;text-decoration:none}.image-card .info .photographer a:hover{color:#fff}.info-message{text-align:center;color:#666;padding:30px 0;font-style:italic}.info-message.error{color:#e88484}.info-message a{color:#c0c0c0;text-decoration:underline}.loader{text-align:center;color:#888;padding:20px 0;display:none}.loader .spinner{display:inline-block;width:24px;height:24px;border:3px solid #333;border-top:3px solid #c0c0c0;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.footer{margin-top:40px;text-align:center;font-size:.75rem;color:#444;border-top:1px solid #1a1a1a;padding-top:20px;letter-spacing:.5px}.footer a{color:#777;text-decoration:none}.footer a:hover{color:#ccc}@media(max-width:480px){.search-area{border-radius:40px;padding:4px 4px 4px 16px}.search-area input[type="text"]{font-size:1rem;padding:12px 0}.search-area button{padding:10px 18px;font-size:.9rem}.brand h1{font-size:1.8rem}.brand .eye-icon{font-size:2.6rem}.image-card img{height:150px}}
   </style>
 </head>
 <body>
@@ -31,11 +32,21 @@
   <div id="bestLink" class="best-link"><div class="badge">⭐ Best match</div><a href="#" id="bestLinkUrl" target="_blank" rel="noopener"></a><div class="url" id="bestLinkDisplayUrl"></div><div class="snippet" id="bestLinkSnippet"></div></div>
   <div id="loader" class="loader"><div class="spinner"></div><p style="margin-top:8px;">Searching…</p></div>
   <div id="results"><div class="info-message">🔍 Enter a query above</div></div>
-  <div class="footer"><span>© 2026 MY‑AI — built with ternary intelligence</span></div>
+  <div class="footer">
+    <span>© 2026 MY‑AI — built with ternary intelligence</span>
+    <br>
+    <span style="font-size:0.65rem;color:#555;">
+      Videos provided by 
+      <a href="https://www.pexels.com" target="_blank" style="color:#888;">Pexels</a>
+    </span>
+  </div>
 </div>
 
 <script>
 (function() {
+  // ----- REPLACE WITH YOUR OWN PEXELS API KEY -----
+  const PEXELS_KEY = 'YOUR_ACTUAL_API_KEY_HERE'; // <-- PASTE YOUR KEY
+
   // ----- DOM refs -----
   const queryInput = document.getElementById('queryInput');
   const searchBtn = document.getElementById('searchBtn');
@@ -50,9 +61,8 @@
   const webModeBtn = document.getElementById('webMode');
   const imageModeBtn = document.getElementById('imageMode');
 
-  let currentMode = 'web'; // 'web' or 'images'
+  let currentMode = 'web';
 
-  // ----- Toggle mode -----
   webModeBtn.addEventListener('click', () => {
     currentMode = 'web';
     webModeBtn.classList.add('active');
@@ -111,31 +121,33 @@
     });
   }
 
-  function renderImageResults(images) {
+  function renderImageResults(videos) {
     resultsDiv.innerHTML = '';
     aiOverview.classList.remove('visible');
     bestLink.classList.remove('visible');
-    if (!images || images.length === 0) {
-      resultsDiv.innerHTML = '<div class="info-message">🖼️ No images found.</div>';
+    if (!videos || videos.length === 0) {
+      resultsDiv.innerHTML = '<div class="info-message">🖼️ No videos found.</div>';
       return;
     }
-    images.slice(0, 36).forEach(img => {
+    videos.slice(0, 36).forEach(video => {
       const card = document.createElement('div');
       card.className = 'image-card';
+      // For videos, we show a thumbnail (from the first video file)
+      const thumb = video.src || 'https://images.pexels.com/lib/api/pexels-white.png';
       card.innerHTML = `
-        <a href="${img.url}" target="_blank" rel="noopener">
-          <img src="${img.src}" alt="${img.alt}" loading="lazy">
+        <a href="${video.url}" target="_blank" rel="noopener">
+          <img src="${thumb}" alt="${video.alt}" loading="lazy" onerror="this.style.display='none'">
         </a>
         <div class="info">
-          <h4><a href="${img.url}" target="_blank" rel="noopener">${img.title}</a></h4>
-          <div class="photographer">📷 by <a href="${img.photographer_url}" target="_blank" rel="noopener">${img.photographer}</a></div>
+          <h4><a href="${video.url}" target="_blank" rel="noopener">${video.title}</a></h4>
+          <div class="photographer">🎥 by <a href="${video.photographer_url}" target="_blank" rel="noopener">${video.photographer}</a></div>
         </div>
       `;
       resultsDiv.appendChild(card);
     });
   }
 
-  // ----- Search functions -----
+  // ----- Web search (unchanged) -----
   function performWebSearch(query) {
     const url = `https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&no_html=1&skip_disambig=1`;
     return fetch(url)
@@ -144,17 +156,9 @@
         return res.json();
       })
       .then(ddg => {
-        const data = {
-          overview: ddg.AbstractText || `Results for "${query}"`,
-          bestLink: null,
-          results: []
-        };
+        const data = { overview: ddg.AbstractText || `Results for "${query}"`, bestLink: null, results: [] };
         if (ddg.AbstractURL) {
-          data.bestLink = {
-            title: ddg.AbstractSource || ddg.Heading || 'Best match',
-            url: ddg.AbstractURL,
-            snippet: ddg.AbstractText || ''
-          };
+          data.bestLink = { title: ddg.AbstractSource || ddg.Heading || 'Best match', url: ddg.AbstractURL, snippet: ddg.AbstractText || '' };
         }
         if (ddg.RelatedTopics && Array.isArray(ddg.RelatedTopics)) {
           ddg.RelatedTopics.forEach(topic => {
@@ -174,30 +178,46 @@
       });
   }
 
+  // ----- Video search (fixed) -----
   function performImageSearch(query) {
-    // Use Pexels API – you can get a free key at https://www.pexels.com/api/
-    const PEXELS_KEY = '563492ad6f91700001000001c3f7e5f3e7b84b6c8e9d0e9d9e9d9e9d'; // demo key (may be rate-limited)
-    const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=36`;
+    const key = PEXELS_KEY;
+    if (!key || key === 'YOUR_ACTUAL_API_KEY_HERE') {
+      return Promise.reject(new Error('PEXELS_API_KEY_NOT_SET'));
+    }
+    // Use the video endpoint
+    const url = `https://api.pexels.com/videos/search?query=${encodeURIComponent(query)}&per_page=36`;
     return fetch(url, {
-      headers: { 'Authorization': PEXELS_KEY }
+      headers: { 'Authorization': key }
     })
-      .then(res => {
-        if (!res.ok) throw new Error('Pexels API error: ' + res.status);
-        return res.json();
-      })
-      .then(data => {
-        if (!data.photos) return [];
-        return data.photos.map(photo => ({
-          src: photo.src.medium,
-          alt: photo.alt || 'Image',
-          title: photo.alt || 'Image',
-          url: photo.url,
-          photographer: photo.photographer,
-          photographer_url: photo.photographer_url
-        }));
+    .then(res => {
+      if (res.status === 401) throw new Error('PEXELS_API_KEY_INVALID');
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(data => {
+      if (!data.videos || data.videos.length === 0) return [];
+      return data.videos.map(video => {
+        // Get a thumbnail – use the first video file's link, or a fallback
+        let thumb = '';
+        if (video.video_files && video.video_files.length > 0) {
+          // pick the first file (could be a video, but we need a thumbnail)
+          // Sometimes pexels returns 'video_files' with images too, but we can use a default
+          // Better: use the image from the video's 'image' field
+          thumb = video.image || '';
+        }
+        return {
+          src: thumb || 'https://images.pexels.com/lib/api/pexels-white.png',
+          alt: video.alt || 'Video',
+          title: video.alt || 'Video',
+          url: video.url,
+          photographer: video.user ? video.user.name : 'Pexels',
+          photographer_url: video.user ? video.user.url : 'https://www.pexels.com'
+        };
       });
+    });
   }
 
+  // ----- Main search dispatcher -----
   function performSearch() {
     const query = queryInput.value.trim();
     if (!query) {
@@ -220,19 +240,23 @@
         })
         .catch(err => {
           loaderDiv.style.display = 'none';
-          console.error(err);
-          resultsDiv.innerHTML = `<div class="info-message">⚠️ Web search failed: ${err.message}</div>`;
+          resultsDiv.innerHTML = `<div class="info-message error">⚠️ Web search failed: ${err.message}</div>`;
         });
     } else {
       performImageSearch(query)
-        .then(images => {
+        .then(videos => {
           loaderDiv.style.display = 'none';
-          renderImageResults(images);
+          renderImageResults(videos);
         })
         .catch(err => {
           loaderDiv.style.display = 'none';
-          console.error(err);
-          resultsDiv.innerHTML = `<div class="info-message">⚠️ Image search failed: ${err.message}</div>`;
+          let msg = '';
+          if (err.message === 'PEXELS_API_KEY_INVALID' || err.message === 'PEXELS_API_KEY_NOT_SET') {
+            msg = '⚠️ Image/video search failed: API key missing or invalid. Get a free key at <a href="https://www.pexels.com/api/" target="_blank">pexels.com/api</a> and replace the constant in the HTML.';
+          } else {
+            msg = `⚠️ Image/video search failed: ${err.message}`;
+          }
+          resultsDiv.innerHTML = `<div class="info-message error">${msg}</div>`;
         });
     }
   }
@@ -241,9 +265,6 @@
   searchBtn.addEventListener('click', performSearch);
   queryInput.addEventListener('keydown', e => { if (e.key === 'Enter') performSearch(); });
   queryInput.focus();
-
-  // Optional: auto-demo on load (remove if you prefer)
-  // setTimeout(() => { queryInput.value = 'nature'; performSearch(); }, 300);
 })();
 </script>
 </body>
