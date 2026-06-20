@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>MY‑AI™ Search</title>
   <style>
-    /* Same CSS as before – I'll keep it minimal here for brevity, but you have it full in the previous message */
+    /* Copy the exact same CSS you already have – I'll keep it minimal here for brevity, but you can paste your full CSS */
     *{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0a;font-family:-apple-system,'Segoe UI',Roboto,system-ui,sans-serif;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:20px 16px 40px;color:#e0e0e0}.container{max-width:720px;width:100%}.brand{text-align:center;margin-bottom:30px}.brand .eye-icon{font-size:3.2rem;line-height:1;display:block;margin-bottom:4px;filter:drop-shadow(0 0 6px rgba(192,192,192,0.3))}.brand h1{font-size:2.2rem;font-weight:300;letter-spacing:2px;color:#c0c0c0;margin-top:2px}.brand h1 small{font-size:1rem;font-weight:400;color:#888;letter-spacing:1px}.brand .byline{font-size:0.9rem;color:#666;margin-top:4px}.brand .byline a{color:#aaa;text-decoration:none;border-bottom:1px dotted #555}.brand .byline a:hover{color:#fff}.search-area{background:#1a1a1a;border-radius:60px;padding:8px 8px 8px 20px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.8);border:1px solid #333;margin-bottom:16px}.search-area input[type="text"]{flex:1;background:transparent;border:none;padding:14px 0;font-size:1.1rem;color:#e0e0e0;outline:none;min-width:0}.search-area input::placeholder{color:#666;font-style:italic}.search-area button{background:#c0c0c0;border:none;border-radius:40px;padding:12px 28px;font-weight:600;font-size:1rem;color:#0a0a0a;cursor:pointer;transition:background .2s,transform .1s;white-space:nowrap}.search-area button:hover{background:#d8d8d8}.search-area button:active{transform:scale(.97)}.geo-toggle{display:flex;justify-content:flex-end;gap:12px;margin:4px 0 20px;font-size:.9rem}.geo-toggle label{display:flex;align-items:center;gap:6px;color:#999;cursor:pointer}.geo-toggle input[type="radio"]{accent-color:#c0c0c0;width:16px;height:16px}.geo-toggle input[type="radio"]:checked+span{color:#f0f0f0;font-weight:500}.ai-overview{background:#1e1e1e;border-left:4px solid #c0c0c0;border-radius:8px;padding:16px 20px;margin-bottom:20px;display:none}.ai-overview.visible{display:block}.ai-overview .label{font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:#aaa;display:flex;align-items:center;gap:8px;margin-bottom:4px}.ai-overview .label span{background:#c0c0c0;color:#0a0a0a;padding:0 10px;border-radius:12px;font-weight:600;font-size:.7rem}.ai-overview .summary{font-size:1rem;line-height:1.5;color:#e8e8e8}.best-link{background:#2a2a2a;border:1px solid #c0c0c0;border-radius:12px;padding:16px 20px;margin-bottom:20px;display:none}.best-link.visible{display:block}.best-link .badge{display:inline-block;background:#c0c0c0;color:#0a0a0a;font-size:.7rem;font-weight:700;padding:2px 12px;border-radius:20px;letter-spacing:.5px;margin-bottom:6px}.best-link a{color:#c0c0c0;text-decoration:none;font-weight:600;font-size:1.1rem}.best-link a:hover{text-decoration:underline}.best-link .url{font-size:.8rem;color:#888;word-break:break-all}.best-link .snippet{font-size:.95rem;color:#ccc;margin-top:4px}#results{margin-top:0}.result-card{background:#c0c0c0;color:#0a0a0a;border-radius:12px;padding:16px 20px;margin-bottom:12px;box-shadow:0 2px 8px rgba(192,192,192,.08);transition:transform .15s;word-break:break-word}.result-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(192,192,192,.15)}.result-card h3{font-size:1.1rem;font-weight:600;margin-bottom:4px}.result-card h3 a{color:#0a0a0a;text-decoration:none}.result-card h3 a:hover{text-decoration:underline}.result-card .url{font-size:.8rem;color:#333;opacity:.7;margin-bottom:4px;word-break:break-all}.result-card .snippet{font-size:.95rem;line-height:1.4;color:#1a1a1a}.result-card .badge{display:inline-block;background:#0a0a0a20;padding:2px 10px;border-radius:20px;font-size:.7rem;font-weight:500;letter-spacing:.3px;color:#222;margin-top:6px}.info-message{text-align:center;color:#666;padding:30px 0;font-style:italic}.loader{text-align:center;color:#888;padding:20px 0;display:none}.loader .spinner{display:inline-block;width:24px;height:24px;border:3px solid #333;border-top:3px solid #c0c0c0;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.footer{margin-top:40px;text-align:center;font-size:.75rem;color:#444;border-top:1px solid #1a1a1a;padding-top:20px;letter-spacing:.5px}.footer a{color:#777;text-decoration:none}.footer a:hover{color:#ccc}@media(max-width:480px){.search-area{border-radius:40px;padding:4px 4px 4px 16px}.search-area input[type="text"]{font-size:1rem;padding:12px 0}.search-area button{padding:10px 18px;font-size:.9rem}.brand h1{font-size:1.8rem}.brand .eye-icon{font-size:2.6rem}}
   </style>
 </head>
@@ -28,60 +28,11 @@
   <div id="bestLink" class="best-link"><div class="badge">⭐ Best match</div><a href="#" id="bestLinkUrl" target="_blank" rel="noopener"></a><div class="url" id="bestLinkDisplayUrl"></div><div class="snippet" id="bestLinkSnippet"></div></div>
   <div id="loader" class="loader"><div class="spinner"></div><p style="margin-top:8px;">Searching…</p></div>
   <div id="results"><div class="info-message">🔍 Enter a query above</div></div>
-  <div class="footer"><span>© 2026 MY‑AI — built with ternary intelligence</span></div>
+  <div class="footer"><span>© 2026 MY‑AI — powered by DuckDuckGo</span></div>
 </div>
 
 <script>
 (function() {
-  // -------- FULL 36 RESULTS EMBEDDED --------
-  const FULL_DATA = {
-    overview: "MY‑AI is a minimalist, ternary‑based search engine that prioritises privacy and relevance. It uses a Ternary Search Tree for fast prefix queries and TF‑IDF ranking. This overview is generated by a lightweight AI model that summarises the top results for your query.",
-    bestLink: {
-      title: "Introducing MY‑AI: The Search Engine",
-      url: "https://my-ai.dev",
-      snippet: "A clean, ternary‑powered search engine that respects your privacy. No tracking, no clutter, just pure information retrieval."
-    },
-    results: [
-      { title: "Introducing MY‑AI: The Search Engine", url: "https://my-ai.dev", snippet: "A clean, ternary‑powered search engine that respects your privacy. No tracking, no clutter, just pure information retrieval.", badge: "New" },
-      { title: "C++ Ternary Search Tree Implementation", url: "https://github.com/My-Ai/tst", snippet: "Efficient memory‑savvy data structure for fast prefix queries, autocomplete, and spell checking." },
-      { title: "Philosophy of Minimalist Search", url: "https://my-ai.dev/blog", snippet: "Why less clutter leads to more meaningful discoveries and how MY‑AI embodies this philosophy." },
-      { title: "TF‑IDF Explained", url: "https://en.wikipedia.org/wiki/Tf–idf", snippet: "Term frequency–inverse document frequency, a numerical statistic used in information retrieval." },
-      { title: "Ternary Search Tree vs Trie", url: "https://www.geeksforgeeks.org/ternary-search-tree/", snippet: "Comparison of TST with standard tries, memory usage, and performance characteristics." },
-      { title: "Building a Search Engine from Scratch", url: "https://www.elastic.co/blog/building-a-search-engine-from-scratch", snippet: "A step‑by‑step guide to creating a search engine, covering indexing, ranking, and query parsing." },
-      { title: "Privacy‑First Search Engines", url: "https://duckduckgo.com/", snippet: "DuckDuckGo – a privacy‑centric search engine that doesn't track user data." },
-      { title: "Google Alternatives", url: "https://www.searchenginejournal.com/google-alternatives/", snippet: "List of alternative search engines with different philosophies and features." },
-      { title: "MY‑AI GitHub Repository", url: "https://github.com/My-Ai", snippet: "Source code for the MY‑AI search engine, including the C++ core and front‑end." },
-      { title: "C++ Standard Library Documentation", url: "https://en.cppreference.com/w/", snippet: "Reference for C++ standard libraries used in MY‑AI: vector, string, unordered_map, etc." },
-      { title: "How Search Engines Work", url: "https://www.lifewire.com/how-search-engines-work-3481979", snippet: "An overview of crawling, indexing, and ranking algorithms." },
-      { title: "Ternary Search Tree in Practice", url: "https://www.baeldung.com/cs/ternary-search-trees", snippet: "Practical examples of TST for autocomplete and dictionary implementations." },
-      { title: "JSON for Modern C++", url: "https://json.nlohmann.me/", snippet: "A popular C++ library for parsing and generating JSON – useful for your backend." },
-      { title: "Cosine Similarity for Text", url: "https://en.wikipedia.org/wiki/Cosine_similarity", snippet: "Metric used to measure similarity between document vectors in information retrieval." },
-      { title: "The Anatomy of a Search Engine", url: "https://www.google.com/search/howsearchworks/", snippet: "Google's official explanation of its search algorithms (for contrast)." },
-      { title: "Minimalist Web Design", url: "https://minimalistwebsites.com/", snippet: "Inspiration for clean, uncluttered design – aligns with MY‑AI's aesthetic." },
-      { title: "C++ Performance Optimization", url: "https://www.agner.org/optimize/", snippet: "Advanced techniques to make your search engine run faster on mobile devices." },
-      { title: "Open Source Search Engines", url: "https://opensource.com/tags/search-engines", snippet: "List of open‑source search projects you can contribute to." },
-      { title: "Information Retrieval: A Survey", url: "https://arxiv.org/abs/2001.08529", snippet: "Academic paper covering modern IR techniques, including neural and traditional methods." },
-      { title: "Building a Search Engine in C++", url: "https://www.toptal.com/c-plus-plus/search-engine-optimization-cpp", snippet: "Tutorial on creating a search engine using C++ and data structures like inverted indices." },
-      { title: "Philosophy of Information", url: "https://plato.stanford.edu/entries/information/", snippet: "Stanford Encyclopedia entry on the philosophy of information – a conceptual foundation." },
-      { title: "MY‑AI Documentation", url: "https://my-ai.dev/docs", snippet: "User manual for the MY‑AI search engine, including query syntax and API usage." },
-      { title: "The Future of Search", url: "https://www.technologyreview.com/topic/search/", snippet: "MIT Technology Review articles on emerging search technologies." },
-      { title: "Geo‑Targeted Search", url: "https://developers.google.com/search/docs/advanced/geo/geo-targeting", snippet: "How to implement location‑based search results – relevant for the 'Local' toggle." },
-      { title: "Data Structures for Dictionaries", url: "https://www.cs.cmu.edu/~adamchik/15-121/lectures/Tries/tries.html", snippet: "Carnegie Mellon lecture on tries and TSTs – excellent background." },
-      { title: "MY‑AI License", url: "https://my-ai.dev/license", snippet: "All rights reserved, but the code is open for personal use and contributions." },
-      { title: "Contact the Creator", url: "mailto:amit.khanna.1082@gmail.com", snippet: "Email Seliim Ahmed for questions or collaboration." },
-      { title: "Donate to MY‑AI", url: "https://patreon.com/my-ai", snippet: "Support the development of a truly independent search engine." },
-      { title: "Ternary Search Tree Visualization", url: "https://www.cs.usfca.edu/~galles/visualization/TST.html", snippet: "Interactive visualisation of TST insertion and search operations." },
-      { title: "C++17 Features Used", url: "https://en.cppreference.com/w/cpp/compiler_support/17", snippet: "MY‑AI uses C++17 features; this page lists compiler support." },
-      { title: "Edge Cases in Search", url: "https://www.searchenginejournal.com/edge-cases-search/", snippet: "Handling rare queries and corner cases gracefully." },
-      { title: "Language Models for Overviews", url: "https://openai.com/research/language-models", snippet: "How AI models can generate concise summaries from search results." },
-      { title: "Web Scraping Best Practices", url: "https://www.scrapingbee.com/blog/web-scraping-best-practices/", snippet: "If you want to expand your index beyond static documents." },
-      { title: "Search Engine Ranking Factors", url: "https://moz.com/learn/seo/ranking-factors", snippet: "Moz's guide to ranking signals – useful for improving relevance." },
-      { title: "MY‑AI on GitHub", url: "https://github.com/My-Ai", snippet: "Star the repository to show your support.", badge: "⭐" },
-      { title: "A Minimalist Search Experience", url: "https://my-ai.dev/experience", snippet: "User testimonials and case studies on the benefits of a clean search interface.", badge: "Recommended" }
-    ]
-  };
-
-  // DOM refs
   const queryInput = document.getElementById('queryInput');
   const searchBtn = document.getElementById('searchBtn');
   const resultsDiv = document.getElementById('results');
@@ -94,12 +45,17 @@
   const bestLinkSnippet = document.getElementById('bestLinkSnippet');
 
   function renderResults(data) {
-    if (!data) data = FULL_DATA;
+    // Clear previous
+    resultsDiv.innerHTML = '';
+    aiOverview.classList.remove('visible');
+    bestLink.classList.remove('visible');
+
     // Overview
     if (data.overview) {
       overviewText.textContent = data.overview;
       aiOverview.classList.add('visible');
-    } else { aiOverview.classList.remove('visible'); }
+    }
+
     // Best link
     if (data.bestLink && data.bestLink.url) {
       bestLinkUrl.href = data.bestLink.url;
@@ -107,16 +63,15 @@
       bestLinkDisplayUrl.textContent = data.bestLink.url;
       bestLinkSnippet.textContent = data.bestLink.snippet || '';
       bestLink.classList.add('visible');
-    } else { bestLink.classList.remove('visible'); }
-    // Results
-    resultsDiv.innerHTML = '';
-    let items = data.results || [];
+    }
+
+    // Results list (up to 36)
+    const items = data.results || [];
     if (items.length === 0) {
       resultsDiv.innerHTML = '<div class="info-message">😕 No results found.</div>';
       return;
     }
-    items = items.slice(0, 36);
-    items.forEach(item => {
+    items.slice(0, 36).forEach(item => {
       const card = document.createElement('div');
       card.className = 'result-card';
       let badgeHtml = '';
@@ -133,14 +88,15 @@
       `;
       resultsDiv.appendChild(card);
     });
-    if (items.length < (data.results ? data.results.length : 0)) {
+    if (items.length > 36) {
       const more = document.createElement('div');
       more.className = 'info-message';
-      more.textContent = `Showing first ${items.length} of ${data.results.length} results.`;
+      more.textContent = `Showing first 36 of ${items.length} results.`;
       resultsDiv.appendChild(more);
     }
   }
 
+  // -------- Fetch from DuckDuckGo API --------
   function performSearch() {
     const query = queryInput.value.trim();
     if (!query) {
@@ -149,24 +105,94 @@
       bestLink.classList.remove('visible');
       return;
     }
-    // Show loader briefly, then render the full data
+
     loaderDiv.style.display = 'block';
     resultsDiv.innerHTML = '';
     aiOverview.classList.remove('visible');
     bestLink.classList.remove('visible');
-    // Simulate a tiny delay to show spinner
-    setTimeout(() => {
-      loaderDiv.style.display = 'none';
-      renderResults(FULL_DATA);
-    }, 300);
+
+    const url = `https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&no_html=1&skip_disambig=1`;
+
+    fetch(url)
+      .then(res => {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(ddg => {
+        loaderDiv.style.display = 'none';
+
+        // Build our data structure from DDG response
+        const data = {
+          overview: ddg.AbstractText || `Results for "${query}"`,
+          bestLink: null,
+          results: []
+        };
+
+        // Best link: use AbstractURL if available
+        if (ddg.AbstractURL) {
+          data.bestLink = {
+            title: ddg.AbstractSource || ddg.Heading || 'Best match',
+            url: ddg.AbstractURL,
+            snippet: ddg.AbstractText || ''
+          };
+        }
+
+        // Results from RelatedTopics
+        if (ddg.RelatedTopics && Array.isArray(ddg.RelatedTopics)) {
+          ddg.RelatedTopics.forEach(topic => {
+            if (topic.Text && topic.FirstURL) {
+              // Extract title and snippet
+              const text = topic.Text;
+              const titleMatch = text.match(/<a[^>]*>([^<]*)<\/a>/);
+              const title = titleMatch ? titleMatch[1] : topic.Text.replace(/<[^>]*>/g, '').substring(0, 80);
+              const snippet = topic.Text.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+              data.results.push({
+                title: title || 'Link',
+                url: topic.FirstURL,
+                snippet: snippet || ''
+              });
+            }
+          });
+        }
+
+        // If no results from related, try to use the Abstract itself
+        if (data.results.length === 0 && ddg.AbstractURL) {
+          data.results.push({
+            title: ddg.Heading || 'Result',
+            url: ddg.AbstractURL,
+            snippet: ddg.AbstractText || ''
+          });
+        }
+
+        // If still no results, fallback to mock
+        if (data.results.length === 0) {
+          data.results = [
+            { title: 'No results from API, try a different query', url: '#', snippet: 'Try searching for something else.' }
+          ];
+        }
+
+        renderResults(data);
+      })
+      .catch(err => {
+        loaderDiv.style.display = 'none';
+        console.warn('API fetch failed, using fallback mock:', err);
+        // Fallback mock (same as before)
+        const mock = {
+          overview: "MY‑AI is a minimalist, ternary‑based search engine that prioritises privacy and relevance.",
+          bestLink: { title: "Introducing MY‑AI", url: "https://my-ai.dev", snippet: "Clean, ternary‑powered search." },
+          results: [
+            { title: "Introducing MY‑AI", url: "https://my-ai.dev", snippet: "Clean, ternary‑powered search.", badge: "New" },
+            { title: "C++ TST Implementation", url: "https://github.com/My-Ai/tst", snippet: "Efficient memory‑savvy data structure." },
+            { title: "Philosophy of Minimalist Search", url: "https://my-ai.dev/blog", snippet: "Why less clutter leads to more meaningful discoveries." }
+          ]
+        };
+        renderResults(mock);
+      });
   }
 
   searchBtn.addEventListener('click', performSearch);
   queryInput.addEventListener('keydown', e => { if (e.key === 'Enter') performSearch(); });
   queryInput.focus();
-
-  // Optional: auto‑search on load to show demo
-  // setTimeout(() => { queryInput.value = 'search'; performSearch(); }, 200);
 })();
 </script>
 </body>
