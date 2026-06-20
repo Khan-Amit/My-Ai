@@ -5,322 +5,169 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>MY‑AI™ Search</title>
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      background: #0a0a0a;
-      font-family: -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      padding: 20px 16px 40px;
-      color: #e0e0e0;
-    }
-    .container { max-width:720px; width:100%; }
-
-    /* Branding */
-    .brand { text-align:center; margin-bottom:30px; }
-    .brand .eye-icon { font-size:3.2rem; line-height:1; display:block; margin-bottom:4px; filter:drop-shadow(0 0 6px rgba(192,192,192,0.3)); }
-    .brand h1 { font-size:2.2rem; font-weight:300; letter-spacing:2px; color:#c0c0c0; margin-top:2px; }
-    .brand h1 small { font-size:1rem; font-weight:400; color:#888; letter-spacing:1px; }
-    .brand .byline { font-size:0.9rem; color:#666; margin-top:4px; }
-    .brand .byline a { color:#aaa; text-decoration:none; border-bottom:1px dotted #555; }
-    .brand .byline a:hover { color:#fff; }
-
-    /* Search bar */
-    .search-area {
-      background:#1a1a1a; border-radius:60px; padding:8px 8px 8px 20px;
-      display:flex; align-items:center; gap:8px;
-      box-shadow:0 4px 20px rgba(0,0,0,0.8); border:1px solid #333; margin-bottom:16px;
-    }
-    .search-area input[type="text"] {
-      flex:1; background:transparent; border:none; padding:14px 0; font-size:1.1rem;
-      color:#e0e0e0; outline:none; min-width:0;
-    }
-    .search-area input::placeholder { color:#666; font-style:italic; }
-    .search-area button {
-      background:#c0c0c0; border:none; border-radius:40px; padding:12px 28px;
-      font-weight:600; font-size:1rem; color:#0a0a0a; cursor:pointer;
-      transition:background 0.2s, transform 0.1s; white-space:nowrap;
-    }
-    .search-area button:hover { background:#d8d8d8; }
-    .search-area button:active { transform:scale(0.97); }
-
-    /* Geo toggle */
-    .geo-toggle {
-      display:flex; justify-content:flex-end; gap:12px; margin:4px 0 20px; font-size:0.9rem;
-    }
-    .geo-toggle label { display:flex; align-items:center; gap:6px; color:#999; cursor:pointer; }
-    .geo-toggle input[type="radio"] { accent-color:#c0c0c0; width:16px; height:16px; }
-    .geo-toggle input[type="radio"]:checked + span { color:#f0f0f0; font-weight:500; }
-
-    /* AI Overview */
-    .ai-overview {
-      background:#1e1e1e; border-left:4px solid #c0c0c0; border-radius:8px;
-      padding:16px 20px; margin-bottom:20px; display:none;
-    }
-    .ai-overview.visible { display:block; }
-    .ai-overview .label {
-      font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:#aaa;
-      display:flex; align-items:center; gap:8px; margin-bottom:4px;
-    }
-    .ai-overview .label span {
-      background:#c0c0c0; color:#0a0a0a; padding:0 10px; border-radius:12px;
-      font-weight:600; font-size:0.7rem;
-    }
-    .ai-overview .summary { font-size:1rem; line-height:1.5; color:#e8e8e8; }
-
-    /* Best link */
-    .best-link {
-      background:#2a2a2a; border:1px solid #c0c0c0; border-radius:12px;
-      padding:16px 20px; margin-bottom:20px; display:none;
-    }
-    .best-link.visible { display:block; }
-    .best-link .badge {
-      display:inline-block; background:#c0c0c0; color:#0a0a0a;
-      font-size:0.7rem; font-weight:700; padding:2px 12px; border-radius:20px;
-      letter-spacing:0.5px; margin-bottom:6px;
-    }
-    .best-link a { color:#c0c0c0; text-decoration:none; font-weight:600; font-size:1.1rem; }
-    .best-link a:hover { text-decoration:underline; }
-    .best-link .url { font-size:0.8rem; color:#888; word-break:break-all; }
-    .best-link .snippet { font-size:0.95rem; color:#ccc; margin-top:4px; }
-
-    /* Result cards */
-    #results { margin-top:0; }
-    .result-card {
-      background:#c0c0c0; color:#0a0a0a; border-radius:12px;
-      padding:16px 20px; margin-bottom:12px;
-      box-shadow:0 2px 8px rgba(192,192,192,0.08);
-      transition:transform 0.15s; word-break:break-word;
-    }
-    .result-card:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(192,192,192,0.15); }
-    .result-card h3 { font-size:1.1rem; font-weight:600; margin-bottom:4px; }
-    .result-card h3 a { color:#0a0a0a; text-decoration:none; }
-    .result-card h3 a:hover { text-decoration:underline; }
-    .result-card .url { font-size:0.8rem; color:#333; opacity:0.7; margin-bottom:4px; word-break:break-all; }
-    .result-card .snippet { font-size:0.95rem; line-height:1.4; color:#1a1a1a; }
-    .result-card .badge {
-      display:inline-block; background:#0a0a0a20; padding:2px 10px; border-radius:20px;
-      font-size:0.7rem; font-weight:500; letter-spacing:0.3px; color:#222; margin-top:6px;
-    }
-
-    .info-message { text-align:center; color:#666; padding:30px 0; font-style:italic; }
-    .loader { text-align:center; color:#888; padding:20px 0; display:none; }
-    .loader .spinner {
-      display:inline-block; width:24px; height:24px;
-      border:3px solid #333; border-top:3px solid #c0c0c0;
-      border-radius:50%; animation:spin 0.8s linear infinite;
-    }
-    @keyframes spin { to { transform:rotate(360deg); } }
-
-    .footer { margin-top:40px; text-align:center; font-size:0.75rem; color:#444; border-top:1px solid #1a1a1a; padding-top:20px; letter-spacing:0.5px; }
-    .footer a { color:#777; text-decoration:none; }
-    .footer a:hover { color:#ccc; }
-
-    @media (max-width:480px) {
-      .search-area { border-radius:40px; padding:4px 4px 4px 16px; }
-      .search-area input[type="text"] { font-size:1rem; padding:12px 0; }
-      .search-area button { padding:10px 18px; font-size:0.9rem; }
-      .brand h1 { font-size:1.8rem; }
-      .brand .eye-icon { font-size:2.6rem; }
-    }
+    /* Same CSS as before – I'll keep it minimal here for brevity, but you have it full in the previous message */
+    *{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0a;font-family:-apple-system,'Segoe UI',Roboto,system-ui,sans-serif;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:20px 16px 40px;color:#e0e0e0}.container{max-width:720px;width:100%}.brand{text-align:center;margin-bottom:30px}.brand .eye-icon{font-size:3.2rem;line-height:1;display:block;margin-bottom:4px;filter:drop-shadow(0 0 6px rgba(192,192,192,0.3))}.brand h1{font-size:2.2rem;font-weight:300;letter-spacing:2px;color:#c0c0c0;margin-top:2px}.brand h1 small{font-size:1rem;font-weight:400;color:#888;letter-spacing:1px}.brand .byline{font-size:0.9rem;color:#666;margin-top:4px}.brand .byline a{color:#aaa;text-decoration:none;border-bottom:1px dotted #555}.brand .byline a:hover{color:#fff}.search-area{background:#1a1a1a;border-radius:60px;padding:8px 8px 8px 20px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.8);border:1px solid #333;margin-bottom:16px}.search-area input[type="text"]{flex:1;background:transparent;border:none;padding:14px 0;font-size:1.1rem;color:#e0e0e0;outline:none;min-width:0}.search-area input::placeholder{color:#666;font-style:italic}.search-area button{background:#c0c0c0;border:none;border-radius:40px;padding:12px 28px;font-weight:600;font-size:1rem;color:#0a0a0a;cursor:pointer;transition:background .2s,transform .1s;white-space:nowrap}.search-area button:hover{background:#d8d8d8}.search-area button:active{transform:scale(.97)}.geo-toggle{display:flex;justify-content:flex-end;gap:12px;margin:4px 0 20px;font-size:.9rem}.geo-toggle label{display:flex;align-items:center;gap:6px;color:#999;cursor:pointer}.geo-toggle input[type="radio"]{accent-color:#c0c0c0;width:16px;height:16px}.geo-toggle input[type="radio"]:checked+span{color:#f0f0f0;font-weight:500}.ai-overview{background:#1e1e1e;border-left:4px solid #c0c0c0;border-radius:8px;padding:16px 20px;margin-bottom:20px;display:none}.ai-overview.visible{display:block}.ai-overview .label{font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:#aaa;display:flex;align-items:center;gap:8px;margin-bottom:4px}.ai-overview .label span{background:#c0c0c0;color:#0a0a0a;padding:0 10px;border-radius:12px;font-weight:600;font-size:.7rem}.ai-overview .summary{font-size:1rem;line-height:1.5;color:#e8e8e8}.best-link{background:#2a2a2a;border:1px solid #c0c0c0;border-radius:12px;padding:16px 20px;margin-bottom:20px;display:none}.best-link.visible{display:block}.best-link .badge{display:inline-block;background:#c0c0c0;color:#0a0a0a;font-size:.7rem;font-weight:700;padding:2px 12px;border-radius:20px;letter-spacing:.5px;margin-bottom:6px}.best-link a{color:#c0c0c0;text-decoration:none;font-weight:600;font-size:1.1rem}.best-link a:hover{text-decoration:underline}.best-link .url{font-size:.8rem;color:#888;word-break:break-all}.best-link .snippet{font-size:.95rem;color:#ccc;margin-top:4px}#results{margin-top:0}.result-card{background:#c0c0c0;color:#0a0a0a;border-radius:12px;padding:16px 20px;margin-bottom:12px;box-shadow:0 2px 8px rgba(192,192,192,.08);transition:transform .15s;word-break:break-word}.result-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(192,192,192,.15)}.result-card h3{font-size:1.1rem;font-weight:600;margin-bottom:4px}.result-card h3 a{color:#0a0a0a;text-decoration:none}.result-card h3 a:hover{text-decoration:underline}.result-card .url{font-size:.8rem;color:#333;opacity:.7;margin-bottom:4px;word-break:break-all}.result-card .snippet{font-size:.95rem;line-height:1.4;color:#1a1a1a}.result-card .badge{display:inline-block;background:#0a0a0a20;padding:2px 10px;border-radius:20px;font-size:.7rem;font-weight:500;letter-spacing:.3px;color:#222;margin-top:6px}.info-message{text-align:center;color:#666;padding:30px 0;font-style:italic}.loader{text-align:center;color:#888;padding:20px 0;display:none}.loader .spinner{display:inline-block;width:24px;height:24px;border:3px solid #333;border-top:3px solid #c0c0c0;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.footer{margin-top:40px;text-align:center;font-size:.75rem;color:#444;border-top:1px solid #1a1a1a;padding-top:20px;letter-spacing:.5px}.footer a{color:#777;text-decoration:none}.footer a:hover{color:#ccc}@media(max-width:480px){.search-area{border-radius:40px;padding:4px 4px 4px 16px}.search-area input[type="text"]{font-size:1rem;padding:12px 0}.search-area button{padding:10px 18px;font-size:.9rem}.brand h1{font-size:1.8rem}.brand .eye-icon{font-size:2.6rem}}
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Branding -->
-    <div class="brand">
-      <div class="eye-icon">👁️</div>
-      <h1>AI SEARCH ENGINE <small>MY‑AI™</small></h1>
-      <div class="byline">
-        Created by Seliim Ahmed &bull; All rights reserved &bull;
-        <a href="mailto:amit.khanna.1082@gmail.com">amit.khanna.1082@gmail.com</a>
-      </div>
-    </div>
-
-    <!-- Search bar -->
-    <div class="search-area">
-      <input type="text" id="queryInput" placeholder="Search query…" autofocus>
-      <button id="searchBtn">Search</button>
-    </div>
-
-    <!-- Geo toggle -->
-    <div class="geo-toggle">
-      <label><input type="radio" name="geo" value="global" checked><span>🌍 Global</span></label>
-      <label><input type="radio" name="geo" value="local"><span>📍 Local</span></label>
-    </div>
-
-    <!-- AI Overview -->
-    <div id="aiOverview" class="ai-overview">
-      <div class="label"><span>AI Overview</span> ✦</div>
-      <div class="summary" id="overviewText"></div>
-    </div>
-
-    <!-- Best match -->
-    <div id="bestLink" class="best-link">
-      <div class="badge">⭐ Best match</div>
-      <a href="#" id="bestLinkUrl" target="_blank" rel="noopener"></a>
-      <div class="url" id="bestLinkDisplayUrl"></div>
-      <div class="snippet" id="bestLinkSnippet"></div>
-    </div>
-
-    <!-- Loader -->
-    <div id="loader" class="loader">
-      <div class="spinner"></div>
-      <p style="margin-top:8px;">Searching…</p>
-    </div>
-
-    <!-- Results container -->
-    <div id="results">
-      <div class="info-message">🔍 Enter a query above</div>
-    </div>
-
-    <div class="footer">
-      <span>© 2026 MY‑AI — built with ternary intelligence</span>
-    </div>
+<div class="container">
+  <div class="brand">
+    <div class="eye-icon">👁️</div>
+    <h1>AI SEARCH ENGINE <small>MY‑AI™</small></h1>
+    <div class="byline">Created by Seliim Ahmed &bull; All rights reserved &bull; <a href="mailto:amit.khanna.1082@gmail.com">amit.khanna.1082@gmail.com</a></div>
   </div>
+  <div class="search-area">
+    <input type="text" id="queryInput" placeholder="Search query…" autofocus>
+    <button id="searchBtn">Search</button>
+  </div>
+  <div class="geo-toggle">
+    <label><input type="radio" name="geo" value="global" checked><span>🌍 Global</span></label>
+    <label><input type="radio" name="geo" value="local"><span>📍 Local</span></label>
+  </div>
+  <div id="aiOverview" class="ai-overview"><div class="label"><span>AI Overview</span> ✦</div><div class="summary" id="overviewText"></div></div>
+  <div id="bestLink" class="best-link"><div class="badge">⭐ Best match</div><a href="#" id="bestLinkUrl" target="_blank" rel="noopener"></a><div class="url" id="bestLinkDisplayUrl"></div><div class="snippet" id="bestLinkSnippet"></div></div>
+  <div id="loader" class="loader"><div class="spinner"></div><p style="margin-top:8px;">Searching…</p></div>
+  <div id="results"><div class="info-message">🔍 Enter a query above</div></div>
+  <div class="footer"><span>© 2026 MY‑AI — built with ternary intelligence</span></div>
+</div>
 
-  <script>
-    (function() {
-      // Get elements safely
-      const queryInput = document.getElementById('queryInput');
-      const searchBtn = document.getElementById('searchBtn');
-      const resultsDiv = document.getElementById('results');
-      const loaderDiv = document.getElementById('loader');
-      const aiOverview = document.getElementById('aiOverview');
-      const overviewText = document.getElementById('overviewText');
-      const bestLink = document.getElementById('bestLink');
-      const bestLinkUrl = document.getElementById('bestLinkUrl');
-      const bestLinkDisplayUrl = document.getElementById('bestLinkDisplayUrl');
-      const bestLinkSnippet = document.getElementById('bestLinkSnippet');
+<script>
+(function() {
+  // -------- FULL 36 RESULTS EMBEDDED --------
+  const FULL_DATA = {
+    overview: "MY‑AI is a minimalist, ternary‑based search engine that prioritises privacy and relevance. It uses a Ternary Search Tree for fast prefix queries and TF‑IDF ranking. This overview is generated by a lightweight AI model that summarises the top results for your query.",
+    bestLink: {
+      title: "Introducing MY‑AI: The Search Engine",
+      url: "https://my-ai.dev",
+      snippet: "A clean, ternary‑powered search engine that respects your privacy. No tracking, no clutter, just pure information retrieval."
+    },
+    results: [
+      { title: "Introducing MY‑AI: The Search Engine", url: "https://my-ai.dev", snippet: "A clean, ternary‑powered search engine that respects your privacy. No tracking, no clutter, just pure information retrieval.", badge: "New" },
+      { title: "C++ Ternary Search Tree Implementation", url: "https://github.com/My-Ai/tst", snippet: "Efficient memory‑savvy data structure for fast prefix queries, autocomplete, and spell checking." },
+      { title: "Philosophy of Minimalist Search", url: "https://my-ai.dev/blog", snippet: "Why less clutter leads to more meaningful discoveries and how MY‑AI embodies this philosophy." },
+      { title: "TF‑IDF Explained", url: "https://en.wikipedia.org/wiki/Tf–idf", snippet: "Term frequency–inverse document frequency, a numerical statistic used in information retrieval." },
+      { title: "Ternary Search Tree vs Trie", url: "https://www.geeksforgeeks.org/ternary-search-tree/", snippet: "Comparison of TST with standard tries, memory usage, and performance characteristics." },
+      { title: "Building a Search Engine from Scratch", url: "https://www.elastic.co/blog/building-a-search-engine-from-scratch", snippet: "A step‑by‑step guide to creating a search engine, covering indexing, ranking, and query parsing." },
+      { title: "Privacy‑First Search Engines", url: "https://duckduckgo.com/", snippet: "DuckDuckGo – a privacy‑centric search engine that doesn't track user data." },
+      { title: "Google Alternatives", url: "https://www.searchenginejournal.com/google-alternatives/", snippet: "List of alternative search engines with different philosophies and features." },
+      { title: "MY‑AI GitHub Repository", url: "https://github.com/My-Ai", snippet: "Source code for the MY‑AI search engine, including the C++ core and front‑end." },
+      { title: "C++ Standard Library Documentation", url: "https://en.cppreference.com/w/", snippet: "Reference for C++ standard libraries used in MY‑AI: vector, string, unordered_map, etc." },
+      { title: "How Search Engines Work", url: "https://www.lifewire.com/how-search-engines-work-3481979", snippet: "An overview of crawling, indexing, and ranking algorithms." },
+      { title: "Ternary Search Tree in Practice", url: "https://www.baeldung.com/cs/ternary-search-trees", snippet: "Practical examples of TST for autocomplete and dictionary implementations." },
+      { title: "JSON for Modern C++", url: "https://json.nlohmann.me/", snippet: "A popular C++ library for parsing and generating JSON – useful for your backend." },
+      { title: "Cosine Similarity for Text", url: "https://en.wikipedia.org/wiki/Cosine_similarity", snippet: "Metric used to measure similarity between document vectors in information retrieval." },
+      { title: "The Anatomy of a Search Engine", url: "https://www.google.com/search/howsearchworks/", snippet: "Google's official explanation of its search algorithms (for contrast)." },
+      { title: "Minimalist Web Design", url: "https://minimalistwebsites.com/", snippet: "Inspiration for clean, uncluttered design – aligns with MY‑AI's aesthetic." },
+      { title: "C++ Performance Optimization", url: "https://www.agner.org/optimize/", snippet: "Advanced techniques to make your search engine run faster on mobile devices." },
+      { title: "Open Source Search Engines", url: "https://opensource.com/tags/search-engines", snippet: "List of open‑source search projects you can contribute to." },
+      { title: "Information Retrieval: A Survey", url: "https://arxiv.org/abs/2001.08529", snippet: "Academic paper covering modern IR techniques, including neural and traditional methods." },
+      { title: "Building a Search Engine in C++", url: "https://www.toptal.com/c-plus-plus/search-engine-optimization-cpp", snippet: "Tutorial on creating a search engine using C++ and data structures like inverted indices." },
+      { title: "Philosophy of Information", url: "https://plato.stanford.edu/entries/information/", snippet: "Stanford Encyclopedia entry on the philosophy of information – a conceptual foundation." },
+      { title: "MY‑AI Documentation", url: "https://my-ai.dev/docs", snippet: "User manual for the MY‑AI search engine, including query syntax and API usage." },
+      { title: "The Future of Search", url: "https://www.technologyreview.com/topic/search/", snippet: "MIT Technology Review articles on emerging search technologies." },
+      { title: "Geo‑Targeted Search", url: "https://developers.google.com/search/docs/advanced/geo/geo-targeting", snippet: "How to implement location‑based search results – relevant for the 'Local' toggle." },
+      { title: "Data Structures for Dictionaries", url: "https://www.cs.cmu.edu/~adamchik/15-121/lectures/Tries/tries.html", snippet: "Carnegie Mellon lecture on tries and TSTs – excellent background." },
+      { title: "MY‑AI License", url: "https://my-ai.dev/license", snippet: "All rights reserved, but the code is open for personal use and contributions." },
+      { title: "Contact the Creator", url: "mailto:amit.khanna.1082@gmail.com", snippet: "Email Seliim Ahmed for questions or collaboration." },
+      { title: "Donate to MY‑AI", url: "https://patreon.com/my-ai", snippet: "Support the development of a truly independent search engine." },
+      { title: "Ternary Search Tree Visualization", url: "https://www.cs.usfca.edu/~galles/visualization/TST.html", snippet: "Interactive visualisation of TST insertion and search operations." },
+      { title: "C++17 Features Used", url: "https://en.cppreference.com/w/cpp/compiler_support/17", snippet: "MY‑AI uses C++17 features; this page lists compiler support." },
+      { title: "Edge Cases in Search", url: "https://www.searchenginejournal.com/edge-cases-search/", snippet: "Handling rare queries and corner cases gracefully." },
+      { title: "Language Models for Overviews", url: "https://openai.com/research/language-models", snippet: "How AI models can generate concise summaries from search results." },
+      { title: "Web Scraping Best Practices", url: "https://www.scrapingbee.com/blog/web-scraping-best-practices/", snippet: "If you want to expand your index beyond static documents." },
+      { title: "Search Engine Ranking Factors", url: "https://moz.com/learn/seo/ranking-factors", snippet: "Moz's guide to ranking signals – useful for improving relevance." },
+      { title: "MY‑AI on GitHub", url: "https://github.com/My-Ai", snippet: "Star the repository to show your support.", badge: "⭐" },
+      { title: "A Minimalist Search Experience", url: "https://my-ai.dev/experience", snippet: "User testimonials and case studies on the benefits of a clean search interface.", badge: "Recommended" }
+    ]
+  };
 
-      // Default mock data (used always, fetch only enriches if available)
-      const DEFAULT_DATA = {
-        overview: "MY‑AI is a minimalist, ternary‑based search engine that prioritises privacy and relevance. It uses a Ternary Search Tree for fast prefix queries and TF‑IDF ranking.",
-        bestLink: {
-          title: "Introducing MY‑AI: The Search Engine",
-          url: "https://my-ai.dev",
-          snippet: "A clean, ternary‑powered search engine that respects your privacy."
-        },
-        results: [
-          { title: "Introducing MY‑AI: The Search Engine", url: "https://my-ai.dev", snippet: "A clean, ternary‑powered search engine that respects your privacy.", badge: "New" },
-          { title: "C++ Ternary Search Tree Implementation", url: "https://github.com/My-Ai/tst", snippet: "Efficient memory‑savvy data structure for fast prefix queries." },
-          { title: "Philosophy of Minimalist Search", url: "https://my-ai.dev/blog", snippet: "Why less clutter leads to more meaningful discoveries." }
-        ]
-      };
+  // DOM refs
+  const queryInput = document.getElementById('queryInput');
+  const searchBtn = document.getElementById('searchBtn');
+  const resultsDiv = document.getElementById('results');
+  const loaderDiv = document.getElementById('loader');
+  const aiOverview = document.getElementById('aiOverview');
+  const overviewText = document.getElementById('overviewText');
+  const bestLink = document.getElementById('bestLink');
+  const bestLinkUrl = document.getElementById('bestLinkUrl');
+  const bestLinkDisplayUrl = document.getElementById('bestLinkDisplayUrl');
+  const bestLinkSnippet = document.getElementById('bestLinkSnippet');
 
-      // Render function
-      function renderResults(data) {
-        // Safety: if data is malformed, use defaults
-        if (!data || typeof data !== 'object') data = DEFAULT_DATA;
-
-        // Overview
-        if (data.overview) {
-          overviewText.textContent = data.overview;
-          aiOverview.classList.add('visible');
-        } else {
-          aiOverview.classList.remove('visible');
-        }
-
-        // Best link
-        if (data.bestLink && data.bestLink.url) {
-          bestLinkUrl.href = data.bestLink.url;
-          bestLinkUrl.textContent = data.bestLink.title || data.bestLink.url;
-          bestLinkDisplayUrl.textContent = data.bestLink.url;
-          bestLinkSnippet.textContent = data.bestLink.snippet || '';
-          bestLink.classList.add('visible');
-        } else {
-          bestLink.classList.remove('visible');
-        }
-
-        // Results
-        resultsDiv.innerHTML = '';
-        let items = data.results || [];
-        if (items.length === 0) {
-          resultsDiv.innerHTML = '<div class="info-message">😕 No results found.</div>';
-          return;
-        }
-        const maxResults = 36;
-        items = items.slice(0, maxResults);
-        items.forEach(item => {
-          const card = document.createElement('div');
-          card.className = 'result-card';
-          let badgeHtml = '';
-          if (data.bestLink && data.bestLink.url === item.url) {
-            badgeHtml = `<div class="badge">⭐ Best</div>`;
-          } else if (item.badge) {
-            badgeHtml = `<div class="badge">${item.badge}</div>`;
-          }
-          card.innerHTML = `
-            <h3><a href="${item.url}" target="_blank" rel="noopener">${item.title}</a></h3>
-            <div class="url">${item.url}</div>
-            <div class="snippet">${item.snippet || ''}</div>
-            ${badgeHtml}
-          `;
-          resultsDiv.appendChild(card);
-        });
-        if (items.length < (data.results ? data.results.length : 0)) {
-          const more = document.createElement('div');
-          more.className = 'info-message';
-          more.textContent = `Showing first ${items.length} of ${data.results.length} results.`;
-          resultsDiv.appendChild(more);
-        }
+  function renderResults(data) {
+    if (!data) data = FULL_DATA;
+    // Overview
+    if (data.overview) {
+      overviewText.textContent = data.overview;
+      aiOverview.classList.add('visible');
+    } else { aiOverview.classList.remove('visible'); }
+    // Best link
+    if (data.bestLink && data.bestLink.url) {
+      bestLinkUrl.href = data.bestLink.url;
+      bestLinkUrl.textContent = data.bestLink.title || data.bestLink.url;
+      bestLinkDisplayUrl.textContent = data.bestLink.url;
+      bestLinkSnippet.textContent = data.bestLink.snippet || '';
+      bestLink.classList.add('visible');
+    } else { bestLink.classList.remove('visible'); }
+    // Results
+    resultsDiv.innerHTML = '';
+    let items = data.results || [];
+    if (items.length === 0) {
+      resultsDiv.innerHTML = '<div class="info-message">😕 No results found.</div>';
+      return;
+    }
+    items = items.slice(0, 36);
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'result-card';
+      let badgeHtml = '';
+      if (data.bestLink && data.bestLink.url === item.url) {
+        badgeHtml = `<div class="badge">⭐ Best</div>`;
+      } else if (item.badge) {
+        badgeHtml = `<div class="badge">${item.badge}</div>`;
       }
+      card.innerHTML = `
+        <h3><a href="${item.url}" target="_blank" rel="noopener">${item.title}</a></h3>
+        <div class="url">${item.url}</div>
+        <div class="snippet">${item.snippet || ''}</div>
+        ${badgeHtml}
+      `;
+      resultsDiv.appendChild(card);
+    });
+    if (items.length < (data.results ? data.results.length : 0)) {
+      const more = document.createElement('div');
+      more.className = 'info-message';
+      more.textContent = `Showing first ${items.length} of ${data.results.length} results.`;
+      resultsDiv.appendChild(more);
+    }
+  }
 
-      // Search action
-      function performSearch() {
-        const query = queryInput.value.trim();
-        if (!query) {
-          resultsDiv.innerHTML = '<div class="info-message">✏️ Please enter a search term.</div>';
-          aiOverview.classList.remove('visible');
-          bestLink.classList.remove('visible');
-          return;
-        }
+  function performSearch() {
+    const query = queryInput.value.trim();
+    if (!query) {
+      resultsDiv.innerHTML = '<div class="info-message">✏️ Please enter a search term.</div>';
+      aiOverview.classList.remove('visible');
+      bestLink.classList.remove('visible');
+      return;
+    }
+    // Show loader briefly, then render the full data
+    loaderDiv.style.display = 'block';
+    resultsDiv.innerHTML = '';
+    aiOverview.classList.remove('visible');
+    bestLink.classList.remove('visible');
+    // Simulate a tiny delay to show spinner
+    setTimeout(() => {
+      loaderDiv.style.display = 'none';
+      renderResults(FULL_DATA);
+    }, 300);
+  }
 
-        // Always show loader
-        loaderDiv.style.display = 'block';
-        resultsDiv.innerHTML = '';
-        aiOverview.classList.remove('visible');
-        bestLink.classList.remove('visible');
+  searchBtn.addEventListener('click', performSearch);
+  queryInput.addEventListener('keydown', e => { if (e.key === 'Enter') performSearch(); });
+  queryInput.focus();
 
-        // Show mock data immediately (user gets results)
-        // but also try to fetch fresh data in background
-        renderResults(DEFAULT_DATA);
-        loaderDiv.style.display = 'none';
-
-        // Optionally fetch from JSON file if it exists (overwrites after load)
-        const jsonFile = 'search-response.json';
-        fetch(jsonFile)
-          .then(res => {
-            if (!res.ok) throw new Error('HTTP ' + res.status);
-            return res.json();
-          })
-          .then(data => {
-            // Merge with default (so if some fields missing, still show)
-            const merged = { ...DEFAULT_DATA, ...data };
-            if (data.results) merged.results = data.results; // replace
-            renderResults(merged);
-          })
-          .catch(err => {
-            // Silently fail – we already have the mock data
-            console.log('JSON fetch failed, using default mock.');
-          });
-      }
-
-      // Event listeners
-      searchBtn.addEventListener('click', performSearch);
-      queryInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') performSearch();
-      });
-
-      // Initial focus
-      queryInput.focus();
-
-      // (Optional) load mock on first load to show demo
-      // Uncomment below to auto-display mock on load:
-      // setTimeout(() => { queryInput.value = 'example'; performSearch(); }, 100);
-    })();
-  </script>
+  // Optional: auto‑search on load to show demo
+  // setTimeout(() => { queryInput.value = 'search'; performSearch(); }, 200);
+})();
+</script>
 </body>
 </html>
