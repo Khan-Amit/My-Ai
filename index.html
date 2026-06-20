@@ -5,70 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>MY‑AI™ Search</title>
   <style>
-    /* ---------- Your existing CSS (same as before) ---------- */
-    *{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0a;font-family:-apple-system,'Segoe UI',Roboto,system-ui,sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;color:#e0e0e0}.container{max-width:720px;width:100%}.brand{text-align:center;margin-bottom:30px}.brand .eye-icon{font-size:3.2rem;line-height:1;display:block;margin-bottom:4px;filter:drop-shadow(0 0 6px rgba(192,192,192,0.3))}.brand h1{font-size:2.2rem;font-weight:300;letter-spacing:2px;color:#c0c0c0;margin-top:2px}.brand h1 small{font-size:1rem;font-weight:400;color:#888;letter-spacing:1px}.brand .byline{font-size:0.9rem;color:#666;margin-top:4px}.brand .byline a{color:#aaa;text-decoration:none;border-bottom:1px dotted #555}.brand .byline a:hover{color:#fff}.search-area{background:#1a1a1a;border-radius:60px;padding:8px 8px 8px 20px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.8);border:1px solid #333;margin-bottom:12px}.search-area input[type="text"]{flex:1;background:transparent;border:none;padding:14px 0;font-size:1.1rem;color:#e0e0e0;outline:none;min-width:0}.search-area input::placeholder{color:#666;font-style:italic}.search-area button{background:#c0c0c0;border:none;border-radius:40px;padding:12px 28px;font-weight:600;font-size:1rem;color:#0a0a0a;cursor:pointer;transition:background .2s,transform .1s;white-space:nowrap}.search-area button:hover{background:#d8d8d8}.search-area button:active{transform:scale(.97)}.mode-toggle{display:flex;gap:6px;margin-bottom:18px;justify-content:center}.mode-toggle button{background:#1a1a1a;border:1px solid #444;border-radius:40px;padding:8px 24px;font-size:.9rem;font-weight:500;color:#aaa;cursor:pointer;transition:all .2s}.mode-toggle button.active{background:#c0c0c0;color:#0a0a0a;border-color:#c0c0c0;box-shadow:0 0 12px rgba(192,192,192,0.2)}.mode-toggle button:hover{background:#2a2a2a;color:#fff}.geo-toggle{display:flex;justify-content:flex-end;gap:12px;margin:0 0 16px;font-size:.9rem}.geo-toggle label{display:flex;align-items:center;gap:6px;color:#999;cursor:pointer}.geo-toggle input[type="radio"]{accent-color:#c0c0c0;width:16px;height:16px}.geo-toggle input[type="radio"]:checked+span{color:#f0f0f0;font-weight:500}.ai-overview{background:#1e1e1e;border-left:4px solid #c0c0c0;border-radius:8px;padding:16px 20px;margin-bottom:20px;display:none}.ai-overview.visible{display:block}.ai-overview .label{font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:#aaa;display:flex;align-items:center;gap:8px;margin-bottom:4px}.ai-overview .label span{background:#c0c0c0;color:#0a0a0a;padding:0 10px;border-radius:12px;font-weight:600;font-size:.7rem}.ai-overview .summary{font-size:1rem;line-height:1.5;color:#e8e8e8}.best-link{background:#2a2a2a;border:1px solid #c0c0c0;border-radius:12px;padding:16px 20px;margin-bottom:20px;display:none}.best-link.visible{display:block}.best-link .badge{display:inline-block;background:#c0c0c0;color:#0a0a0a;font-size:.7rem;font-weight:700;padding:2px 12px;border-radius:20px;letter-spacing:.5px;margin-bottom:6px}.best-link a{color:#c0c0c0;text-decoration:none;font-weight:600;font-size:1.1rem}.best-link a:hover{text-decoration:underline}.best-link .url{font-size:.8rem;color:#888;word-break:break-all}.best-link .snippet{font-size:.95rem;color:#ccc;margin-top:4px}#results{margin-top:0}.result-card{background:#c0c0c0;color:#0a0a0a;border-radius:12px;padding:16px 20px;margin-bottom:12px;box-shadow:0 2px 8px rgba(192,192,192,.08);transition:transform .15s;word-break:break-word}.result-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(192,192,192,.15)}.result-card h3{font-size:1.1rem;font-weight:600;margin-bottom:4px}.result-card h3 a{color:#0a0a0a;text-decoration:none}.result-card h3 a:hover{text-decoration:underline}.result-card .url{font-size:.8rem;color:#333;opacity:.7;margin-bottom:4px;word-break:break-all}.result-card .snippet{font-size:.95rem;line-height:1.4;color:#1a1a1a}.result-card .badge{display:inline-block;background:#0a0a0a20;padding:2px 10px;border-radius:20px;font-size:.7rem;font-weight:500;letter-spacing:.3px;color:#222;margin-top:6px}.image-card{background:#1a1a1a;border-radius:12px;overflow:hidden;margin-bottom:16px;border:1px solid #333;transition:transform .15s}.image-card:hover{transform:scale(1.01)}.image-card img{width:100%;height:200px;object-fit:cover;display:block}.image-card .info{padding:12px 16px;color:#ddd}.image-card .info h4{font-weight:500;font-size:1rem;margin-bottom:4px}.image-card .info h4 a{color:#c0c0c0;text-decoration:none}.image-card .info h4 a:hover{text-decoration:underline}.image-card .info .photographer{font-size:.85rem;color:#888}.image-card .info .photographer a{color:#aaa;text-decoration:none}.image-card .info .photographer a:hover{color:#fff}.info-message{text-align:center;color:#666;padding:30px 0;font-style:italic}.info-message.error{color:#e88484}.info-message a{color:#c0c0c0;text-decoration:underline}.loader{text-align:center;color:#888;padding:20px 0;display:none}.loader .spinner{display:inline-block;width:24px;height:24px;border:3px solid #333;border-top:3px solid #c0c0c0;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.footer{margin-top:40px;text-align:center;font-size:.75rem;color:#444;border-top:1px solid #1a1a1a;padding-top:20px;letter-spacing:.5px}.footer a{color:#777;text-decoration:none}.footer a:hover{color:#ccc}@media(max-width:480px){.search-area{border-radius:40px;padding:4px 4px 4px 16px}.search-area input[type="text"]{font-size:1rem;padding:12px 0}.search-area button{padding:10px 18px;font-size:.9rem}.brand h1{font-size:1.8rem}.brand .eye-icon{font-size:2.6rem}.image-card img{height:150px}}
-
-    /* ---------- Login Modal ---------- */
-    .login-overlay {
-      position: fixed; top:0; left:0; width:100%; height:100%;
-      background: rgba(0,0,0,0.85); display:flex; align-items:center; justify-content:center;
-      z-index: 1000; backdrop-filter: blur(4px);
-    }
-    .login-box {
-      background: #1a1a1a; padding: 40px 30px; border-radius: 20px; max-width: 360px; width: 90%;
-      border: 1px solid #444; box-shadow: 0 20px 60px rgba(0,0,0,0.9);
-    }
-    .login-box h2 {
-      color: #c0c0c0; font-weight: 300; text-align: center; margin-bottom: 8px;
-    }
-    .login-box p {
-      color: #888; font-size: 0.9rem; text-align: center; margin-bottom: 24px;
-    }
-    .login-box input {
-      width: 100%; padding: 14px 16px; margin-bottom: 14px; border-radius: 40px;
-      background: #0a0a0a; border: 1px solid #333; color: #e0e0e0; font-size: 1rem;
-    }
-    .login-box input:focus { outline: none; border-color: #c0c0c0; }
-    .login-box button {
-      width: 100%; padding: 14px; border: none; border-radius: 40px;
-      background: #c0c0c0; color: #0a0a0a; font-weight: 600; font-size: 1rem;
-      cursor: pointer; transition: 0.2s;
-    }
-    .login-box button:hover { background: #d8d8d8; }
-    .login-box .error-msg {
-      color: #e88484; font-size: 0.9rem; text-align: center; margin-top: 10px;
-      display: none;
-    }
-    .login-box .error-msg.show { display: block; }
-    .logout-btn {
-      position: fixed; top: 16px; right: 16px; background: #c0c0c0; color: #0a0a0a;
-      border: none; border-radius: 40px; padding: 8px 18px; font-size: 0.8rem;
-      cursor: pointer; z-index: 100; display: none;
-    }
-    .logout-btn:hover { background: #d8d8d8; }
-    .main-content { display: none; }
-    .main-content.visible { display: block; }
+    *{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0a;font-family:-apple-system,'Segoe UI',Roboto,system-ui,sans-serif;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:20px 16px 40px;color:#e0e0e0}.container{max-width:720px;width:100%}.brand{text-align:center;margin-bottom:30px}.brand .eye-icon{font-size:3.2rem;line-height:1;display:block;margin-bottom:4px;filter:drop-shadow(0 0 6px rgba(192,192,192,0.3))}.brand h1{font-size:2.2rem;font-weight:300;letter-spacing:2px;color:#c0c0c0;margin-top:2px}.brand h1 small{font-size:1rem;font-weight:400;color:#888;letter-spacing:1px}.brand .byline{font-size:0.9rem;color:#666;margin-top:4px}.brand .byline a{color:#aaa;text-decoration:none;border-bottom:1px dotted #555}.brand .byline a:hover{color:#fff}.search-area{background:#1a1a1a;border-radius:60px;padding:8px 8px 8px 20px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.8);border:1px solid #333;margin-bottom:12px}.search-area input[type="text"]{flex:1;background:transparent;border:none;padding:14px 0;font-size:1.1rem;color:#e0e0e0;outline:none;min-width:0}.search-area input::placeholder{color:#666;font-style:italic}.search-area button{background:#c0c0c0;border:none;border-radius:40px;padding:12px 28px;font-weight:600;font-size:1rem;color:#0a0a0a;cursor:pointer;transition:background .2s,transform .1s;white-space:nowrap}.search-area button:hover{background:#d8d8d8}.search-area button:active{transform:scale(.97)}.mode-toggle{display:flex;gap:6px;margin-bottom:18px;justify-content:center}.mode-toggle button{background:#1a1a1a;border:1px solid #444;border-radius:40px;padding:8px 24px;font-size:.9rem;font-weight:500;color:#aaa;cursor:pointer;transition:all .2s}.mode-toggle button.active{background:#c0c0c0;color:#0a0a0a;border-color:#c0c0c0;box-shadow:0 0 12px rgba(192,192,192,0.2)}.mode-toggle button:hover{background:#2a2a2a;color:#fff}.geo-toggle{display:flex;justify-content:flex-end;gap:12px;margin:0 0 16px;font-size:.9rem}.geo-toggle label{display:flex;align-items:center;gap:6px;color:#999;cursor:pointer}.geo-toggle input[type="radio"]{accent-color:#c0c0c0;width:16px;height:16px}.geo-toggle input[type="radio"]:checked+span{color:#f0f0f0;font-weight:500}.ai-overview{background:#1e1e1e;border-left:4px solid #c0c0c0;border-radius:8px;padding:16px 20px;margin-bottom:20px;display:none}.ai-overview.visible{display:block}.ai-overview .label{font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:#aaa;display:flex;align-items:center;gap:8px;margin-bottom:4px}.ai-overview .label span{background:#c0c0c0;color:#0a0a0a;padding:0 10px;border-radius:12px;font-weight:600;font-size:.7rem}.ai-overview .summary{font-size:1rem;line-height:1.5;color:#e8e8e8}.best-link{background:#2a2a2a;border:1px solid #c0c0c0;border-radius:12px;padding:16px 20px;margin-bottom:20px;display:none}.best-link.visible{display:block}.best-link .badge{display:inline-block;background:#c0c0c0;color:#0a0a0a;font-size:.7rem;font-weight:700;padding:2px 12px;border-radius:20px;letter-spacing:.5px;margin-bottom:6px}.best-link a{color:#c0c0c0;text-decoration:none;font-weight:600;font-size:1.1rem}.best-link a:hover{text-decoration:underline}.best-link .url{font-size:.8rem;color:#888;word-break:break-all}.best-link .snippet{font-size:.95rem;color:#ccc;margin-top:4px}#results{margin-top:0}.result-card{background:#c0c0c0;color:#0a0a0a;border-radius:12px;padding:16px 20px;margin-bottom:12px;box-shadow:0 2px 8px rgba(192,192,192,.08);transition:transform .15s;word-break:break-word}.result-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(192,192,192,.15)}.result-card h3{font-size:1.1rem;font-weight:600;margin-bottom:4px}.result-card h3 a{color:#0a0a0a;text-decoration:none}.result-card h3 a:hover{text-decoration:underline}.result-card .url{font-size:.8rem;color:#333;opacity:.7;margin-bottom:4px;word-break:break-all}.result-card .snippet{font-size:.95rem;line-height:1.4;color:#1a1a1a}.result-card .badge{display:inline-block;background:#0a0a0a20;padding:2px 10px;border-radius:20px;font-size:.7rem;font-weight:500;letter-spacing:.3px;color:#222;margin-top:6px}.image-card{background:#1a1a1a;border-radius:12px;overflow:hidden;margin-bottom:16px;border:1px solid #333;transition:transform .15s}.image-card:hover{transform:scale(1.01)}.image-card img{width:100%;height:200px;object-fit:cover;display:block}.image-card .info{padding:12px 16px;color:#ddd}.image-card .info h4{font-weight:500;font-size:1rem;margin-bottom:4px}.image-card .info h4 a{color:#c0c0c0;text-decoration:none}.image-card .info h4 a:hover{text-decoration:underline}.image-card .info .photographer{font-size:.85rem;color:#888}.image-card .info .photographer a{color:#aaa;text-decoration:none}.image-card .info .photographer a:hover{color:#fff}.info-message{text-align:center;color:#666;padding:30px 0;font-style:italic}.info-message.error{color:#e88484}.info-message a{color:#c0c0c0;text-decoration:underline}.loader{text-align:center;color:#888;padding:20px 0;display:none}.loader .spinner{display:inline-block;width:24px;height:24px;border:3px solid #333;border-top:3px solid #c0c0c0;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.footer{margin-top:40px;text-align:center;font-size:.75rem;color:#444;border-top:1px solid #1a1a1a;padding-top:20px;letter-spacing:.5px}.footer a{color:#777;text-decoration:none}.footer a:hover{color:#ccc}@media(max-width:480px){.search-area{border-radius:40px;padding:4px 4px 4px 16px}.search-area input[type="text"]{font-size:1rem;padding:12px 0}.search-area button{padding:10px 18px;font-size:.9rem}.brand h1{font-size:1.8rem}.brand .eye-icon{font-size:2.6rem}.image-card img{height:150px}}
   </style>
 </head>
 <body>
-
-<!-- Logout button -->
-<button id="logoutBtn" class="logout-btn">Logout</button>
-
-<!-- Login Overlay -->
-<div id="loginOverlay" class="login-overlay">
-  <div class="login-box">
-    <h2>🔐 MY‑AI</h2>
-    <p>Sign in to continue</p>
-    <input type="text" id="loginUser" placeholder="Username" autocomplete="off">
-    <input type="password" id="loginPass" placeholder="Password">
-    <button id="loginBtn">Sign In</button>
-    <div id="loginError" class="error-msg">Invalid credentials. Try again.</div>
-  </div>
-</div>
-
-<!-- Main search interface -->
-<div id="mainContent" class="container main-content">
+<div class="container">
   <div class="brand">
     <div class="eye-icon">👁️</div>
     <h1>AI SEARCH ENGINE <small>MY‑AI™</small></h1>
@@ -99,19 +40,13 @@
 
 <script>
 (function() {
-  // ---------- Configuration ----------
-  const API_BASE = 'http://localhost:8080'; // change to your server IP/port
-  let token = localStorage.getItem('myai_token');
+  // ----- CONFIG -----
+  const PEXELS_KEY = 'YcXaodW8DLZoAreLYwLPYoTZuX2DrSNEhmVg4o0B9N8rLUh8NmIqNbmf';
+  
+  // ---- REPLACE THIS WITH YOUR GOOGLE SHEETS WEB APP URL ----
+  const LOGGER_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
 
-  // ---------- DOM refs ----------
-  const overlay = document.getElementById('loginOverlay');
-  const loginUser = document.getElementById('loginUser');
-  const loginPass = document.getElementById('loginPass');
-  const loginBtn = document.getElementById('loginBtn');
-  const loginError = document.getElementById('loginError');
-  const logoutBtn = document.getElementById('logoutBtn');
-  const mainContent = document.getElementById('mainContent');
-
+  // ----- DOM refs -----
   const queryInput = document.getElementById('queryInput');
   const searchBtn = document.getElementById('searchBtn');
   const resultsDiv = document.getElementById('results');
@@ -127,80 +62,51 @@
 
   let currentMode = 'web';
 
-  // ---------- Login / Logout ----------
-  function showLogin() {
-    overlay.style.display = 'flex';
-    mainContent.classList.remove('visible');
-    logoutBtn.style.display = 'none';
-    token = null;
-    localStorage.removeItem('myai_token');
-  }
+  // ----- Toggle mode -----
+  webModeBtn.addEventListener('click', () => {
+    currentMode = 'web';
+    webModeBtn.classList.add('active');
+    imageModeBtn.classList.remove('active');
+    resultsDiv.innerHTML = '<div class="info-message">🔍 Enter a query above</div>';
+    aiOverview.classList.remove('visible');
+    bestLink.classList.remove('visible');
+  });
+  imageModeBtn.addEventListener('click', () => {
+    currentMode = 'images';
+    imageModeBtn.classList.add('active');
+    webModeBtn.classList.remove('active');
+    resultsDiv.innerHTML = '<div class="info-message">🖼️ Enter a query for images</div>';
+    aiOverview.classList.remove('visible');
+    bestLink.classList.remove('visible');
+  });
 
-  function hideLogin() {
-    overlay.style.display = 'none';
-    mainContent.classList.add('visible');
-    logoutBtn.style.display = 'block';
-  }
-
-  function attemptLogin() {
-    const username = loginUser.value.trim();
-    const password = loginPass.value.trim();
-    if (!username || !password) {
-      loginError.textContent = 'Please enter username and password.';
-      loginError.classList.add('show');
+  // ----- Tracking function (logs to Google Sheets) -----
+  function logSearch(query, mode) {
+    if (!LOGGER_URL || LOGGER_URL === 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec') {
+      console.log('📊 [LOG]', query, mode);
       return;
     }
 
-    loginError.classList.remove('show');
-    loginBtn.disabled = true;
-    loginBtn.textContent = 'Signing in…';
-
-    fetch(`${API_BASE}/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
-    })
-    .then(res => {
-      if (!res.ok) throw new Error('Invalid credentials');
-      return res.json();
-    })
-    .then(data => {
-      token = data.token;
-      localStorage.setItem('myai_token', token);
-      hideLogin();
-      // Optionally show a welcome message
-    })
-    .catch(err => {
-      loginError.textContent = '❌ ' + err.message;
-      loginError.classList.add('show');
-    })
-    .finally(() => {
-      loginBtn.disabled = false;
-      loginBtn.textContent = 'Sign In';
-    });
+    // Get approximate location (free IP API)
+    fetch('https://ipapi.co/json/')
+      .then(res => res.json())
+      .then(data => {
+        const country = data.country_name || 'unknown';
+        const city = data.city || 'unknown';
+        const ip = data.ip || 'unknown';
+        
+        // Send to Google Sheets
+        const url = `${LOGGER_URL}?query=${encodeURIComponent(query)}&mode=${mode}&country=${encodeURIComponent(country)}&city=${encodeURIComponent(city)}&ip=${encodeURIComponent(ip)}`;
+        fetch(url, { mode: 'no-cors' });
+      })
+      .catch(() => {
+        // If IP lookup fails, still log with unknown location
+        const url = `${LOGGER_URL}?query=${encodeURIComponent(query)}&mode=${mode}&country=unknown&city=unknown&ip=unknown`;
+        fetch(url, { mode: 'no-cors' });
+      });
   }
 
-  function logout() {
-    showLogin();
-    // clear token
-    localStorage.removeItem('myai_token');
-    token = null;
-  }
-
-  // ---------- Check token on load ----------
-  if (token) {
-    // Optionally validate token by making a test request to /search?q=test
-    // For simplicity, we assume it's valid – if it fails, we'll show login.
-    hideLogin();
-  } else {
-    showLogin();
-  }
-
-  loginBtn.addEventListener('click', attemptLogin);
-  loginPass.addEventListener('keydown', e => { if (e.key === 'Enter') attemptLogin(); });
-  logoutBtn.addEventListener('click', logout);
-
-  // ---------- Search functions ----------
+  // ----- Render functions -----
   function renderWebResults(data) {
     resultsDiv.innerHTML = '';
     aiOverview.classList.remove('visible');
@@ -299,7 +205,6 @@
 
   // ----- Video search (Pexels) with your key -----
   function performImageSearch(query) {
-    const PEXELS_KEY = 'YcXaodW8DLZoAreLYwLPYoTZuX2DrSNEhmVg4o0B9N8rLUh8NmIqNbmf';
     const url = `https://api.pexels.com/videos/search?query=${encodeURIComponent(query)}&per_page=36`;
     return fetch(url, {
       headers: { 'Authorization': PEXELS_KEY }
@@ -322,7 +227,7 @@
     });
   }
 
-  // ----- Main search dispatcher (with token) -----
+  // ----- Main search dispatcher -----
   function performSearch() {
     const query = queryInput.value.trim();
     if (!query) {
@@ -332,12 +237,8 @@
       return;
     }
 
-    // Check token
-    const tok = localStorage.getItem('myai_token');
-    if (!tok) {
-      showLogin();
-      return;
-    }
+    // 🔥 TRACK THIS SEARCH
+    logSearch(query, currentMode);
 
     loaderDiv.style.display = 'block';
     resultsDiv.innerHTML = '';
@@ -363,8 +264,8 @@
         .catch(err => {
           loaderDiv.style.display = 'none';
           let msg = '';
-          if (err.message === 'PEXELS_API_KEY_INVALID' || err.message === 'PEXELS_API_KEY_NOT_SET') {
-            msg = '⚠️ Image/video search failed: API key missing or invalid.';
+          if (err.message === 'PEXELS_API_KEY_INVALID') {
+            msg = '⚠️ Image/video search failed: API key invalid. Get a free key at <a href="https://www.pexels.com/api/" target="_blank">pexels.com/api</a>.';
           } else {
             msg = `⚠️ Image/video search failed: ${err.message}`;
           }
@@ -373,29 +274,10 @@
     }
   }
 
-  // ----- Event listeners for mode toggle -----
-  webModeBtn.addEventListener('click', () => {
-    currentMode = 'web';
-    webModeBtn.classList.add('active');
-    imageModeBtn.classList.remove('active');
-    resultsDiv.innerHTML = '<div class="info-message">🔍 Enter a query above</div>';
-    aiOverview.classList.remove('visible');
-    bestLink.classList.remove('visible');
-  });
-  imageModeBtn.addEventListener('click', () => {
-    currentMode = 'images';
-    imageModeBtn.classList.add('active');
-    webModeBtn.classList.remove('active');
-    resultsDiv.innerHTML = '<div class="info-message">🖼️ Enter a query for images</div>';
-    aiOverview.classList.remove('visible');
-    bestLink.classList.remove('visible');
-  });
-
+  // ----- Event listeners -----
   searchBtn.addEventListener('click', performSearch);
   queryInput.addEventListener('keydown', e => { if (e.key === 'Enter') performSearch(); });
-
-  // If user is logged in, focus the input
-  if (token) queryInput.focus();
+  queryInput.focus();
 })();
 </script>
 </body>
