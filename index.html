@@ -6,6 +6,77 @@
   <title>MY‑AI™ Search</title>
   <style>
     *{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0a;font-family:-apple-system,'Segoe UI',Roboto,system-ui,sans-serif;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:20px 16px 40px;color:#e0e0e0}.container{max-width:720px;width:100%}.brand{text-align:center;margin-bottom:30px}.brand .eye-icon{font-size:3.2rem;line-height:1;display:block;margin-bottom:4px;filter:drop-shadow(0 0 6px rgba(192,192,192,0.3))}.brand h1{font-size:2.2rem;font-weight:300;letter-spacing:2px;color:#c0c0c0;margin-top:2px}.brand h1 small{font-size:1rem;font-weight:400;color:#888;letter-spacing:1px}.brand .byline{font-size:0.9rem;color:#666;margin-top:4px}.brand .byline a{color:#aaa;text-decoration:none;border-bottom:1px dotted #555}.brand .byline a:hover{color:#fff}.search-area{background:#1a1a1a;border-radius:60px;padding:8px 8px 8px 20px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.8);border:1px solid #333;margin-bottom:12px}.search-area input[type="text"]{flex:1;background:transparent;border:none;padding:14px 0;font-size:1.1rem;color:#e0e0e0;outline:none;min-width:0}.search-area input::placeholder{color:#666;font-style:italic}.search-area button{background:#c0c0c0;border:none;border-radius:40px;padding:12px 28px;font-weight:600;font-size:1rem;color:#0a0a0a;cursor:pointer;transition:background .2s,transform .1s;white-space:nowrap}.search-area button:hover{background:#d8d8d8}.search-area button:active{transform:scale(.97)}.mode-toggle{display:flex;gap:6px;margin-bottom:18px;justify-content:center}.mode-toggle button{background:#1a1a1a;border:1px solid #444;border-radius:40px;padding:8px 24px;font-size:.9rem;font-weight:500;color:#aaa;cursor:pointer;transition:all .2s}.mode-toggle button.active{background:#c0c0c0;color:#0a0a0a;border-color:#c0c0c0;box-shadow:0 0 12px rgba(192,192,192,0.2)}.mode-toggle button:hover{background:#2a2a2a;color:#fff}.geo-toggle{display:flex;justify-content:flex-end;gap:12px;margin:0 0 16px;font-size:.9rem}.geo-toggle label{display:flex;align-items:center;gap:6px;color:#999;cursor:pointer}.geo-toggle input[type="radio"]{accent-color:#c0c0c0;width:16px;height:16px}.geo-toggle input[type="radio"]:checked+span{color:#f0f0f0;font-weight:500}.ai-overview{background:#1e1e1e;border-left:4px solid #c0c0c0;border-radius:8px;padding:16px 20px;margin-bottom:20px;display:none}.ai-overview.visible{display:block}.ai-overview .label{font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:#aaa;display:flex;align-items:center;gap:8px;margin-bottom:4px}.ai-overview .label span{background:#c0c0c0;color:#0a0a0a;padding:0 10px;border-radius:12px;font-weight:600;font-size:.7rem}.ai-overview .summary{font-size:1rem;line-height:1.5;color:#e8e8e8}.best-link{background:#2a2a2a;border:1px solid #c0c0c0;border-radius:12px;padding:16px 20px;margin-bottom:20px;display:none}.best-link.visible{display:block}.best-link .badge{display:inline-block;background:#c0c0c0;color:#0a0a0a;font-size:.7rem;font-weight:700;padding:2px 12px;border-radius:20px;letter-spacing:.5px;margin-bottom:6px}.best-link a{color:#c0c0c0;text-decoration:none;font-weight:600;font-size:1.1rem}.best-link a:hover{text-decoration:underline}.best-link .url{font-size:.8rem;color:#888;word-break:break-all}.best-link .snippet{font-size:.95rem;color:#ccc;margin-top:4px}#results{margin-top:0}.result-card{background:#c0c0c0;color:#0a0a0a;border-radius:12px;padding:16px 20px;margin-bottom:12px;box-shadow:0 2px 8px rgba(192,192,192,.08);transition:transform .15s;word-break:break-word}.result-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(192,192,192,.15)}.result-card h3{font-size:1.1rem;font-weight:600;margin-bottom:4px}.result-card h3 a{color:#0a0a0a;text-decoration:none}.result-card h3 a:hover{text-decoration:underline}.result-card .url{font-size:.8rem;color:#333;opacity:.7;margin-bottom:4px;word-break:break-all}.result-card .snippet{font-size:.95rem;line-height:1.4;color:#1a1a1a}.result-card .badge{display:inline-block;background:#0a0a0a20;padding:2px 10px;border-radius:20px;font-size:.7rem;font-weight:500;letter-spacing:.3px;color:#222;margin-top:6px}.image-card{background:#1a1a1a;border-radius:12px;overflow:hidden;margin-bottom:16px;border:1px solid #333;transition:transform .15s}.image-card:hover{transform:scale(1.01)}.image-card img{width:100%;height:200px;object-fit:cover;display:block}.image-card .info{padding:12px 16px;color:#ddd}.image-card .info h4{font-weight:500;font-size:1rem;margin-bottom:4px}.image-card .info h4 a{color:#c0c0c0;text-decoration:none}.image-card .info h4 a:hover{text-decoration:underline}.image-card .info .photographer{font-size:.85rem;color:#888}.image-card .info .photographer a{color:#aaa;text-decoration:none}.image-card .info .photographer a:hover{color:#fff}.info-message{text-align:center;color:#666;padding:30px 0;font-style:italic}.info-message.error{color:#e88484}.info-message a{color:#c0c0c0;text-decoration:underline}.loader{text-align:center;color:#888;padding:20px 0;display:none}.loader .spinner{display:inline-block;width:24px;height:24px;border:3px solid #333;border-top:3px solid #c0c0c0;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.footer{margin-top:40px;text-align:center;font-size:.75rem;color:#444;border-top:1px solid #1a1a1a;padding-top:20px;letter-spacing:.5px}.footer a{color:#777;text-decoration:none}.footer a:hover{color:#ccc}@media(max-width:480px){.search-area{border-radius:40px;padding:4px 4px 4px 16px}.search-area input[type="text"]{font-size:1rem;padding:12px 0}.search-area button{padding:10px 18px;font-size:.9rem}.brand h1{font-size:1.8rem}.brand .eye-icon{font-size:2.6rem}.image-card img{height:150px}}
+
+    /* ----- Visitor Counter Styles ----- */
+    .visitor-counter {
+      background: #1a1a1a;
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      border: 1px solid #333;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+    }
+    .visitor-counter .stat {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #aaa;
+      font-size: 0.85rem;
+    }
+    .visitor-counter .stat strong {
+      color: #c0c0c0;
+      font-size: 1.1rem;
+    }
+    .visitor-counter .stat .flag {
+      font-size: 1.3rem;
+    }
+    .visitor-counter .countries {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 12px;
+      justify-content: center;
+    }
+    .visitor-counter .countries span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.8rem;
+      color: #888;
+    }
+    .visitor-counter .countries span .flag {
+      font-size: 1.1rem;
+    }
+    .visitor-counter .online-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #4caf50;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .visitor-counter .refresh-btn {
+      background: transparent;
+      border: 1px solid #444;
+      color: #888;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .visitor-counter .refresh-btn:hover {
+      background: #333;
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -15,6 +86,23 @@
     <h1>AI SEARCH ENGINE <small>MY‑AI™</small></h1>
     <div class="byline">Created by Seliim Ahmed &bull; All rights reserved &bull; <a href="mailto:amit.khanna.1082@gmail.com">amit.khanna.1082@gmail.com</a></div>
   </div>
+
+  <!-- ===== VISITOR COUNTER (Visible on every page) ===== -->
+  <div class="visitor-counter" id="visitorCounter">
+    <div class="stat">
+      👁️ <strong id="totalVisitors">...</strong> <span>total</span>
+    </div>
+    <div class="stat">
+      <span class="online-dot"></span>
+      <strong id="onlineNow">...</strong> <span>online</span>
+    </div>
+    <div class="stat">
+      🌍 <span id="topCountries">Loading...</span>
+    </div>
+    <button class="refresh-btn" onclick="refreshStats()">↻</button>
+  </div>
+
+  <!-- Search bar -->
   <div class="search-area">
     <input type="text" id="queryInput" placeholder="Search…" autofocus>
     <button id="searchBtn">Search</button>
@@ -40,10 +128,198 @@
 
 <script>
 (function() {
-  // ----- CONFIG -----
-  const PEXELS_KEY = 'YcXaodW8DLZoAreLYwLPYoTZuX2DrSNEhmVg4o0B9N8rLUh8NmIqNbmf';
+  // ============================================================
+  // 1. VISITOR COUNTER (uses localStorage + IP API)
+  // ============================================================
   
-  // ----- DOM refs -----
+  // Generate a unique visitor ID (stored in localStorage)
+  function getVisitorId() {
+    let id = localStorage.getItem('myai_visitor_id');
+    if (!id) {
+      id = 'v_' + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem('myai_visitor_id', id);
+    }
+    return id;
+  }
+
+  // Get visitor's approximate location (free API, no key)
+  function getLocation() {
+    return fetch('https://ipapi.co/json/')
+      .then(res => res.json())
+      .then(data => ({
+        country: data.country_name || 'Unknown',
+        country_code: data.country_code || 'XX',
+        city: data.city || 'Unknown',
+        ip: data.ip || '0.0.0.0'
+      }))
+      .catch(() => ({
+        country: 'Unknown',
+        country_code: '🌍',
+        city: 'Unknown',
+        ip: '0.0.0.0'
+      }));
+  }
+
+  // Store visitor data in a global object (accessible to the UI)
+  const visitorData = {
+    total: 0,
+    online: 0,
+    countries: {}
+  };
+
+  // Update the visitor counter display
+  function updateCounterDisplay() {
+    document.getElementById('totalVisitors').textContent = visitorData.total || 0;
+    document.getElementById('onlineNow').textContent = visitorData.online || 0;
+
+    // Show top 5 countries
+    const sorted = Object.entries(visitorData.countries)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5);
+
+    if (sorted.length === 0) {
+      document.getElementById('topCountries').textContent = 'No data yet';
+      return;
+    }
+
+    const flagMap = {
+      'Bangladesh': '🇧🇩',
+      'India': '🇮🇳',
+      'United States': '🇺🇸',
+      'United Kingdom': '🇬🇧',
+      'Canada': '🇨🇦',
+      'Australia': '🇦🇺',
+      'Germany': '🇩🇪',
+      'France': '🇫🇷',
+      'Japan': '🇯🇵',
+      'China': '🇨🇳',
+      'Pakistan': '🇵🇰',
+      'Nepal': '🇳🇵',
+      'Sri Lanka': '🇱🇰',
+      'Myanmar': '🇲🇲',
+      'Thailand': '🇹🇭',
+      'Singapore': '🇸🇬',
+      'Malaysia': '🇲🇾',
+      'Indonesia': '🇮🇩',
+      'Philippines': '🇵🇭',
+      'Vietnam': '🇻🇳',
+      'South Korea': '🇰🇷',
+      'Russia': '🇷🇺',
+      'Brazil': '🇧🇷',
+      'Mexico': '🇲🇽',
+      'Italy': '🇮🇹',
+      'Spain': '🇪🇸',
+      'Portugal': '🇵🇹',
+      'Netherlands': '🇳🇱',
+      'Belgium': '🇧🇪',
+      'Sweden': '🇸🇪',
+      'Norway': '🇳🇴',
+      'Denmark': '🇩🇰',
+      'Finland': '🇫🇮',
+      'Poland': '🇵🇱',
+      'Ukraine': '🇺🇦',
+      'Turkey': '🇹🇷',
+      'Egypt': '🇪🇬',
+      'South Africa': '🇿🇦',
+      'Nigeria': '🇳🇬',
+      'Kenya': '🇰🇪',
+      'Ghana': '🇬🇭',
+      'Argentina': '🇦🇷',
+      'Chile': '🇨🇱',
+      'Colombia': '🇨🇴',
+      'Peru': '🇵🇪',
+      'Venezuela': '🇻🇪'
+    };
+
+    const countryDisplay = sorted.map(([country, count]) => {
+      const flag = flagMap[country] || '🌍';
+      return `<span><span class="flag">${flag}</span> ${country} (${count})</span>`;
+    }).join('');
+
+    document.getElementById('topCountries').innerHTML = countryDisplay;
+  }
+
+  // Record a visit
+  function recordVisit() {
+    const visitorId = getVisitorId();
+    const visitKey = 'myai_visit_' + visitorId;
+    const now = Date.now();
+    const twentyFourHours = 24 * 60 * 60 * 1000;
+
+    // Check if this visitor has been counted in the last 24 hours
+    const lastVisit = localStorage.getItem(visitKey);
+    if (lastVisit && (now - parseInt(lastVisit) < twentyFourHours)) {
+      // Existing visitor – just update online count
+      getOnlineCount();
+      return;
+    }
+
+    // New visitor (or new day) – record and increment
+    localStorage.setItem(visitKey, now.toString());
+
+    // Get location and update stats
+    getLocation().then(loc => {
+      // Update total visitors (stored in localStorage)
+      let total = parseInt(localStorage.getItem('myai_total_visits') || '0') + 1;
+      localStorage.setItem('myai_total_visits', total.toString());
+
+      // Update country counts (stored in localStorage)
+      let countries = JSON.parse(localStorage.getItem('myai_countries') || '{}');
+      const country = loc.country || 'Unknown';
+      countries[country] = (countries[country] || 0) + 1;
+      localStorage.setItem('myai_countries', JSON.stringify(countries));
+
+      // Update visitorData
+      visitorData.total = total;
+      visitorData.countries = countries;
+      updateCounterDisplay();
+    });
+
+    // Get online count
+    getOnlineCount();
+  }
+
+  // Get online count (simulated with localStorage)
+  function getOnlineCount() {
+    const now = Date.now();
+    const fiveMinutes = 5 * 60 * 1000;
+
+    // Clean old online entries
+    let online = JSON.parse(localStorage.getItem('myai_online') || '{}');
+    let onlineCount = 0;
+    let newOnline = {};
+    for (const [id, time] of Object.entries(online)) {
+      if (now - parseInt(time) < fiveMinutes) {
+        newOnline[id] = time;
+        onlineCount++;
+      }
+    }
+    // Add current visitor
+    const visitorId = getVisitorId();
+    if (!newOnline[visitorId]) {
+      newOnline[visitorId] = now;
+      onlineCount++;
+    }
+    localStorage.setItem('myai_online', JSON.stringify(newOnline));
+    visitorData.online = onlineCount;
+    updateCounterDisplay();
+  }
+
+  // Refresh stats (called by refresh button)
+  window.refreshStats = function() {
+    // Reload all data from localStorage
+    visitorData.total = parseInt(localStorage.getItem('myai_total_visits') || '0');
+    visitorData.countries = JSON.parse(localStorage.getItem('myai_countries') || '{}');
+    getOnlineCount();
+    updateCounterDisplay();
+  };
+
+  // ============================================================
+  // 2. SEARCH ENGINE (same as before)
+  // ============================================================
+  
+  const PEXELS_KEY = 'YcXaodW8DLZoAreLYwLPYoTZuX2DrSNEhmVg4o0B9N8rLUh8NmIqNbmf';
+
   const queryInput = document.getElementById('queryInput');
   const searchBtn = document.getElementById('searchBtn');
   const resultsDiv = document.getElementById('results');
@@ -59,7 +335,6 @@
 
   let currentMode = 'web';
 
-  // ----- Toggle mode -----
   webModeBtn.addEventListener('click', () => {
     currentMode = 'web';
     webModeBtn.classList.add('active');
@@ -77,25 +352,10 @@
     bestLink.classList.remove('visible');
   });
 
-  // ----- SIMPLE TRACKING (CountAPI - free, no setup) -----
-  function logSearch(query, mode) {
-    // Count this search
-    fetch('https://api.countapi.xyz/hit/myai-search/total')
-      .then(() => {})
-      .catch(() => {});
-
-    // Log the actual query (to a public store)
-    fetch(`https://api.countapi.xyz/set/myai-search/${encodeURIComponent(query)}?value=1`)
-      .then(() => {})
-      .catch(() => {});
-  }
-
-  // ----- Render functions -----
   function renderWebResults(data) {
     resultsDiv.innerHTML = '';
     aiOverview.classList.remove('visible');
     bestLink.classList.remove('visible');
-
     if (data.overview) {
       overviewText.textContent = data.overview;
       aiOverview.classList.add('visible');
@@ -156,7 +416,6 @@
     });
   }
 
-  // ----- Web search (DuckDuckGo) -----
   function performWebSearch(query) {
     const url = `https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&no_html=1&skip_disambig=1`;
     return fetch(url)
@@ -187,7 +446,6 @@
       });
   }
 
-  // ----- Video search (Pexels) with your key -----
   function performImageSearch(query) {
     const url = `https://api.pexels.com/videos/search?query=${encodeURIComponent(query)}&per_page=36`;
     return fetch(url, {
@@ -211,7 +469,6 @@
     });
   }
 
-  // ----- Main search dispatcher -----
   function performSearch() {
     const query = queryInput.value.trim();
     if (!query) {
@@ -220,9 +477,6 @@
       bestLink.classList.remove('visible');
       return;
     }
-
-    // 🔥 LOG THIS SEARCH (simple, no setup)
-    logSearch(query, currentMode);
 
     loaderDiv.style.display = 'block';
     resultsDiv.innerHTML = '';
@@ -258,10 +512,29 @@
     }
   }
 
-  // ----- Event listeners -----
   searchBtn.addEventListener('click', performSearch);
   queryInput.addEventListener('keydown', e => { if (e.key === 'Enter') performSearch(); });
   queryInput.focus();
+
+  // ============================================================
+  // 3. INIT – Record visit when page loads
+  // ============================================================
+  
+  // Record this visit
+  recordVisit();
+
+  // Update every 30 seconds (to refresh online count)
+  setInterval(() => {
+    getOnlineCount();
+  }, 30000);
+
+  // Refresh stats from localStorage on load
+  setTimeout(() => {
+    visitorData.total = parseInt(localStorage.getItem('myai_total_visits') || '0');
+    visitorData.countries = JSON.parse(localStorage.getItem('myai_countries') || '{}');
+    getOnlineCount();
+    updateCounterDisplay();
+  }, 500);
 })();
 </script>
 </body>
