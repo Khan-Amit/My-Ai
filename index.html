@@ -26,10 +26,17 @@
             width: 100%;
         }
 
-        /* === Header / Branding === */
+        /* === Header / Branding with Eye === */
         .brand {
             text-align: center;
             margin-bottom: 30px;
+        }
+        .brand .eye-icon {
+            font-size: 3.2rem;
+            line-height: 1;
+            display: block;
+            margin-bottom: 4px;
+            filter: drop-shadow(0 0 6px rgba(192,192,192,0.3));
         }
         .brand img {
             width: 80px;
@@ -39,15 +46,14 @@
             background: #222;
             padding: 8px;
             box-shadow: 0 0 20px rgba(192,192,192,0.1);
-            /* replace src with your own logo */
-            src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23c0c0c0'/%3E%3Ctext x='50' y='58' font-size='28' text-anchor='middle' fill='%230a0a0a' font-family='sans-serif' font-weight='bold'%3EMY%3C/text%3E%3C/svg%3E";
+            display: none; /* hidden because we use eye emoji, but keep for logo if desired */
         }
         .brand h1 {
             font-size: 2.2rem;
             font-weight: 300;
             letter-spacing: 2px;
-            color: #c0c0c0; /* silver */
-            margin-top: 8px;
+            color: #c0c0c0;
+            margin-top: 2px;
         }
         .brand h1 small {
             font-size: 1rem;
@@ -114,7 +120,7 @@
             transform: scale(0.97);
         }
 
-        /* === Geo toggle (optional) === */
+        /* === Geo toggle === */
         .geo-toggle {
             display: flex;
             justify-content: flex-end;
@@ -139,12 +145,91 @@
             font-weight: 500;
         }
 
-        /* === Results === */
+        /* === AI Overview === */
+        .ai-overview {
+            background: #1e1e1e;
+            border-left: 4px solid #c0c0c0;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .ai-overview.visible {
+            display: block;
+        }
+        .ai-overview .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #aaa;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .ai-overview .label span {
+            background: #c0c0c0;
+            color: #0a0a0a;
+            padding: 0 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.7rem;
+        }
+        .ai-overview .summary {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #e8e8e8;
+        }
+
+        /* === Best link (Most accurate) === */
+        .best-link {
+            background: #2a2a2a;
+            border: 1px solid #c0c0c0;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .best-link.visible {
+            display: block;
+        }
+        .best-link .badge {
+            display: inline-block;
+            background: #c0c0c0;
+            color: #0a0a0a;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .best-link a {
+            color: #c0c0c0;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .best-link a:hover {
+            text-decoration: underline;
+        }
+        .best-link .url {
+            font-size: 0.8rem;
+            color: #888;
+            word-break: break-all;
+        }
+        .best-link .snippet {
+            font-size: 0.95rem;
+            color: #ccc;
+            margin-top: 4px;
+        }
+
+        /* === Results list === */
         #results {
-            margin-top: 28px;
+            margin-top: 0;
         }
         .result-card {
-            background: #c0c0c0; /* silver */
+            background: #c0c0c0;
             color: #0a0a0a;
             border-radius: 12px;
             padding: 16px 20px;
@@ -237,7 +322,7 @@
             color: #ccc;
         }
 
-        /* Responsive tweaks */
+        /* Responsive */
         @media (max-width: 480px) {
             .search-area {
                 border-radius: 40px;
@@ -254,15 +339,17 @@
             .brand h1 {
                 font-size: 1.8rem;
             }
+            .brand .eye-icon {
+                font-size: 2.6rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header branding -->
+        <!-- Header branding with eye -->
         <div class="brand">
-            <!-- Replace src with your actual logo image -->
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23c0c0c0'/%3E%3Ctext x='50' y='58' font-size='28' text-anchor='middle' fill='%230a0a0a' font-family='sans-serif' font-weight='bold'%3EMY%3C/text%3E%3C/svg%3E" alt="MY-AI logo">
+            <div class="eye-icon">👁️</div>
             <h1>AI SEARCH ENGINE <small>MY‑AI™</small></h1>
             <div class="byline">
                 Created by Seliim Ahmed &bull; All rights reserved &bull;
@@ -288,6 +375,20 @@
             </label>
         </div>
 
+        <!-- AI Overview -->
+        <div id="aiOverview" class="ai-overview">
+            <div class="label"><span>AI Overview</span> ✦</div>
+            <div class="summary" id="overviewText"></div>
+        </div>
+
+        <!-- Most accurate link -->
+        <div id="bestLink" class="best-link">
+            <div class="badge">⭐ Best match</div>
+            <a href="#" id="bestLinkUrl" target="_blank" rel="noopener"></a>
+            <div class="url" id="bestLinkDisplayUrl"></div>
+            <div class="snippet" id="bestLinkSnippet"></div>
+        </div>
+
         <!-- Loader -->
         <div id="loader" class="loader">
             <div class="spinner"></div>
@@ -310,11 +411,15 @@
             const searchBtn = document.getElementById('searchBtn');
             const resultsDiv = document.getElementById('results');
             const loaderDiv = document.getElementById('loader');
+            const aiOverview = document.getElementById('aiOverview');
+            const overviewText = document.getElementById('overviewText');
+            const bestLink = document.getElementById('bestLink');
+            const bestLinkUrl = document.getElementById('bestLinkUrl');
+            const bestLinkDisplayUrl = document.getElementById('bestLinkDisplayUrl');
+            const bestLinkSnippet = document.getElementById('bestLinkSnippet');
 
-            // Simulate backend endpoint – replace with your actual C++ CGI/API URL
-            const API_ENDPOINT = '/search';  // e.g., http://your-server.com/search
+            const API_ENDPOINT = '/search';  // change to your backend
 
-            // Helper to build query string
             function buildQuery(query, geo) {
                 const params = new URLSearchParams();
                 params.append('q', query);
@@ -322,25 +427,50 @@
                 return params.toString();
             }
 
-            // Render results
             function renderResults(data) {
-                // data expected: { results: [ { title, url, snippet } ] }
+                // Clear previous
                 resultsDiv.innerHTML = '';
+                aiOverview.classList.remove('visible');
+                bestLink.classList.remove('visible');
+
+                // AI Overview
+                if (data.overview) {
+                    overviewText.textContent = data.overview;
+                    aiOverview.classList.add('visible');
+                }
+
+                // Most accurate link (bestLink)
+                if (data.bestLink && data.bestLink.url) {
+                    bestLinkUrl.href = data.bestLink.url;
+                    bestLinkUrl.textContent = data.bestLink.title || data.bestLink.url;
+                    bestLinkDisplayUrl.textContent = data.bestLink.url;
+                    bestLinkSnippet.textContent = data.bestLink.snippet || '';
+                    bestLink.classList.add('visible');
+                }
+
+                // Results list (up to 36)
                 if (!data.results || data.results.length === 0) {
                     resultsDiv.innerHTML = '<div class="info-message">😕 No results found.</div>';
                     return;
                 }
-                // We'll show up to 36 results (as requested)
                 const maxResults = 36;
                 const items = data.results.slice(0, maxResults);
-                items.forEach(item => {
+                items.forEach((item, index) => {
                     const card = document.createElement('div');
                     card.className = 'result-card';
+                    // If this is the best link, we might skip adding it again, but we'll add a small badge
+                    let badgeHtml = '';
+                    if (data.bestLink && data.bestLink.url === item.url) {
+                        // already shown above, but we can still show a small badge
+                        badgeHtml = `<div class="badge">⭐ Best</div>`;
+                    } else if (item.badge) {
+                        badgeHtml = `<div class="badge">${item.badge}</div>`;
+                    }
                     card.innerHTML = `
                         <h3><a href="${item.url}" target="_blank" rel="noopener">${item.title}</a></h3>
                         <div class="url">${item.url}</div>
                         <div class="snippet">${item.snippet || ''}</div>
-                        ${item.badge ? `<div class="badge">${item.badge}</div>` : ''}
+                        ${badgeHtml}
                     `;
                     resultsDiv.appendChild(card);
                 });
@@ -352,34 +482,31 @@
                 }
             }
 
-            // Perform search
             function performSearch() {
                 const query = queryInput.value.trim();
                 if (!query) {
                     resultsDiv.innerHTML = '<div class="info-message">✏️ Please enter a search term.</div>';
+                    aiOverview.classList.remove('visible');
+                    bestLink.classList.remove('visible');
                     return;
                 }
 
-                // Get geo preference
                 const geoRadio = document.querySelector('input[name="geo"]:checked');
                 const geo = geoRadio ? geoRadio.value : 'global';
 
-                // Show loader
                 loaderDiv.style.display = 'block';
                 resultsDiv.innerHTML = '';
+                aiOverview.classList.remove('visible');
+                bestLink.classList.remove('visible');
 
-                // Build full URL (for GET request) – you can also use POST
                 const url = `${API_ENDPOINT}?${buildQuery(query, geo)}`;
 
-                // Use fetch to call backend
                 fetch(url, {
                     method: 'GET',
                     headers: { 'Accept': 'application/json' }
                 })
                 .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error ${response.status}`);
-                    }
+                    if (!response.ok) throw new Error(`HTTP error ${response.status}`);
                     return response.json();
                 })
                 .then(data => {
@@ -388,14 +515,20 @@
                 })
                 .catch(err => {
                     loaderDiv.style.display = 'none';
-                    // Fallback: if backend not ready, show mock results for demonstration
                     console.warn('Backend not reachable, using mock data:', err);
-                    // MOCK DATA – remove when backend is live
+                    // MOCK DATA with overview and bestLink
                     const mock = {
+                        overview: "MY‑AI is a minimalist, ternary‑based search engine that prioritises privacy and relevance. It uses a Ternary Search Tree for fast prefix queries and TF‑IDF ranking.",
+                        bestLink: {
+                            title: "Introducing MY‑AI: The Search Engine",
+                            url: "https://my-ai.dev",
+                            snippet: "A clean, ternary‑powered search engine that respects your privacy."
+                        },
                         results: [
-                            { title: 'Introducing MY-AI: The Search Engine', url: 'https://my-ai.dev', snippet: 'A clean, ternary‑powered search engine that respects your privacy.', badge: 'New' },
-                            { title: 'C++ Ternary Search Tree Implementation', url: 'https://github.com/My-Ai/tst', snippet: 'Efficient memory‑savvy data structure for fast prefix queries.' },
-                            { title: 'Philosophy of Minimalist Search', url: 'https://my-ai.dev/blog', snippet: 'Why less clutter leads to more meaningful discoveries.' },
+                            { title: "Introducing MY‑AI: The Search Engine", url: "https://my-ai.dev", snippet: "A clean, ternary‑powered search engine that respects your privacy.", badge: "New" },
+                            { title: "C++ Ternary Search Tree Implementation", url: "https://github.com/My-Ai/tst", snippet: "Efficient memory‑savvy data structure for fast prefix queries." },
+                            { title: "Philosophy of Minimalist Search", url: "https://my-ai.dev/blog", snippet: "Why less clutter leads to more meaningful discoveries." },
+                            // add more mock entries to test 36 limit if needed
                         ]
                     };
                     renderResults(mock);
@@ -408,7 +541,6 @@
                 if (e.key === 'Enter') performSearch();
             });
 
-            // Pre‑focus
             queryInput.focus();
         })();
     </script>
