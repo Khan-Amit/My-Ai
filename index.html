@@ -43,9 +43,6 @@
   // ----- CONFIG -----
   const PEXELS_KEY = 'YcXaodW8DLZoAreLYwLPYoTZuX2DrSNEhmVg4o0B9N8rLUh8NmIqNbmf';
   
-  // ---- REPLACE THIS WITH YOUR GOOGLE SHEETS WEB APP URL ----
-  const LOGGER_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
-
   // ----- DOM refs -----
   const queryInput = document.getElementById('queryInput');
   const searchBtn = document.getElementById('searchBtn');
@@ -80,30 +77,17 @@
     bestLink.classList.remove('visible');
   });
 
-  // ----- Tracking function (logs to Google Sheets) -----
+  // ----- SIMPLE TRACKING (CountAPI - free, no setup) -----
   function logSearch(query, mode) {
-    if (!LOGGER_URL || LOGGER_URL === 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec') {
-      console.log('📊 [LOG]', query, mode);
-      return;
-    }
+    // Count this search
+    fetch('https://api.countapi.xyz/hit/myai-search/total')
+      .then(() => {})
+      .catch(() => {});
 
-    // Get approximate location (free IP API)
-    fetch('https://ipapi.co/json/')
-      .then(res => res.json())
-      .then(data => {
-        const country = data.country_name || 'unknown';
-        const city = data.city || 'unknown';
-        const ip = data.ip || 'unknown';
-        
-        // Send to Google Sheets
-        const url = `${LOGGER_URL}?query=${encodeURIComponent(query)}&mode=${mode}&country=${encodeURIComponent(country)}&city=${encodeURIComponent(city)}&ip=${encodeURIComponent(ip)}`;
-        fetch(url, { mode: 'no-cors' });
-      })
-      .catch(() => {
-        // If IP lookup fails, still log with unknown location
-        const url = `${LOGGER_URL}?query=${encodeURIComponent(query)}&mode=${mode}&country=unknown&city=unknown&ip=unknown`;
-        fetch(url, { mode: 'no-cors' });
-      });
+    // Log the actual query (to a public store)
+    fetch(`https://api.countapi.xyz/set/myai-search/${encodeURIComponent(query)}?value=1`)
+      .then(() => {})
+      .catch(() => {});
   }
 
   // ----- Render functions -----
@@ -237,7 +221,7 @@
       return;
     }
 
-    // 🔥 TRACK THIS SEARCH
+    // 🔥 LOG THIS SEARCH (simple, no setup)
     logSearch(query, currentMode);
 
     loaderDiv.style.display = 'block';
