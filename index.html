@@ -5,20 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>MY‑AI™ Platform</title>
   <style>
-    /* ===== BASE STYLES (same as before, keep it) ===== */
+    /* ===== ALL EXISTING STYLES (keep the same as before) ===== */
     *{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0a;font-family:-apple-system,'Segoe UI',Roboto,system-ui,sans-serif;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:20px 16px 40px;color:#e0e0e0}.container{max-width:860px;width:100%}.brand{text-align:center;margin-bottom:30px}.brand .eye-icon{font-size:3.2rem;line-height:1;display:block;margin-bottom:4px;filter:drop-shadow(0 0 6px rgba(192,192,192,0.3))}.brand h1{font-size:2.2rem;font-weight:300;letter-spacing:2px;color:#c0c0c0;margin-top:2px}.brand h1 small{font-size:1rem;font-weight:400;color:#888;letter-spacing:1px}.brand .byline{font-size:0.9rem;color:#666;margin-top:4px}.brand .byline a{color:#aaa;text-decoration:none;border-bottom:1px dotted #555}.brand .byline a:hover{color:#fff}.search-area{background:#1a1a1a;border-radius:60px;padding:8px 8px 8px 20px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.8);border:1px solid #333;margin-bottom:12px}.search-area input[type="text"]{flex:1;background:transparent;border:none;padding:14px 0;font-size:1.1rem;color:#e0e0e0;outline:none;min-width:0}.search-area input::placeholder{color:#666;font-style:italic}.search-area button{background:#c0c0c0;border:none;border-radius:40px;padding:12px 28px;font-weight:600;font-size:1rem;color:#0a0a0a;cursor:pointer;transition:background .2s,transform .1s;white-space:nowrap}.search-area button:hover{background:#d8d8d8}.search-area button:active{transform:scale(.97)}.mode-toggle{display:flex;gap:6px;margin-bottom:18px;justify-content:center;flex-wrap:wrap}.mode-toggle button{background:#1a1a1a;border:1px solid #444;border-radius:40px;padding:8px 18px;font-size:.8rem;font-weight:500;color:#aaa;cursor:pointer;transition:all .2s}.mode-toggle button.active{background:#c0c0c0;color:#0a0a0a;border-color:#c0c0c0;box-shadow:0 0 12px rgba(192,192,192,0.2)}.mode-toggle button:hover{background:#2a2a2a;color:#fff}.geo-toggle{display:flex;justify-content:flex-end;gap:12px;margin:0 0 16px;font-size:.9rem}.geo-toggle label{display:flex;align-items:center;gap:6px;color:#999;cursor:pointer}.geo-toggle input[type="radio"]{accent-color:#c0c0c0;width:16px;height:16px}.geo-toggle input[type="radio"]:checked+span{color:#f0f0f0;font-weight:500}.ai-overview{background:#1e1e1e;border-left:4px solid #c0c0c0;border-radius:8px;padding:16px 20px;margin-bottom:20px;display:none}.ai-overview.visible{display:block}.ai-overview .label{font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:#aaa;display:flex;align-items:center;gap:8px;margin-bottom:4px}.ai-overview .label span{background:#c0c0c0;color:#0a0a0a;padding:0 10px;border-radius:12px;font-weight:600;font-size:.7rem}.ai-overview .summary{font-size:1rem;line-height:1.5;color:#e8e8e8}.best-link{background:#2a2a2a;border:1px solid #c0c0c0;border-radius:12px;padding:16px 20px;margin-bottom:20px;display:none}.best-link.visible{display:block}.best-link .badge{display:inline-block;background:#c0c0c0;color:#0a0a0a;font-size:.7rem;font-weight:700;padding:2px 12px;border-radius:20px;letter-spacing:.5px;margin-bottom:6px}.best-link a{color:#c0c0c0;text-decoration:none;font-weight:600;font-size:1.1rem}.best-link a:hover{text-decoration:underline}.best-link .url{font-size:.8rem;color:#888;word-break:break-all}.best-link .snippet{font-size:.95rem;color:#ccc;margin-top:4px}#results{margin-top:0}.result-card{background:#c0c0c0;color:#0a0a0a;border-radius:12px;padding:16px 20px;margin-bottom:12px;box-shadow:0 2px 8px rgba(192,192,192,.08);transition:transform .15s;word-break:break-word}.result-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(192,192,192,.15)}.result-card h3{font-size:1.1rem;font-weight:600;margin-bottom:4px}.result-card h3 a{color:#0a0a0a;text-decoration:none}.result-card h3 a:hover{text-decoration:underline}.result-card .url{font-size:.8rem;color:#333;opacity:.7;margin-bottom:4px;word-break:break-all}.result-card .snippet{font-size:.95rem;line-height:1.4;color:#1a1a1a}.result-card .badge{display:inline-block;background:#0a0a0a20;padding:2px 10px;border-radius:20px;font-size:.7rem;font-weight:500;letter-spacing:.3px;color:#222;margin-top:6px}.result-card .poster-img{width:80px;height:120px;object-fit:cover;border-radius:8px;flex-shrink:0;background:#222}.result-card .poster-placeholder{width:80px;height:120px;background:#222;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#555;font-size:2rem}.result-card .movie-info{flex:1;min-width:0}.result-card .movie-detail{font-size:.8rem;color:#555;margin-top:4px}.image-card{background:#1a1a1a;border-radius:12px;overflow:hidden;margin-bottom:16px;border:1px solid #333;transition:transform .15s}.image-card:hover{transform:scale(1.01)}.image-card img{width:100%;height:200px;object-fit:cover;display:block}.image-card .info{padding:12px 16px;color:#ddd}.image-card .info h4{font-weight:500;font-size:1rem;margin-bottom:4px}.image-card .info h4 a{color:#c0c0c0;text-decoration:none}.image-card .info h4 a:hover{text-decoration:underline}.image-card .info .photographer{font-size:.85rem;color:#888}.image-card .info .photographer a{color:#aaa;text-decoration:none}.image-card .info .photographer a:hover{color:#fff}.info-message{text-align:center;color:#666;padding:30px 0;font-style:italic}.info-message.error{color:#e88484}.info-message a{color:#c0c0c0;text-decoration:underline}.loader{text-align:center;color:#888;padding:20px 0;display:none}.loader .spinner{display:inline-block;width:24px;height:24px;border:3px solid #333;border-top:3px solid #c0c0c0;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.footer{margin-top:40px;text-align:center;font-size:.75rem;color:#444;border-top:1px solid #1a1a1a;padding-top:20px;letter-spacing:.5px}.footer a{color:#777;text-decoration:none}.footer a:hover{color:#ccc}@media(max-width:480px){.search-area{border-radius:40px;padding:4px 4px 4px 16px}.search-area input[type="text"]{font-size:1rem;padding:12px 0}.search-area button{padding:10px 18px;font-size:.9rem}.brand h1{font-size:1.8rem}.brand .eye-icon{font-size:2.6rem}.image-card img{height:150px}.result-card{flex-direction:column;align-items:center;text-align:center}.result-card .poster-img,.result-card .poster-placeholder{width:100%;height:180px}.result-card .movie-info{width:100%}}
-    
-    /* ===== VISITOR COUNTER ===== */
     .visitor-counter{background:#1a1a1a;border-radius:16px;padding:16px 20px;margin-bottom:20px;border:1px solid #333;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center}.visitor-counter .stat{display:flex;align-items:center;gap:6px;color:#aaa;font-size:.85rem}.visitor-counter .stat strong{color:#c0c0c0;font-size:1.1rem}.visitor-counter .stat .flag{font-size:1.3rem}.visitor-counter .countries{display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:center}.visitor-counter .countries span{display:flex;align-items:center;gap:4px;font-size:.8rem;color:#888}.visitor-counter .countries span .flag{font-size:1.1rem}.visitor-counter .online-dot{display:inline-block;width:8px;height:8px;background:#4caf50;border-radius:50%;animation:pulse 1.5s infinite}@keyframes pulse{0%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}100%{opacity:1;transform:scale(1)}}.visitor-counter .refresh-btn{background:transparent;border:1px solid #444;color:#888;padding:4px 12px;border-radius:20px;font-size:.7rem;cursor:pointer;transition:.2s}.visitor-counter .refresh-btn:hover{background:#333;color:#fff}
-    
-    /* ===== VISITOR LOG ===== */
     .visitor-log{background:#1a1a1a;border-radius:12px;padding:16px 20px;margin-top:16px;border:1px solid #333;max-height:200px;overflow-y:auto}.visitor-log h3{color:#c0c0c0;font-weight:300;font-size:.9rem;margin-bottom:10px;letter-spacing:1px}.visitor-log table{width:100%;font-size:.75rem;border-collapse:collapse}.visitor-log th{text-align:left;color:#666;font-weight:500;padding-bottom:6px;border-bottom:1px solid #333}.visitor-log td{padding:4px 0;color:#aaa;border-bottom:1px solid #1a1a1a}.visitor-log .flag{font-size:1rem}.visitor-log .ip{color:#666;font-size:.65rem}.visitor-log .timestamp{color:#555;font-size:.65rem}.visitor-log::-webkit-scrollbar{width:4px}.visitor-log::-webkit-scrollbar-thumb{background:#444;border-radius:4px}.visitor-log::-webkit-scrollbar-track{background:transparent}
-    
-    /* ===== SHIVANETRA / COUNT IT FINANCE STYLES ===== */
     .finance-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px}.finance-card{background:#1a1a1a;border-radius:12px;padding:16px;border:1px solid #333;transition:all .2s}.finance-card:hover{border-color:#c0c0c0;transform:translateY(-2px)}.finance-card .symbol{color:#888;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px}.finance-card .price{color:#fff;font-size:1.3rem;font-weight:300;margin:4px 0}.finance-card .change{font-size:.9rem;font-weight:500}.finance-card .change.up{color:#4caf50}.finance-card .change.down{color:#ef5350}.finance-card .label{color:#666;font-size:.7rem}.finance-card .time{color:#555;font-size:.6rem;margin-top:6px}.finance-section-title{color:#c0c0c0;font-weight:300;font-size:1.1rem;margin:16px 0 12px;letter-spacing:1px;border-bottom:1px solid #1a1a1a;padding-bottom:8px}.refresh-finance{background:transparent;border:1px solid #444;color:#888;padding:4px 16px;border-radius:20px;font-size:.7rem;cursor:pointer;transition:.2s;margin-left:12px}.refresh-finance:hover{background:#333;color:#fff}
-    
-    /* ===== COSMIC / ASTROLOGY STYLES ===== */
     .cosmic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}.cosmic-card{background:#1a1a1a;border-radius:12px;padding:14px;border:1px solid #333;text-align:center}.cosmic-card .label{color:#888;font-size:.7rem;text-transform:uppercase;letter-spacing:.5px}.cosmic-card .value{color:#c0c0c0;font-size:1.1rem;font-weight:300;margin:4px 0}.cosmic-card .sub{color:#666;font-size:.7rem}.cosmic-wisdom{background:#1a1a1a;border-left:4px solid #c0c0c0;border-radius:8px;padding:16px 20px;margin:12px 0 20px}.cosmic-wisdom .title{color:#888;font-size:.7rem;text-transform:uppercase;letter-spacing:1px}.cosmic-wisdom .text{color:#ddd;font-size:.95rem;line-height:1.5;margin-top:4px}.planet-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin:12px 0}.planet-card{background:#111;border-radius:8px;padding:10px;text-align:center;border:1px solid #222}.planet-card .name{color:#888;font-size:.65rem;text-transform:uppercase}.planet-card .pos{color:#c0c0c0;font-size:.9rem;font-weight:300}.planet-card .sign{color:#666;font-size:.7rem}
+    .dob-picker{background:#1a1a1a;border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid #333;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center}.dob-picker label{color:#888;font-size:.85rem}.dob-picker input{background:#0a0a0a;border:1px solid #444;border-radius:40px;padding:8px 16px;color:#e0e0e0;font-size:.9rem}.dob-picker button{background:#c0c0c0;border:none;border-radius:40px;padding:8px 20px;font-weight:600;color:#0a0a0a;cursor:pointer;transition:.2s}.dob-picker button:hover{background:#d8d8d8}
   </style>
 </head>
 <body>
@@ -233,7 +226,7 @@
   window.refreshStats = function() { updateCounterDisplay(); renderLog(); };
 
   // ============================================================
-  // 3. SEARCH ENGINE FUNCTIONS (Web, Images, Movies)
+  // 3. SEARCH ENGINE FUNCTIONS (Web, Images, Movies - same as before)
   // ============================================================
   const queryInput = document.getElementById('queryInput');
   const searchBtn = document.getElementById('searchBtn');
@@ -554,7 +547,7 @@
   }
 
   // ============================================================
-  // 4. SHIVANETRA – FINANCE / DATA (Count It)
+  // 4. SHIVANETRA – COUNT IT (Data)
   // ============================================================
 
   function renderFinanceData(data) {
@@ -575,6 +568,7 @@
     time.textContent = `Last updated: ${new Date().toLocaleString('en-US', { hour12: false })}`;
     resultsDiv.appendChild(time);
 
+    // Countries
     if (data.countries && data.countries.length > 0) {
       const grid = document.createElement('div');
       grid.className = 'finance-grid';
@@ -586,29 +580,75 @@
         card.innerHTML = `
           <div class="symbol">${flag} ${item.code}</div>
           <div class="price">${item.gdp || '--'}</div>
-          <div class="change">${item.population || '--'}</div>
+          <div class="change">👥 ${item.population || '--'}</div>
           <div class="label">${item.name || ''}</div>
-          <div class="label">GDP per Capita: ${item.perCapita || '--'}</div>
+          <div class="label">💵 ${item.perCapita || '--'}</div>
         `;
         grid.appendChild(card);
       });
       resultsDiv.appendChild(grid);
-    } else {
-      resultsDiv.innerHTML += '<div class="info-message">📊 No data available. Try again later.</div>';
+    }
+
+    // FX Rates
+    if (data.fx && data.fx.length > 0) {
+      const title = document.createElement('div');
+      title.className = 'finance-section-title';
+      title.textContent = '💱 Foreign Exchange Rates';
+      resultsDiv.appendChild(title);
+      const grid = document.createElement('div');
+      grid.className = 'finance-grid';
+      data.fx.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'finance-card';
+        card.innerHTML = `
+          <div class="symbol">${item.pair}</div>
+          <div class="price">${item.rate}</div>
+          <div class="label">${item.label}</div>
+        `;
+        grid.appendChild(card);
+      });
+      resultsDiv.appendChild(grid);
+    }
+
+    // Stocks
+    if (data.stocks && data.stocks.length > 0) {
+      const title = document.createElement('div');
+      title.className = 'finance-section-title';
+      title.textContent = '📈 Stocks';
+      resultsDiv.appendChild(title);
+      const grid = document.createElement('div');
+      grid.className = 'finance-grid';
+      data.stocks.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'finance-card';
+        const changeClass = item.change && item.change.startsWith('+') ? 'up' : (item.change && item.change.startsWith('-') ? 'down' : '');
+        card.innerHTML = `
+          <div class="symbol">${item.symbol}</div>
+          <div class="price">${item.price}</div>
+          <div class="change ${changeClass}">${item.change || ''}</div>
+          <div class="label">${item.label}</div>
+        `;
+        grid.appendChild(card);
+      });
+      resultsDiv.appendChild(grid);
     }
   }
 
   function loadFinanceData() {
     resultsDiv.innerHTML = '<div class="loader" style="display:block;"><div class="spinner"></div><p style="margin-top:8px;">Loading global data…</p></div>';
     
-    fetchCountryData()
-      .then(countries => {
-        const data = { countries };
-        renderFinanceData(data);
-      })
-      .catch(err => {
-        resultsDiv.innerHTML = `<div class="info-message error">⚠️ Data load failed: ${err.message}</div>`;
-      });
+    Promise.all([
+      fetchCountryData(),
+      fetchFXData(),
+      fetchStocks()
+    ])
+    .then(([countries, fx, stocks]) => {
+      const data = { countries, fx, stocks };
+      renderFinanceData(data);
+    })
+    .catch(err => {
+      resultsDiv.innerHTML = `<div class="info-message error">⚠️ Data load failed: ${err.message}</div>`;
+    });
   }
 
   function fetchCountryData() {
@@ -643,33 +683,150 @@
     return Promise.all(promises);
   }
 
+  function fetchFXData() {
+    const url = 'https://api.exchangerate-api.com/v4/latest/USD';
+    return fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        const rates = data.rates;
+        const pairs = ['BDT', 'EUR', 'GBP', 'JPY', 'INR', 'CNY', 'SGD', 'THB', 'CAD', 'ZAR', 'RUB'];
+        return pairs.map(target => ({
+          pair: `USD/${target}`,
+          rate: rates[target] ? rates[target].toFixed(4) : '--',
+          label: `${target}`
+        }));
+      })
+      .catch(() => []);
+  }
+
+  function fetchStocks() {
+    const symbols = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA'];
+    const promises = symbols.map(symbol => {
+      return fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${symbol}`)
+        .then(res => res.json())
+        .then(data => {
+          const meta = data.chart.result[0].meta;
+          const price = meta.regularMarketPrice || 0;
+          const prevClose = meta.previousClose || price;
+          const change = ((price - prevClose) / prevClose * 100).toFixed(2);
+          return {
+            symbol: symbol,
+            price: '$' + price.toFixed(2),
+            change: (change > 0 ? '+' : '') + change + '%',
+            label: meta.longName || symbol
+          };
+        })
+        .catch(() => null);
+    });
+    return Promise.all(promises).then(results => results.filter(r => r !== null));
+  }
+
   // ============================================================
-  // 5. SHIVANETRA – COSMIC / ASTROLOGY
+  // 5. SHIVANETRA – COSMIC (with DOB picker)
   // ============================================================
+
+  function loadCosmicData() {
+    resultsDiv.innerHTML = '<div class="loader" style="display:block;"><div class="spinner"></div><p style="margin-top:8px;">Reading your cosmic profile…</p></div>';
+    
+    const savedDOB = localStorage.getItem('myai_dob') || '1990-01-01';
+    
+    // Show DOB picker first
+    resultsDiv.innerHTML = `
+      <div style="margin-bottom:20px;">
+        <div class="dob-picker">
+          <label>📅 Your Birth Date:</label>
+          <input type="date" id="dobInput" value="${savedDOB}">
+          <button onclick="updateCosmicDOB()">Update Profile</button>
+        </div>
+        <div id="cosmicContent"></div>
+      </div>
+    `;
+    
+    // Calculate cosmic data based on DOB
+    const dob = new Date(savedDOB);
+    const now = new Date();
+    const age = now.getFullYear() - dob.getFullYear();
+    
+    // Simple zodiac calculation
+    const month = dob.getMonth() + 1;
+    const day = dob.getDate();
+    let sunSign = 'Gemini';
+    if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) sunSign = 'Aries';
+    else if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) sunSign = 'Taurus';
+    else if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) sunSign = 'Gemini';
+    else if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) sunSign = 'Cancer';
+    else if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) sunSign = 'Leo';
+    else if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) sunSign = 'Virgo';
+    else if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) sunSign = 'Libra';
+    else if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) sunSign = 'Scorpio';
+    else if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) sunSign = 'Sagittarius';
+    else if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) sunSign = 'Capricorn';
+    else if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) sunSign = 'Aquarius';
+    else if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) sunSign = 'Pisces';
+    
+    // Kabala number (life path simplified)
+    const sum = String(age).split('').reduce((a, b) => a + parseInt(b), 0);
+    const kabalaNum = sum > 9 ? String(sum).split('').reduce((a, b) => a + parseInt(b), 0) : sum;
+    
+    const data = {
+      name: 'Seliim Ahmed',
+      dob: savedDOB,
+      age: age,
+      wisdom: 'Saturn brings discipline and structure today. Review your long-term goals and create a practical plan. Delayed gratification now leads to major rewards later. Financial budgeting and debt reduction are highlighted.',
+      planets: [
+        { name: 'Sun', position: '89.5', sign: 'Gemini ♊' },
+        { name: 'Moon', position: '324.3', sign: 'Aquarius ♒' },
+        { name: 'Mercury', position: '157.8', sign: 'Virgo ♍' },
+        { name: 'Venus', position: '325.5', sign: 'Aquarius ♒' },
+        { name: 'Mars', position: '85.1', sign: 'Gemini ♊' },
+        { name: 'Jupiter', position: '48.3', sign: 'Taurus ♉' },
+        { name: 'Saturn', position: '55.7', sign: 'Taurus ♉' }
+      ],
+      kabala: {
+        number: kabalaNum || '8',
+        title: kabalaNum === 8 ? 'The Achiever' : 'The Seeker',
+        sunSign: sunSign,
+        sunSignDetail: 'Core identity and life purpose',
+        lifePath: '3',
+        kua: '1'
+      },
+      advice: `Your ${sunSign} energy aligns with Business and Commerce. This month's planetary transits favor partnerships and contracts. Wear Blue on important days to activate your Earth energy and attract opportunities.`
+    };
+    
+    setTimeout(() => {
+      renderCosmicData(data);
+    }, 300);
+  }
+
+  window.updateCosmicDOB = function() {
+    const dob = document.getElementById('dobInput').value;
+    if (dob) {
+      localStorage.setItem('myai_dob', dob);
+      loadCosmicData();
+    }
+  };
 
   function renderCosmicData(data) {
-    resultsDiv.innerHTML = '';
+    const content = document.getElementById('cosmicContent');
+    if (!content) return;
     
-    const header = document.createElement('div');
-    header.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;';
-    header.innerHTML = `<h2 style="color:#c0c0c0;font-weight:300;font-size:1.3rem;letter-spacing:1px;">🔮 Shivanetra – Your Cosmic Profile</h2>`;
-    resultsDiv.appendChild(header);
-
+    content.innerHTML = '';
+    
     // Welcome
     const welcome = document.createElement('div');
-    welcome.style.cssText = 'color:#666;margin-bottom:16px;';
-    welcome.innerHTML = `Welcome, <span style="color:#c0c0c0;">${data.name || 'Seliim Ahmed'}</span>!`;
-    resultsDiv.appendChild(welcome);
+    welcome.style.cssText = 'color:#666;margin-bottom:16px;font-size:.9rem;';
+    welcome.innerHTML = `Welcome, <span style="color:#c0c0c0;">${data.name}</span>! Age: ${data.age} years | Sun Sign: ${data.kabala.sunSign}`;
+    content.appendChild(welcome);
 
     // Today's Wisdom
     if (data.wisdom) {
       const wisdom = document.createElement('div');
       wisdom.className = 'cosmic-wisdom';
       wisdom.innerHTML = `
-        <div class="title">🌠 Today's Wisdom</div>
+        <div class="title">🌠 Today's Wisdom for ${data.name}</div>
         <div class="text">${data.wisdom}</div>
       `;
-      resultsDiv.appendChild(wisdom);
+      content.appendChild(wisdom);
     }
 
     // Planet Positions
@@ -677,7 +834,7 @@
       const title = document.createElement('div');
       title.className = 'finance-section-title';
       title.textContent = '🪐 Planet Positions';
-      resultsDiv.appendChild(title);
+      content.appendChild(title);
       
       const grid = document.createElement('div');
       grid.className = 'planet-grid';
@@ -691,7 +848,7 @@
         `;
         grid.appendChild(card);
       });
-      resultsDiv.appendChild(grid);
+      content.appendChild(grid);
     }
 
     // Kabala / Life Path
@@ -716,7 +873,7 @@
         `;
         grid.appendChild(card);
       });
-      resultsDiv.appendChild(grid);
+      content.appendChild(grid);
     }
 
     // Advice
@@ -728,39 +885,8 @@
         <div class="title">💎 Personalized Advice</div>
         <div class="text">${data.advice}</div>
       `;
-      resultsDiv.appendChild(advice);
+      content.appendChild(advice);
     }
-  }
-
-  function loadCosmicData() {
-    resultsDiv.innerHTML = '<div class="loader" style="display:block;"><div class="spinner"></div><p style="margin-top:8px;">Reading your cosmic profile…</p></div>';
-    
-    // Simulated cosmic data – in production, you'd calculate this from real APIs
-    setTimeout(() => {
-      const data = {
-        name: 'Seliim Ahmed',
-        wisdom: 'Saturn brings discipline and structure today. Review your long-term goals and create a practical plan. Delayed gratification now leads to major rewards later. Financial budgeting and debt reduction are highlighted.',
-        planets: [
-          { name: 'Sun', position: '89.5', sign: 'Gemini ♊' },
-          { name: 'Moon', position: '324.3', sign: 'Aquarius ♒' },
-          { name: 'Mercury', position: '157.8', sign: 'Virgo ♍' },
-          { name: 'Venus', position: '325.5', sign: 'Aquarius ♒' },
-          { name: 'Mars', position: '85.1', sign: 'Gemini ♊' },
-          { name: 'Jupiter', position: '48.3', sign: 'Taurus ♉' },
-          { name: 'Saturn', position: '55.7', sign: 'Taurus ♉' }
-        ],
-        kabala: {
-          number: '8',
-          title: 'The Achiever',
-          sunSign: 'Gemini',
-          sunSignDetail: 'Core identity and life purpose',
-          lifePath: '3',
-          kua: '1'
-        },
-        advice: 'Your Business & Commerce path aligns with Business, Law, Management energies. This month\'s planetary transits favor partnerships and contracts. Wear Blue on important days to activate your Earth energy and attract opportunities.'
-      };
-      renderCosmicData(data);
-    }, 800);
   }
 
   // ============================================================
