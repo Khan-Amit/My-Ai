@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>MY‑AI™ Platform</title>
   <style>
-    /* ============================================================
-       LIGHT SILVER THEME — Background: #d0d0d0 · Cards: #e0e0e0
-       ============================================================ */
+    /* ===== LIGHT SILVER THEME (same as before) ===== */
     *{margin:0;padding:0;box-sizing:border-box}
     body{background:#d0d0d0;font-family:-apple-system,'Segoe UI',Roboto,system-ui,sans-serif;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:20px 16px 40px;color:#1a1a1a}
     .container{max-width:960px;width:100%;background:#e0e0e0;border-radius:24px;padding:30px 24px;box-shadow:0 8px 32px rgba(0,0,0,0.08)}
@@ -152,14 +150,12 @@
 </head>
 <body>
 <div class="container">
-  <!-- ===== BRAND ===== -->
   <div class="brand">
     <div class="eye-icon">👁️</div>
     <h1>AI SEARCH ENGINE <small>MY‑AI™</small></h1>
     <div class="byline">Created by Seliim Ahmed &bull; All rights reserved &bull; <a href="mailto:amit.khanna.1082@gmail.com">amit.khanna.1082@gmail.com</a></div>
   </div>
 
-  <!-- ===== VISITOR COUNTER ===== -->
   <div class="visitor-counter" id="visitorCounter">
     <div class="stat">👁️ <strong id="totalVisitors">...</strong> <span>total</span></div>
     <div class="stat"><span class="online-dot"></span> <strong id="onlineNow">...</strong> <span>online</span></div>
@@ -167,13 +163,11 @@
     <button class="refresh-btn" onclick="refreshStats()">↻</button>
   </div>
 
-  <!-- ===== SEARCH BAR ===== -->
   <div class="search-area" id="searchArea">
     <input type="text" id="queryInput" placeholder="Search…" autofocus>
     <button id="searchBtn">Search</button>
   </div>
   
-  <!-- ===== MODE TOGGLE ===== -->
   <div class="mode-toggle">
     <button id="webMode" class="active">🌐 Web</button>
     <button id="imageMode">🖼️ Images</button>
@@ -191,19 +185,16 @@
     <button id="enigmaMode">🔐 Enigma</button>
   </div>
   
-  <!-- ===== GEO TOGGLE ===== -->
   <div class="geo-toggle" id="geoToggle">
     <label><input type="radio" name="geo" value="global" checked><span>🌍 Global</span></label>
     <label><input type="radio" name="geo" value="local"><span>📍 Local</span></label>
   </div>
   
-  <!-- ===== AI OVERVIEW ===== -->
   <div id="aiOverview" class="ai-overview"><div class="label"><span>AI Overview</span> ✦</div><div class="summary" id="overviewText"></div></div>
   <div id="bestLink" class="best-link"><div class="badge">⭐ Best match</div><a href="#" id="bestLinkUrl" target="_blank" rel="noopener"></a><div class="url" id="bestLinkDisplayUrl"></div><div class="snippet" id="bestLinkSnippet"></div></div>
   <div id="loader" class="loader"><div class="spinner"></div><p style="margin-top:8px;">Loading…</p></div>
   <div id="results"><div class="info-message">🔍 Enter a query above</div></div>
 
-  <!-- ===== PAYMENT METHODS ===== -->
   <div class="payment-methods">
     <span class="label">💳 We Accept:</span>
     <span class="method"><span class="icon">🏦</span> bKash</span>
@@ -214,7 +205,6 @@
     <span style="color:#888;font-size:.65rem;margin-left:4px;">• Secure • Fast • Local</span>
   </div>
 
-  <!-- ===== VISITOR LOG ===== -->
   <div class="visitor-log" id="visitorLog">
     <h3>🕵️ Visitor Log (last 20 visits)</h3>
     <table>
@@ -223,26 +213,24 @@
     </table>
   </div>
 
-  <!-- ===== ADMIN PANEL ===== -->
+  <!-- ===== ADMIN PANEL (EMPTY BY DEFAULT) ===== -->
   <div id="adminPanel" class="admin-panel">
     <h3>🛡️ Block List (Admin)</h3>
     <label>Blocked Countries (comma‑separated, e.g. SG, CN)</label>
-    <input type="text" id="blockedCountriesInput" placeholder="SG, CN, RU">
+    <input type="text" id="blockedCountriesInput" placeholder="e.g. SG, CN, RU" value="">
     <label>Blocked IPs (comma‑separated)</label>
-    <textarea id="blockedIPsInput" rows="2" placeholder="192.168.1.1, 10.0.0.1"></textarea>
+    <textarea id="blockedIPsInput" rows="2" placeholder="e.g. 192.168.1.1, 10.0.0.1"></textarea>
     <button onclick="saveBlockList()">💾 Save Block List</button>
     <button onclick="clearBlockList()" style="background:#666;color:#fff;margin-left:8px;">🗑️ Clear All</button>
     <div id="adminStatus" style="color:#27ae60;margin-top:8px;"></div>
   </div>
 
-  <!-- ===== FOOTER ===== -->
   <div class="footer">
     <span>© 2026 MY‑AI — built with ternary intelligence</span>
     <br>
     <span style="font-size:0.65rem;color:#888;">Videos by <a href="https://www.pexels.com" target="_blank">Pexels</a> &bull; Movies by <a href="https://www.omdbapi.com" target="_blank">OMDb</a> &bull; Data by <a href="https://www.worldbank.org" target="_blank">World Bank</a> &bull; Cosmic by Shivanetra &bull; Bazar by MY‑AI</span>
   </div>
 
-  <!-- Admin Toggle Button -->
   <button class="admin-toggle" onclick="toggleAdmin()">⚙️</button>
 </div>
 
@@ -255,7 +243,7 @@
   const OMDb_KEY = '10c5142';
 
   // ============================================================
-  // 2. VISITOR TRACKING + BLOCK LIST + FILTER
+  // 2. VISITOR TRACKING + BLOCK LIST (EMPTY BY DEFAULT)
   // ============================================================
   const LOG_KEY = 'myai_visit_log';
   const TOTAL_KEY = 'myai_total_visits';
@@ -265,7 +253,7 @@
   const BLOCKED_COUNTRIES_KEY = 'myai_blocked_countries';
   const BLOCKED_IPS_KEY = 'myai_blocked_ips';
 
-  // 🛡️ EXCLUDE YOURSELF / CLOUDFLARE
+  // 🛡️ EXCLUDE YOURSELF / CLOUDFLARE (still active)
   const EXCLUDED_IPS = [
     '2a09:bac5:55fb:1028::19c:2a3',
     '2a09:bac5:56be:1028::19c:a',
@@ -277,7 +265,7 @@
     return EXCLUDED_IPS.includes(ip) || EXCLUDED_COUNTRIES.includes(country);
   }
 
-  // Admin panel
+  // ----- Admin panel (now empty by default) -----
   function getBlockedCountries() {
     const val = localStorage.getItem(BLOCKED_COUNTRIES_KEY);
     return val ? val.split(',').map(s => s.trim().toUpperCase()).filter(s => s) : [];
@@ -291,6 +279,7 @@
     const panel = document.getElementById('adminPanel');
     panel.classList.toggle('visible');
     if (panel.classList.contains('visible')) {
+      // ✅ Always show current values (or empty)
       document.getElementById('blockedCountriesInput').value = getBlockedCountries().join(', ');
       document.getElementById('blockedIPsInput').value = getBlockedIPs().join(', ');
     }
@@ -316,6 +305,7 @@
     location.reload();
   };
 
+  // ----- Visitor tracking (same as before, with filter) -----
   function getVisitorId() {
     let id = localStorage.getItem(VISITOR_ID_KEY);
     if (!id) {
@@ -368,7 +358,6 @@
       }));
   }
 
-  // Logging with filter
   function addVisitLog(entry) {
     let log = JSON.parse(localStorage.getItem(LOG_KEY) || '[]');
     log.unshift(entry);
@@ -417,10 +406,7 @@
     const isNewVisit = !lastVisit || (now - parseInt(lastVisit) > twentyFourHours);
 
     getLocation().then(loc => {
-      // 🛡️ Skip if excluded (Cloudflare / self)
-      if (isExcluded(loc.ip, loc.country_code)) {
-        return;
-      }
+      if (isExcluded(loc.ip, loc.country_code)) return;
 
       const timestamp = new Date().toLocaleString('en-US', { hour12: false });
       const entry = { time: timestamp, country: loc.country, city: loc.city, ip: loc.ip };
@@ -482,7 +468,7 @@
   window.refreshStats = function() { updateCounterDisplay(); renderLog(); };
 
   // ============================================================
-  // 3. SEARCH ENGINE FUNCTIONS (Web, Images, Movies, Finance, Cosmic)
+  // 3. SEARCH ENGINE FUNCTIONS (same as before)
   // ============================================================
   const queryInput = document.getElementById('queryInput');
   const searchBtn = document.getElementById('searchBtn');
@@ -791,7 +777,7 @@
       });
   }
 
-  // ----- Render helpers -----
+  // ----- Render helpers (unchanged) -----
   function renderWebResults(data) {
     resultsDiv.innerHTML = '';
     aiOverview.classList.remove('visible');
@@ -894,7 +880,7 @@
   }
 
   // ============================================================
-  // 4. FINANCE
+  // 4. FINANCE (unchanged)
   // ============================================================
   function renderFinanceData(data) {
     resultsDiv.innerHTML = '';
@@ -1064,7 +1050,7 @@
   }
 
   // ============================================================
-  // 5. COSMIC
+  // 5. COSMIC (unchanged)
   // ============================================================
   function loadCosmicData() {
     resultsDiv.innerHTML = '<div class="loader" style="display:block;"><div class="spinner"></div><p style="margin-top:8px;">Reading your cosmic profile…</p></div>';
