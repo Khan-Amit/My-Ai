@@ -1,24 +1,16 @@
-# Compiled object files
-*.o
-*.obj
-*.exe
-*.dll
-*.so
-*.dylib
+# ========================================
+# 🛡️ MY-AI .gitignore — Hardened Security
+# ========================================
 
-# Executables (common names)
-search
-a.out
-*.out
+# === OS junk ===
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+*.log
+*.cache
 
-# Build directories
-build/
-bin/
-obj/
-Debug/
-Release/
-
-# IDE / editor files
+# === IDE / Editor files ===
 .vscode/
 .idea/
 *.swp
@@ -27,17 +19,84 @@ Release/
 *.user
 *.userprefs
 
-# CMake (if you ever migrate)
-CMakeCache.txt
-CMakeFiles/
-cmake_install.cmake
-Makefile
-CMakeUserPresets.json
+# === Compiled binaries ===
+*.exe
+*.dll
+*.so
+*.dylib
+*.o
+*.obj
+*.out
+*.app
 
-# Backup files
+# === Build directories ===
+build/
+bin/
+obj/
+dist/
+node_modules/
+
+# === Environment & Secrets ===
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+*.crt
+*.p12
+secrets/
+config.local.js
+
+# === Logs & Temporary Data ===
+logs/
+*.log
+*.cache
+*.pid
+*.seed
+*.pid.lock
+
+# === Python / Backend (if added later) ===
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.venv/
+
+# === C++ / Rust compiled (if you add later) ===
+target/
+debug/
+release/
+*.pdb
+
+# === Database files ===
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+
+# === Cloud / Deployment ===
+.terraform/
+*.tfstate
+*.tfstate.*
+.aws/
+.gcloud/
+
+# === Personal & Local Testing ===
+test/
+temp/
+scratch/
+playground/
+
+# === Backup & Archive ===
+*.zip
+*.tar.gz
+*.rar
+*.7z
 *.bak
-*.tmp
+*.old
 
-# OS junk
-.DS_Store
-Thumbs.db
+# === GitHub specific ===
+*.sublime-project
+*.sublime-workspace
+.vagrant/
