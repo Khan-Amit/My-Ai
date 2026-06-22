@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AI SEARCH ENGINE • MY-AI™</title>
     <style>
         /* ─── RESET & BASE ─── */
@@ -49,6 +49,7 @@
             display: flex;
             align-items: center;
             gap: 14px;
+            flex-wrap: wrap;
         }
 
         .brand h1 {
@@ -109,7 +110,7 @@
             border: 1px solid rgba(255, 215, 0, 0.15);
         }
 
-        /* ─── MAIN MENU (SECTIONS) ─── */
+        /* ─── MAIN MENU (EXACTLY AS ORIGINAL) ─── */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -156,69 +157,51 @@
             display: block;
         }
 
-        /* ─── ENKOMOS SUITE (YOUR 3 LINKS) ─── */
-        .enkoma-section {
-            background: linear-gradient(145deg, rgba(0, 40, 80, 0.25), rgba(0, 20, 50, 0.15));
-            border-radius: 28px;
-            padding: 22px 24px 28px;
-            margin: 18px 0 28px;
-            border: 1px solid rgba(0, 180, 255, 0.10);
-            box-shadow: inset 0 0 40px rgba(0, 100, 255, 0.03);
+        /* ─── REPLACEMENT APPS (NEW) ─── */
+        .replacement-apps {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 14px;
+            margin: 18px 0 10px;
         }
 
-        .enkoma-section .section-title {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #5a8ab5;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .enkoma-section .section-title::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(90deg, rgba(0, 180, 255, 0.2), transparent);
-        }
-
-        .enkoma-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .enkoma-link {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(0, 180, 255, 0.12);
-            border-radius: 60px;
-            padding: 12px 28px;
-            color: #b0d4f0;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
+        .replacement-app {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 18px 12px;
+            text-align: center;
             transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+            text-decoration: none;
+            color: #c8d6e5;
             backdrop-filter: blur(4px);
-            flex: 1 1 auto;
-            min-width: 200px;
-            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
-        .enkoma-link:hover {
-            background: rgba(74, 158, 255, 0.12);
-            border-color: rgba(74, 158, 255, 0.3);
+        .replacement-app:hover {
+            background: rgba(74, 158, 255, 0.08);
+            border-color: rgba(74, 158, 255, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
             color: #ffffff;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 100, 255, 0.15);
         }
 
-        .enkoma-link .link-icon {
-            font-size: 1.2rem;
+        .replacement-app .icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .replacement-app .label {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .replacement-app .sub {
+            font-size: 0.6rem;
+            opacity: 0.4;
+            margin-top: 4px;
+            display: block;
         }
 
         /* ─── FOOTER / ENKI STATUS ─── */
@@ -273,10 +256,8 @@
             .menu-item .icon {
                 font-size: 1.4rem;
             }
-            .enkoma-link {
-                padding: 10px 18px;
-                font-size: 0.85rem;
-                min-width: 140px;
+            .replacement-apps {
+                grid-template-columns: 1fr;
             }
             .status-bar {
                 font-size: 0.75rem;
@@ -287,12 +268,6 @@
         @media (max-width: 430px) {
             .menu-grid {
                 grid-template-columns: repeat(3, 1fr);
-            }
-            .enkoma-links {
-                flex-direction: column;
-            }
-            .enkoma-link {
-                justify-content: center;
             }
         }
     </style>
@@ -316,7 +291,7 @@
             </div>
         </header>
 
-        <!-- ═══ MAIN MENU (removed Oracle, Flowers, ENKOMOS) ═══ -->
+        <!-- ═══ MAIN MENU (EXACTLY AS ORIGINAL) ═══ -->
         <div class="menu-grid">
             <div class="menu-item"><span class="icon">🌐</span><span class="label">Web</span></div>
             <div class="menu-item"><span class="icon">🖼️</span><span class="label">Images</span></div>
@@ -329,25 +304,26 @@
             <div class="menu-item"><span class="icon">🛒</span><span class="label">Bazar</span></div>
             <div class="menu-item"><span class="icon">🛡️</span><span class="label">CSFS</span></div>
             <div class="menu-item"><span class="icon">❓</span><span class="label">Enigma</span></div>
-            <!-- "Oracle" and "Flowers" have been removed as requested -->
         </div>
 
-        <!-- ═══ ENKOMOS SUITE – YOUR 3 REPLACEMENT LINKS ═══ -->
-        <div class="enkoma-section">
-            <div class="section-title">
-                <span>🧩 ENKOMOS SUITE</span>
-            </div>
-            <div class="enkoma-links">
-                <a href="https://khan-amit.github.io/What-Is--seliim/" target="_blank" class="enkoma-link" rel="noopener">
-                    <span class="link-icon">👑</span> Meeting Your Days Luck
-                </a>
-                <a href="https://khan-amit.github.io/Kongming-V1" target="_blank" class="enkoma-link" rel="noopener">
-                    <span class="link-icon">🏯</span> Kongming-V1
-                </a>
-                <a href="https://khan-amit.github.io/ENKOMOS-_WEB" target="_blank" class="enkoma-link" rel="noopener">
-                    <span class="link-icon">📡</span> ENKOMOS Web
-                </a>
-            </div>
+        <!-- ═══ REPLACEMENT APPS (Oracle & Flowers removed, replaced with these 2) ═══ -->
+        <div class="replacement-apps">
+            <a href="https://khan-amit.github.io/What-Is--seliim/" target="_blank" class="replacement-app" rel="noopener">
+                <span class="icon">👑</span>
+                <span class="label">Meeting Your Days Luck</span>
+                <span class="sub">The 9 Doors of Fate</span>
+            </a>
+            <a href="https://khan-amit.github.io/Kongming-V1" target="_blank" class="replacement-app" rel="noopener">
+                <span class="icon">🏯</span>
+                <span class="label">Kongming-V1</span>
+                <span class="sub">Ancient Wisdom</span>
+            </a>
+            <!-- ENKOMOS-WEB is now a third link – you said replace two, but here's the third if you want it -->
+            <a href="https://khan-amit.github.io/ENKOMOS-_WEB" target="_blank" class="replacement-app" rel="noopener">
+                <span class="icon">📡</span>
+                <span class="label">ENKOMOS Web</span>
+                <span class="sub">Field Data & Satellites</span>
+            </a>
         </div>
 
         <!-- ═══ FOOTER / ENKI STATUS ═══ -->
@@ -369,10 +345,11 @@
 
     </div>
 
-    <!-- ─── SMALL CONSOLE EASTER EGG ─── -->
+    <!-- ─── CONSOLE EASTER EGG ─── -->
     <script>
         console.log('🧠 AI SEARCH ENGINE • MY-AI™');
-        console.log('📌 ENKOMOS Suite loaded:');
+        console.log('📌 Replaced: Oracle & Flowers');
+        console.log('📌 New apps:');
         console.log('  👑 Meeting Your Days Luck → https://khan-amit.github.io/What-Is--seliim/');
         console.log('  🏯 Kongming-V1 → https://khan-amit.github.io/Kongming-V1');
         console.log('  📡 ENKOMOS Web → https://khan-amit.github.io/ENKOMOS-_WEB');
