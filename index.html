@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>MY‑AI™ Platform</title>
   <style>
-    /* ===== LIGHT SILVER THEME (same as before) ===== */
+    /* ===== LIGHT SILVER THEME ===== */
     *{margin:0;padding:0;box-sizing:border-box}
     body{background:#d0d0d0;font-family:-apple-system,'Segoe UI',Roboto,system-ui,sans-serif;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:20px 16px 40px;color:#1a1a1a}
     .container{max-width:960px;width:100%;background:#e0e0e0;border-radius:24px;padding:30px 24px;box-shadow:0 8px 32px rgba(0,0,0,0.08)}
@@ -177,12 +177,10 @@
     <button id="countItMode">📈 Count It</button>
     <button id="enkomosMode">🌿 ENKOMOS</button>
     <button id="marketTrendsMode">📊 Markets</button>
-    <!-- REPLACED: Oracle → Meeting Luck -->
     <button id="flowerOracleMode">👑 Meeting Luck</button>
     <button id="wisdomMode">🧠 Wisdom</button>
     <button id="bazarMode">🛍️ Bazar</button>
     <button id="csfsMode">🦀 CSFS</button>
-    <!-- REPLACED: Flowers → Kongming-V1 -->
     <button id="flowersMode">🏯 Kongming-V1</button>
     <button id="enigmaMode">🔐 Enigma</button>
   </div>
@@ -255,19 +253,18 @@
   const BLOCKED_COUNTRIES_KEY = 'myai_blocked_countries';
   const BLOCKED_IPS_KEY = 'myai_blocked_ips';
 
-  // 🛡️ EXCLUDE YOURSELF / CLOUDFLARE (still active)
+  // 🛡️ EXCLUDE YOURSELF / CLOUDFLARE
   const EXCLUDED_IPS = [
     '2a09:bac5:55fb:1028::19c:2a3',
     '2a09:bac5:56be:1028::19c:a',
     '127.0.0.1'
   ];
-  const EXCLUDED_COUNTRIES = ['SG']; // Cloudflare edge
+  const EXCLUDED_COUNTRIES = ['SG'];
 
   function isExcluded(ip, country) {
     return EXCLUDED_IPS.includes(ip) || EXCLUDED_COUNTRIES.includes(country);
   }
 
-  // ----- Admin panel (now empty by default) -----
   function getBlockedCountries() {
     const val = localStorage.getItem(BLOCKED_COUNTRIES_KEY);
     return val ? val.split(',').map(s => s.trim().toUpperCase()).filter(s => s) : [];
@@ -302,7 +299,6 @@
     setTimeout(() => document.getElementById('adminStatus').textContent = '', 3000);
   };
 
-  // ----- fetch visitor data -----
   async function fetchVisitorData() {
     try {
       const res = await fetch('https://ipapi.co/json/');
@@ -320,7 +316,6 @@
     }
   }
 
-  // ----- log visit -----
   async function logVisit() {
     const info = await fetchVisitorData();
     const ip = info.ip;
@@ -330,7 +325,6 @@
 
     if (isExcluded(ip, country)) return;
 
-    // Check blocks
     const blockedCountries = getBlockedCountries();
     const blockedIPs = getBlockedIPs();
     if (blockedCountries.includes(country) || blockedIPs.includes(ip)) {
@@ -338,18 +332,15 @@
       return;
     }
 
-    // Generate or retrieve visitor ID
     let visitorId = localStorage.getItem(VISITOR_ID_KEY);
     if (!visitorId) {
       visitorId = 'v_' + Date.now().toString(36) + '_' + Math.random().toString(36).substr(2, 6);
       localStorage.setItem(VISITOR_ID_KEY, visitorId);
     }
 
-    // Get existing log
     let log = JSON.parse(localStorage.getItem(LOG_KEY) || '[]');
     let total = parseInt(localStorage.getItem(TOTAL_KEY) || '0');
 
-    // Check if this visitor already logged today (avoid duplicates)
     const today = new Date().toDateString();
     const existing = log.find(entry => entry.visitorId === visitorId && new Date(entry.timestamp).toDateString() === today);
     if (!existing) {
@@ -367,17 +358,14 @@
       localStorage.setItem(TOTAL_KEY, String(total));
     }
 
-    // Update country stats
     let countries = JSON.parse(localStorage.getItem(COUNTRIES_KEY) || '{}');
     countries[country] = (countries[country] || 0) + 1;
     localStorage.setItem(COUNTRIES_KEY, JSON.stringify(countries));
 
-    // Update online
     let online = JSON.parse(localStorage.getItem(ONLINE_KEY) || '{}');
     const now = Date.now();
     const sessionId = visitorId + '_' + today;
     online[sessionId] = now;
-    // Clean old (>5 min)
     for (const key in online) {
       if (now - online[key] > 300000) delete online[key];
     }
@@ -402,7 +390,6 @@
     }).join(' ');
     document.getElementById('topCountries').textContent = top || 'None yet';
 
-    // Log table
     const log = JSON.parse(localStorage.getItem(LOG_KEY) || '[]');
     const tbody = document.getElementById('logBody');
     if (log.length === 0) {
@@ -411,426 +398,4 @@
       tbody.innerHTML = log.slice(0, 20).map((entry, i) => {
         const flag = entry.country === 'XX' ? '🌍' : entry.country.split('').map(c => String.fromCodePoint(0x1F1E6 + c.charCodeAt(0) - 65)).join('');
         const time = new Date(entry.timestamp).toLocaleString();
-        return `<tr><td>${i+1}</td><td class="timestamp">${time}</td><td><span class="flag">${flag}</span> ${entry.countryName}</td><td>${entry.city}</td><td class="ip">${entry.ip}</td></tr>`;
-      }).join('');
-    }
-  }
-
-  window.refreshStats = function() {
-    updateUI();
-  };
-
-  // ----- INIT -----
-  logVisit();
-  setInterval(updateUI, 30000);
-
-  // ============================================================
-  // 3. SEARCH ENGINE
-  // ============================================================
-  const queryInput = document.getElementById('queryInput');
-  const searchBtn = document.getElementById('searchBtn');
-  const resultsDiv = document.getElementById('results');
-  const loader = document.getElementById('loader');
-  const overviewDiv = document.getElementById('aiOverview');
-  const overviewText = document.getElementById('overviewText');
-  const bestLinkDiv = document.getElementById('bestLink');
-  const bestLinkUrl = document.getElementById('bestLinkUrl');
-  const bestLinkDisplayUrl = document.getElementById('bestLinkDisplayUrl');
-  const bestLinkSnippet = document.getElementById('bestLinkSnippet');
-
-  // Mode buttons
-  const modes = {
-    web: document.getElementById('webMode'),
-    image: document.getElementById('imageMode'),
-    movie: document.getElementById('movieMode'),
-    finance: document.getElementById('financeMode'),
-    cosmic: document.getElementById('cosmicMode'),
-    countIt: document.getElementById('countItMode'),
-    enkomos: document.getElementById('enkomosMode'),
-    marketTrends: document.getElementById('marketTrendsMode'),
-    flowerOracle: document.getElementById('flowerOracleMode'),
-    wisdom: document.getElementById('wisdomMode'),
-    bazar: document.getElementById('bazarMode'),
-    csfs: document.getElementById('csfsMode'),
-    flowers: document.getElementById('flowersMode'),
-    enigma: document.getElementById('enigmaMode')
-  };
-
-  let currentMode = 'web';
-
-  Object.keys(modes).forEach(key => {
-    modes[key].addEventListener('click', function() {
-      document.querySelectorAll('.mode-toggle button').forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      currentMode = key;
-      // If there's a query, search automatically
-      const q = queryInput.value.trim();
-      if (q) performSearch(q, currentMode);
-    });
-  });
-
-  // Search function
-  async function performSearch(query, mode) {
-    if (!query) {
-      resultsDiv.innerHTML = '<div class="info-message">🔍 Enter a query above</div>';
-      return;
-    }
-
-    loader.style.display = 'block';
-    resultsDiv.innerHTML = '';
-    overviewDiv.classList.remove('visible');
-    bestLinkDiv.classList.remove('visible');
-
-    try {
-      let html = '';
-      let overview = '';
-      let best = null;
-
-      switch (mode) {
-        case 'web':
-          html = await webSearch(query);
-          const webData = await fetchWebSearch(query);
-          if (webData.best) best = webData.best;
-          if (webData.overview) overview = webData.overview;
-          break;
-        case 'image':
-          html = await imageSearch(query);
-          break;
-        case 'movie':
-          html = await movieSearch(query);
-          break;
-        case 'finance':
-          html = await financeSearch(query);
-          break;
-        case 'cosmic':
-          html = await cosmicSearch(query);
-          break;
-        case 'countIt':
-          html = await countItSearch(query);
-          break;
-        case 'enkomos':
-          html = await enkomosSearch(query);
-          break;
-        case 'marketTrends':
-          html = await marketTrendsSearch(query);
-          break;
-        case 'flowerOracle':
-          html = await flowerOracleSearch(query);
-          break;
-        case 'wisdom':
-          html = await wisdomSearch(query);
-          break;
-        case 'bazar':
-          html = await bazarSearch(query);
-          break;
-        case 'csfs':
-          html = await csfsSearch(query);
-          break;
-        case 'flowers':
-          html = await flowersSearch(query);
-          break;
-        case 'enigma':
-          html = await enigmaSearch(query);
-          break;
-        default:
-          html = await webSearch(query);
-      }
-
-      if (overview) {
-        overviewText.textContent = overview;
-        overviewDiv.classList.add('visible');
-      }
-
-      if (best) {
-        bestLinkUrl.href = best.url;
-        bestLinkUrl.textContent = best.title || best.url;
-        bestLinkDisplayUrl.textContent = best.url;
-        bestLinkSnippet.textContent = best.snippet || '';
-        bestLinkDiv.classList.add('visible');
-      }
-
-      resultsDiv.innerHTML = html || '<div class="info-message">No results found.</div>';
-    } catch (e) {
-      resultsDiv.innerHTML = `<div class="info-message error">⚠️ Error: ${e.message}</div>`;
-    } finally {
-      loader.style.display = 'none';
-    }
-  }
-
-  // ----- Web Search (simulated with Wikipedia) -----
-  async function fetchWebSearch(query) {
-    try {
-      const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`;
-      const res = await fetch(url);
-      if (!res.ok) throw new Error('Wikipedia API failed');
-      const data = await res.json();
-      if (data.title && data.extract) {
-        return {
-          best: {
-            url: `https://en.wikipedia.org/wiki/${encodeURIComponent(data.title.replace(/ /g,'_'))}`,
-            title: data.title,
-            snippet: data.extract.substring(0, 200) + '...'
-          },
-          overview: data.extract.substring(0, 300) + '...'
-        };
-      }
-      return { best: null, overview: null };
-    } catch (e) {
-      return { best: null, overview: null };
-    }
-  }
-
-  async function webSearch(query) {
-    const data = await fetchWebSearch(query);
-    if (data.best) {
-      return `
-        <div class="result-card">
-          <h3><a href="${data.best.url}" target="_blank" rel="noopener">${data.best.title}</a></h3>
-          <div class="url">${data.best.url}</div>
-          <div class="snippet">${data.best.snippet}</div>
-        </div>
-      `;
-    }
-    return `<div class="info-message">No web results found for "${query}"</div>`;
-  }
-
-  // ----- Image Search (Pexels) -----
-  async function imageSearch(query) {
-    const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=12`;
-    const res = await fetch(url, { headers: { Authorization: PEXELS_KEY } });
-    if (!res.ok) throw new Error('Pexels API error');
-    const data = await res.json();
-    if (!data.photos || data.photos.length === 0) {
-      return `<div class="info-message">No images found for "${query}"</div>`;
-    }
-    return data.photos.map(photo => `
-      <div class="image-card">
-        <img src="${photo.src.medium}" alt="${photo.alt || query}" loading="lazy">
-        <div class="info">
-          <h4><a href="${photo.url}" target="_blank" rel="noopener">${photo.alt || query}</a></h4>
-          <div class="photographer">📷 <a href="${photo.photographer_url}" target="_blank" rel="noopener">${photo.photographer}</a></div>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  // ----- Movie Search (OMDb) -----
-  async function movieSearch(query) {
-    const url = `https://www.omdbapi.com/?s=${encodeURIComponent(query)}&apikey=${OMDb_KEY}`;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error('OMDb API error');
-    const data = await res.json();
-    if (data.Response === 'False') {
-      return `<div class="info-message">No movies found for "${query}"</div>`;
-    }
-    return data.Search.slice(0, 10).map(movie => `
-      <div class="result-card" style="display:flex;gap:16px;align-items:flex-start;">
-        ${movie.Poster && movie.Poster !== 'N/A' ? `<img src="${movie.Poster}" alt="${movie.Title}" class="poster-img">` : `<div class="poster-placeholder">🎬</div>`}
-        <div class="movie-info">
-          <h3><a href="https://www.imdb.com/title/${movie.imdbID}/" target="_blank" rel="noopener">${movie.Title}</a></h3>
-          <div class="movie-detail">${movie.Year} &bull; ${movie.Type}</div>
-          <div class="badge">🎬 ${movie.Type}</div>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  // ----- Finance (mock) -----
-  async function financeSearch(query) {
-    const symbols = ['BTC-USD', 'ETH-USD', 'AAPL', 'GOOGL', 'MSFT', 'TSLA', 'AMZN', 'META'];
-    const html = symbols.map(sym => `
-      <div class="finance-card">
-        <div class="symbol">${sym}</div>
-        <div class="price">$${(Math.random() * 500 + 50).toFixed(2)}</div>
-        <div class="change ${Math.random() > 0.5 ? 'up' : 'down'}">${(Math.random() * 10 - 5).toFixed(2)}%</div>
-        <div class="time">Updated: ${new Date().toLocaleTimeString()}</div>
-      </div>
-    `).join('');
-    return `<div class="finance-section-title">📊 Market Data</div><div class="finance-grid">${html}</div>`;
-  }
-
-  // ----- Cosmic (mock) -----
-  async function cosmicSearch(query) {
-    const planets = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn'];
-    const signs = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'];
-    const html = planets.map(p => `
-      <div class="planet-card">
-        <div class="name">${p}</div>
-        <div class="pos">${signs[Math.floor(Math.random() * signs.length)]}</div>
-        <div class="sign">${(Math.random() * 30).toFixed(1)}°</div>
-      </div>
-    `).join('');
-    return `
-      <div class="cosmic-wisdom">
-        <div class="title">🔮 Cosmic Wisdom</div>
-        <div class="text">The stars align for "${query}". Today is a day of ${['wonder', 'discovery', 'growth', 'reflection', 'action'][Math.floor(Math.random() * 5)]}.</div>
-      </div>
-      <div class="planet-grid">${html}</div>
-    `;
-  }
-
-  // ----- Count It (mock) -----
-  async function countItSearch(query) {
-    const count = query.length * 7 + Math.floor(Math.random() * 100);
-    return `
-      <div class="result-card">
-        <h3>📈 Count Results for "${query}"</h3>
-        <div style="font-size:2rem;font-weight:300;color:#1a1a1a;">${count.toLocaleString()}</div>
-        <div class="snippet">Total occurrences: ${count} | Analyzed: ${query.split(' ').length} words</div>
-      </div>
-    `;
-  }
-
-  // ----- ENKOMOS (mock) -----
-  async function enkomosSearch(query) {
-    return `
-      <div class="result-card">
-        <h3>🌿 ENKOMOS Field Data</h3>
-        <div class="snippet">Searching for "${query}" in ENKOMOS database...</div>
-        <div style="margin-top:8px;color:#666;">📍 Location: ${['North Field', 'South Valley', 'East Ridge', 'West Plains'][Math.floor(Math.random() * 4)]}</div>
-        <div style="color:#666;">📊 Soil moisture: ${(Math.random() * 100).toFixed(1)}%</div>
-        <div style="color:#666;">🌡️ Temperature: ${(Math.random() * 40 + 10).toFixed(1)}°C</div>
-        <div class="badge">🌾 ENKOMOS Pro</div>
-      </div>
-    `;
-  }
-
-  // ----- Market Trends (mock) -----
-  async function marketTrendsSearch(query) {
-    return `
-      <div class="finance-section-title">📈 Market Trends for "${query}"</div>
-      <div class="finance-grid">
-        ${['Trend 1', 'Trend 2', 'Trend 3', 'Trend 4'].map(t => `
-          <div class="finance-card">
-            <div class="symbol">${t}</div>
-            <div class="price">${(Math.random() * 1000 + 100).toFixed(2)}</div>
-            <div class="change ${Math.random() > 0.5 ? 'up' : 'down'}">${(Math.random() * 20 - 10).toFixed(2)}%</div>
-          </div>
-        `).join('')}
-      </div>
-    `;
-  }
-
-  // ----- Flower Oracle (mock) -----
-  async function flowerOracleSearch(query) {
-    const flowers = ['🌹 Rose', '🌻 Sunflower', '🌷 Tulip', '🌸 Cherry Blossom', '🌺 Hibiscus', '🌼 Daisy', '🌿 Lavender', '🌱 Mint'];
-    const oracle = ['Love is blooming', 'Growth is coming', 'Patience brings reward', 'New beginnings ahead', 'Healing is near'];
-    return `
-      <div class="result-card">
-        <h3>🌸 Oracle Reading for "${query}"</h3>
-        <div style="font-size:2.5rem;margin:10px 0;">${flowers[Math.floor(Math.random() * flowers.length)]}</div>
-        <div class="snippet">✨ ${oracle[Math.floor(Math.random() * oracle.length)]}</div>
-        <div class="badge">🔮 Oracle</div>
-      </div>
-    `;
-  }
-
-  // ----- Wisdom (mock) -----
-  async function wisdomSearch(query) {
-    const wisdoms = [
-      'The only true wisdom is in knowing you know nothing.',
-      'It does not matter how slowly you go as long as you do not stop.',
-      'The journey of a thousand miles begins with one step.',
-      'In the middle of difficulty lies opportunity.'
-    ];
-    return `
-      <div class="result-card">
-        <h3>🧠 Wisdom for "${query}"</h3>
-        <div class="snippet" style="font-size:1.1rem;font-style:italic;color:#1a1a1a;">"${wisdoms[Math.floor(Math.random() * wisdoms.length)]}"</div>
-        <div class="badge">📜 Ancient Wisdom</div>
-      </div>
-    `;
-  }
-
-  // ----- Bazar (mock) -----
-  async function bazarSearch(query) {
-    const items = ['🛍️ Handcrafted goods', '📿 Spiritual items', '🧿 Protection amulets', '📚 Ancient texts', '🎨 Art pieces'];
-    return `
-      <div class="result-card">
-        <h3>🛍️ Bazar Results for "${query}"</h3>
-        <div class="snippet">${items.map(i => `• ${i}`).join('<br>')}</div>
-        <div class="badge">💰 Bazar</div>
-      </div>
-    `;
-  }
-
-  // ----- CSFS (mock) -----
-  async function csfsSearch(query) {
-    return `
-      <div class="result-card">
-        <h3>🦀 CSFS System</h3>
-        <div class="snippet">Searching "${query}" in CSFS...</div>
-        <div style="color:#666;">🛡️ Security: ${['High', 'Medium', 'Low'][Math.floor(Math.random() * 3)]}</div>
-        <div style="color:#666;">🔐 Encryption: Active</div>
-        <div class="badge">🛡️ CSFS</div>
-      </div>
-    `;
-  }
-
-  // ----- Flowers (mock) -----
-  async function flowersSearch(query) {
-    const flowers = ['🌹 Rose', '🌻 Sunflower', '🌷 Tulip', '🌸 Cherry Blossom', '🌺 Hibiscus', '🌼 Daisy', '🌿 Lavender', '🌱 Mint'];
-    return `
-      <div class="result-card">
-        <h3>🌹 Flowers for "${query}"</h3>
-        <div style="font-size:2rem;margin:10px 0;">${flowers.map(f => f).join(' ')}</div>
-        <div class="snippet">🌿 ${flowers[Math.floor(Math.random() * flowers.length)]} – A beautiful choice for ${query}</div>
-        <div class="badge">🌸 Flowers</div>
-      </div>
-    `;
-  }
-
-  // ----- Enigma (mock) -----
-  async function enigmaSearch(query) {
-    const encoded = btoa(query);
-    return `
-      <div class="result-card">
-        <h3>🔐 Enigma Encoded</h3>
-        <div style="font-size:1.1rem;color:#1a1a1a;word-break:break-all;">${encoded}</div>
-        <div class="snippet">🔑 Encoded using Base64. Decode to reveal the original.</div>
-        <div class="badge">🔐 Enigma</div>
-      </div>
-    `;
-  }
-
-  // ----- Search handler -----
-  searchBtn.addEventListener('click', () => {
-    const q = queryInput.value.trim();
-    if (q) performSearch(q, currentMode);
-  });
-
-  queryInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      const q = queryInput.value.trim();
-      if (q) performSearch(q, currentMode);
-    }
-  });
-
-  // ============================================================
-  // 4. MODE BUTTON CLICK HANDLERS (redirect to URLs for the replaced ones)
-  // ============================================================
-  // REPLACED: Oracle → Meeting Luck
-  document.getElementById('flowerOracleMode').addEventListener('click', function() {
-    window.open('https://khan-amit.github.io/What-Is--seliim/', '_blank');
-  });
-
-  // REPLACED: Flowers → Kongming-V1
-  document.getElementById('flowersMode').addEventListener('click', function() {
-    window.open('https://khan-amit.github.io/Kongming-V1', '_blank');
-  });
-
-  // ENKOMOS also links out if you want
-  document.getElementById('enkomosMode').addEventListener('click', function() {
-    window.open('https://khan-amit.github.io/ENKOMOS-_WEB', '_blank');
-  });
-
-  console.log('👁️ MY‑AI Platform loaded.');
-  console.log('📌 Replacements:');
-  console.log('  🌸 Oracle → 👑 Meeting Luck (https://khan-amit.github.io/What-Is--seliim/)');
-  console.log('  🌹 Flowers → 🏯 Kongming-V1 (https://khan-amit.github.io/Kongming-V1)');
-  console.log('  🌿 ENKOMOS → 📡 ENKOMOS Web (https://khan-amit.github.io/ENKOMOS-_WEB)');
-})();
-</script>
-
-</body>
-</html>
+        return `<tr><td>${i+1}</td><td class="timestamp">${time}</td><td><span class="flag">${flag}</span> ${entry.countryName}</td><
