@@ -1,360 +1,836 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI SEARCH ENGINE • MY-AI™</title>
-    <style>
-        /* ─── RESET & BASE ─── */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>MY‑AI™ Platform</title>
+  <style>
+    /* ===== LIGHT SILVER THEME (same as before) ===== */
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#d0d0d0;font-family:-apple-system,'Segoe UI',Roboto,system-ui,sans-serif;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:20px 16px 40px;color:#1a1a1a}
+    .container{max-width:960px;width:100%;background:#e0e0e0;border-radius:24px;padding:30px 24px;box-shadow:0 8px 32px rgba(0,0,0,0.08)}
+    .brand{text-align:center;margin-bottom:30px}
+    .brand .eye-icon{font-size:3.2rem;line-height:1;display:block;margin-bottom:4px;filter:drop-shadow(0 0 6px rgba(160,160,160,0.3))}
+    .brand h1{font-size:2.2rem;font-weight:300;letter-spacing:2px;color:#1a1a1a;margin-top:2px}
+    .brand h1 small{font-size:1rem;font-weight:400;color:#555;letter-spacing:1px}
+    .brand .byline{font-size:0.9rem;color:#555;margin-top:4px}
+    .brand .byline a{color:#1a1a1a;text-decoration:none;border-bottom:1px dotted #888}
+    .brand .byline a:hover{color:#000}
+    .search-area{background:#f0f0f0;border-radius:60px;padding:8px 8px 8px 20px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(0,0,0,0.04);border:1px solid #ccc;margin-bottom:12px}
+    .search-area input[type="text"]{flex:1;background:transparent;border:none;padding:14px 0;font-size:1.1rem;color:#1a1a1a;outline:none;min-width:0}
+    .search-area input::placeholder{color:#888;font-style:italic}
+    .search-area button{background:#1a1a1a;border:none;border-radius:40px;padding:12px 28px;font-weight:600;font-size:1rem;color:#fff;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+    .search-area button:hover{background:#333;transform:scale(1.01);box-shadow:0 4px 12px rgba(0,0,0,0.12)}
+    .mode-toggle{display:flex;gap:6px;margin-bottom:18px;justify-content:center;flex-wrap:wrap}
+    .mode-toggle button{background:#f0f0f0;border:1px solid #ccc;border-radius:40px;padding:8px 14px;font-size:.75rem;font-weight:500;color:#333;cursor:pointer;transition:all .2s}
+    .mode-toggle button.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a;box-shadow:0 0 12px rgba(0,0,0,0.08)}
+    .mode-toggle button:hover{background:#ddd;color:#000;border-color:#aaa}
+    .geo-toggle{display:flex;justify-content:flex-end;gap:12px;margin:0 0 16px;font-size:.9rem}
+    .geo-toggle label{display:flex;align-items:center;gap:6px;color:#333;cursor:pointer}
+    .geo-toggle input[type="radio"]{accent-color:#1a1a1a;width:16px;height:16px}
+    .geo-toggle input[type="radio"]:checked+span{color:#000;font-weight:500}
+    .ai-overview{background:#f5f5f5;border-left:4px solid #1a1a1a;border-radius:8px;padding:16px 20px;margin-bottom:20px;display:none}
+    .ai-overview.visible{display:block}
+    .ai-overview .label{font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:#666;display:flex;align-items:center;gap:8px;margin-bottom:4px}
+    .ai-overview .label span{background:#1a1a1a;color:#fff;padding:0 10px;border-radius:12px;font-weight:600;font-size:.7rem}
+    .ai-overview .summary{font-size:1rem;line-height:1.5;color:#1a1a1a}
+    .best-link{background:#f5f5f5;border:1px solid #ccc;border-radius:12px;padding:16px 20px;margin-bottom:20px;display:none}
+    .best-link.visible{display:block}
+    .best-link .badge{display:inline-block;background:#1a1a1a;color:#fff;font-size:.7rem;font-weight:700;padding:2px 12px;border-radius:20px;letter-spacing:.5px;margin-bottom:6px}
+    .best-link a{color:#1a1a1a;text-decoration:none;font-weight:600;font-size:1.1rem}
+    .best-link a:hover{text-decoration:underline;color:#000}
+    .best-link .url{font-size:.8rem;color:#666;word-break:break-all}
+    .best-link .snippet{font-size:.95rem;color:#555;margin-top:4px}
+    #results{margin-top:0}
+    .result-card{background:#f5f5f5;color:#1a1a1a;border-radius:12px;padding:16px 20px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .15s;word-break:break-word;border:1px solid #ddd}
+    .result-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
+    .result-card h3{font-size:1.1rem;font-weight:600;margin-bottom:4px}
+    .result-card h3 a{color:#1a1a1a;text-decoration:none}
+    .result-card h3 a:hover{text-decoration:underline}
+    .result-card .url{font-size:.8rem;color:#555;opacity:.7;margin-bottom:4px;word-break:break-all}
+    .result-card .snippet{font-size:.95rem;line-height:1.4;color:#1a1a1a}
+    .result-card .badge{display:inline-block;background:#ccc;padding:2px 10px;border-radius:20px;font-size:.7rem;font-weight:500;letter-spacing:.3px;color:#333;margin-top:6px}
+    .result-card .poster-img{width:80px;height:120px;object-fit:cover;border-radius:8px;flex-shrink:0;background:#ddd}
+    .result-card .poster-placeholder{width:80px;height:120px;background:#ddd;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#888;font-size:2rem}
+    .result-card .movie-info{flex:1;min-width:0}
+    .result-card .movie-detail{font-size:.8rem;color:#555;margin-top:4px}
+    .image-card{background:#f5f5f5;border-radius:12px;overflow:hidden;margin-bottom:16px;border:1px solid #ddd;transition:all .15s}
+    .image-card:hover{transform:scale(1.01);border-color:#aaa}
+    .image-card img{width:100%;height:200px;object-fit:cover;display:block}
+    .image-card .info{padding:12px 16px;color:#1a1a1a}
+    .image-card .info h4{font-weight:500;font-size:1rem;margin-bottom:4px}
+    .image-card .info h4 a{color:#1a1a1a;text-decoration:none}
+    .image-card .info h4 a:hover{text-decoration:underline;color:#000}
+    .image-card .info .photographer{font-size:.85rem;color:#666}
+    .image-card .info .photographer a{color:#555;text-decoration:none}
+    .image-card .info .photographer a:hover{color:#000}
+    .info-message{text-align:center;color:#666;padding:30px 0;font-style:italic}
+    .info-message.error{color:#c0392b}
+    .info-message a{color:#1a1a1a;text-decoration:underline}
+    .loader{text-align:center;color:#666;padding:20px 0;display:none}
+    .loader .spinner{display:inline-block;width:24px;height:24px;border:3px solid #ccc;border-top:3px solid #1a1a1a;border-radius:50%;animation:spin .8s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .footer{margin-top:40px;text-align:center;font-size:.75rem;color:#666;border-top:1px solid #ccc;padding-top:20px;letter-spacing:.5px}
+    .footer a{color:#555;text-decoration:none}
+    .footer a:hover{color:#1a1a1a}
+    @media(max-width:480px){.search-area{border-radius:40px;padding:4px 4px 4px 16px}.search-area input[type="text"]{font-size:1rem;padding:12px 0}.search-area button{padding:10px 18px;font-size:.9rem}.brand h1{font-size:1.8rem}.brand .eye-icon{font-size:2.6rem}.image-card img{height:150px}.result-card{flex-direction:column;align-items:center;text-align:center}.result-card .poster-img,.result-card .poster-placeholder{width:100%;height:180px}.result-card .movie-info{width:100%}}
 
-        body {
-            background: #0b0d14;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            color: #e8edf5;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+    .visitor-counter{background:#f5f5f5;border-radius:16px;padding:16px 20px;margin-bottom:20px;border:1px solid #ddd;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center}
+    .visitor-counter .stat{display:flex;align-items:center;gap:6px;color:#555;font-size:.85rem}
+    .visitor-counter .stat strong{color:#1a1a1a;font-size:1.1rem}
+    .visitor-counter .stat .flag{font-size:1.3rem}
+    .visitor-counter .countries{display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:center}
+    .visitor-counter .countries span{display:flex;align-items:center;gap:4px;font-size:.8rem;color:#555}
+    .visitor-counter .countries span .flag{font-size:1.1rem}
+    .visitor-counter .online-dot{display:inline-block;width:8px;height:8px;background:#27ae60;border-radius:50%;animation:pulse 1.5s infinite}
+    @keyframes pulse{0%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}100%{opacity:1;transform:scale(1)}}
+    .visitor-counter .refresh-btn{background:transparent;border:1px solid #ccc;color:#666;padding:4px 12px;border-radius:20px;font-size:.7rem;cursor:pointer;transition:.2s}
+    .visitor-counter .refresh-btn:hover{background:#ddd;color:#000}
+    .visitor-log{background:#f5f5f5;border-radius:12px;padding:16px 20px;margin-top:16px;border:1px solid #ddd;max-height:200px;overflow-y:auto}
+    .visitor-log h3{color:#1a1a1a;font-weight:300;font-size:.9rem;margin-bottom:10px;letter-spacing:1px}
+    .visitor-log table{width:100%;font-size:.75rem;border-collapse:collapse}
+    .visitor-log th{text-align:left;color:#666;font-weight:500;padding-bottom:6px;border-bottom:1px solid #ccc}
+    .visitor-log td{padding:4px 0;color:#333;border-bottom:1px solid #eee}
+    .visitor-log .flag{font-size:1rem}
+    .visitor-log .ip{color:#666;font-size:.65rem}
+    .visitor-log .timestamp{color:#888;font-size:.65rem}
+    .visitor-log::-webkit-scrollbar{width:4px}
+    .visitor-log::-webkit-scrollbar-thumb{background:#ccc;border-radius:4px}
+    .visitor-log::-webkit-scrollbar-track{background:transparent}
 
-        .dashboard {
-            max-width: 1300px;
-            width: 100%;
-            background: rgba(18, 22, 33, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 48px;
-            padding: 32px 30px 40px;
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(0, 180, 255, 0.12);
-            border: 1px solid rgba(0, 180, 255, 0.08);
-        }
+    .finance-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px}
+    .finance-card{background:#f5f5f5;border-radius:12px;padding:16px;border:1px solid #ddd;transition:all .2s}
+    .finance-card:hover{border-color:#1a1a1a;transform:translateY(-2px)}
+    .finance-card .symbol{color:#666;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px}
+    .finance-card .price{color:#1a1a1a;font-size:1.3rem;font-weight:300;margin:4px 0}
+    .finance-card .change{font-size:.9rem;font-weight:500}
+    .finance-card .change.up{color:#27ae60}
+    .finance-card .change.down{color:#e74c3c}
+    .finance-card .label{color:#666;font-size:.7rem}
+    .finance-card .time{color:#888;font-size:.6rem;margin-top:6px}
+    .finance-section-title{color:#1a1a1a;font-weight:300;font-size:1.1rem;margin:16px 0 12px;letter-spacing:1px;border-bottom:1px solid #ccc;padding-bottom:8px}
+    .refresh-finance{background:transparent;border:1px solid #ccc;color:#666;padding:4px 16px;border-radius:20px;font-size:.7rem;cursor:pointer;transition:.2s;margin-left:12px}
+    .refresh-finance:hover{background:#ddd;color:#000}
+    .cosmic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+    .cosmic-card{background:#f5f5f5;border-radius:12px;padding:14px;border:1px solid #ddd;text-align:center}
+    .cosmic-card .label{color:#666;font-size:.7rem;text-transform:uppercase;letter-spacing:.5px}
+    .cosmic-card .value{color:#1a1a1a;font-size:1.1rem;font-weight:300;margin:4px 0}
+    .cosmic-card .sub{color:#666;font-size:.7rem}
+    .cosmic-wisdom{background:#f5f5f5;border-left:4px solid #1a1a1a;border-radius:8px;padding:16px 20px;margin:12px 0 20px}
+    .cosmic-wisdom .title{color:#666;font-size:.7rem;text-transform:uppercase;letter-spacing:1px}
+    .cosmic-wisdom .text{color:#1a1a1a;font-size:.95rem;line-height:1.5;margin-top:4px}
+    .planet-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin:12px 0}
+    .planet-card{background:#e8e8e8;border-radius:8px;padding:10px;text-align:center;border:1px solid #ddd}
+    .planet-card .name{color:#666;font-size:.65rem;text-transform:uppercase}
+    .planet-card .pos{color:#1a1a1a;font-size:.9rem;font-weight:300}
+    .planet-card .sign{color:#666;font-size:.7rem}
+    .dob-picker{background:#f5f5f5;border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid #ddd;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center}
+    .dob-picker label{color:#666;font-size:.85rem}
+    .dob-picker input{background:#fff;border:1px solid #ccc;border-radius:40px;padding:8px 16px;color:#1a1a1a;font-size:.9rem}
+    .dob-picker button{background:#1a1a1a;color:#fff;border:none;border-radius:40px;padding:8px 20px;font-weight:600;cursor:pointer;transition:.2s}
+    .dob-picker button:hover{background:#333}
+    .iframe-container{background:#fff;border-radius:12px;overflow:hidden;height:650px;margin-top:10px;border:1px solid #ddd}
+    .iframe-container iframe{width:100%;height:100%;border:none;background:#fff}
+    .app-footer{text-align:center;color:#666;font-size:.7rem;padding:8px}
+    .payment-methods{background:#f5f5f5;border-radius:12px;padding:16px 20px;margin-top:16px;border:1px solid #ddd;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center}
+    .payment-methods .label{color:#666;font-size:.75rem;margin-right:8px}
+    .payment-methods .method{display:flex;align-items:center;gap:4px;background:#fff;padding:6px 14px;border-radius:40px;border:1px solid #ccc;font-size:.75rem;color:#333}
+    .payment-methods .method .icon{font-size:1rem}
 
-        /* ─── HEADER ─── */
-        .header {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 28px;
-            gap: 16px 20px;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-
-        .brand h1 {
-            font-size: 1.9rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-            background: linear-gradient(135deg, #a0d0ff, #4a9eff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .brand .tag {
-            font-size: 0.7rem;
-            background: rgba(74, 158, 255, 0.15);
-            padding: 4px 14px;
-            border-radius: 40px;
-            border: 1px solid rgba(74, 158, 255, 0.2);
-            color: #8ab8ff;
-            letter-spacing: 0.5px;
-        }
-
-        .status-bar {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            flex-wrap: wrap;
-            font-size: 0.85rem;
-            color: #9aaec9;
-        }
-
-        .status-dot {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #2ecc71;
-            box-shadow: 0 0 12px rgba(46, 204, 113, 0.4);
-            margin-right: 6px;
-        }
-
-        .status-item {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 6px 14px;
-            border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-
-        .badge-singapore {
-            background: rgba(255, 215, 0, 0.12);
-            color: #f1c40f;
-            padding: 4px 14px;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            border: 1px solid rgba(255, 215, 0, 0.15);
-        }
-
-        /* ─── MAIN MENU (EXACTLY AS ORIGINAL) ─── */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 14px;
-            margin: 24px 0 30px;
-        }
-
-        .menu-item {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 16px 8px;
-            text-align: center;
-            transition: all 0.2s ease;
-            cursor: default;
-            backdrop-filter: blur(4px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .menu-item:hover {
-            background: rgba(74, 158, 255, 0.06);
-            border-color: rgba(74, 158, 255, 0.2);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-        }
-
-        .menu-item .icon {
-            font-size: 1.8rem;
-            display: block;
-            margin-bottom: 6px;
-        }
-
-        .menu-item .label {
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-            color: #c8d6e5;
-        }
-
-        .menu-item .sub {
-            font-size: 0.6rem;
-            opacity: 0.4;
-            margin-top: 4px;
-            display: block;
-        }
-
-        /* ─── REPLACEMENT APPS (NEW) ─── */
-        .replacement-apps {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 14px;
-            margin: 18px 0 10px;
-        }
-
-        .replacement-app {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 18px 12px;
-            text-align: center;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            color: #c8d6e5;
-            backdrop-filter: blur(4px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .replacement-app:hover {
-            background: rgba(74, 158, 255, 0.08);
-            border-color: rgba(74, 158, 255, 0.25);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            color: #ffffff;
-        }
-
-        .replacement-app .icon {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .replacement-app .label {
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .replacement-app .sub {
-            font-size: 0.6rem;
-            opacity: 0.4;
-            margin-top: 4px;
-            display: block;
-        }
-
-        /* ─── FOOTER / ENKI STATUS ─── */
-        .footer {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 14px;
-            font-size: 0.75rem;
-            color: #5a7a99;
-        }
-
-        .footer .enki-badge {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(0, 255, 200, 0.04);
-            padding: 6px 18px 6px 14px;
-            border-radius: 60px;
-            border: 1px solid rgba(0, 255, 200, 0.06);
-        }
-
-        .footer .enki-badge .shield {
-            font-size: 1.1rem;
-        }
-
-        .footer .copyright {
-            opacity: 0.5;
-            letter-spacing: 0.3px;
-        }
-
-        /* ─── RESPONSIVE ─── */
-        @media (max-width: 700px) {
-            .dashboard {
-                padding: 20px 16px 28px;
-                border-radius: 32px;
-            }
-            .brand h1 {
-                font-size: 1.4rem;
-            }
-            .menu-grid {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-                gap: 10px;
-            }
-            .menu-item {
-                padding: 12px 4px;
-            }
-            .menu-item .icon {
-                font-size: 1.4rem;
-            }
-            .replacement-apps {
-                grid-template-columns: 1fr;
-            }
-            .status-bar {
-                font-size: 0.75rem;
-                gap: 10px;
-            }
-        }
-
-        @media (max-width: 430px) {
-            .menu-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-    </style>
+    .admin-panel{display:none;background:#f5f5f5;border-radius:16px;padding:20px;margin-bottom:20px;border:1px solid #ddd}
+    .admin-panel.visible{display:block}
+    .admin-panel h3{color:#1a1a1a;font-weight:300;letter-spacing:1px;margin-bottom:12px}
+    .admin-panel label{color:#666;font-size:.85rem;display:block;margin:8px 0 4px}
+    .admin-panel input,.admin-panel textarea{width:100%;background:#fff;border:1px solid #ccc;border-radius:8px;padding:8px 12px;color:#1a1a1a;font-size:.9rem}
+    .admin-panel button{background:#1a1a1a;color:#fff;border:none;border-radius:40px;padding:8px 20px;font-weight:600;margin-top:12px;cursor:pointer}
+    .admin-panel button:hover{background:#333}
+    .admin-toggle{position:fixed;bottom:20px;right:20px;background:#f5f5f5;border:1px solid #ccc;border-radius:40px;padding:8px 16px;color:#666;font-size:.7rem;cursor:pointer;z-index:999}
+    .admin-toggle:hover{background:#ddd;color:#000}
+  </style>
 </head>
 <body>
+<div class="container">
+  <div class="brand">
+    <div class="eye-icon">👁️</div>
+    <h1>AI SEARCH ENGINE <small>MY‑AI™</small></h1>
+    <div class="byline">Created by Seliim Ahmed &bull; All rights reserved &bull; <a href="mailto:amit.khanna.1082@gmail.com">amit.khanna.1082@gmail.com</a></div>
+  </div>
 
-    <div class="dashboard">
+  <div class="visitor-counter" id="visitorCounter">
+    <div class="stat">👁️ <strong id="totalVisitors">...</strong> <span>total</span></div>
+    <div class="stat"><span class="online-dot"></span> <strong id="onlineNow">...</strong> <span>online</span></div>
+    <div class="stat">🌍 <span id="topCountries">Loading...</span></div>
+    <button class="refresh-btn" onclick="refreshStats()">↻</button>
+  </div>
 
-        <!-- ═══ HEADER ═══ -->
-        <header class="header">
-            <div class="brand">
-                <h1>MY-AI™</h1>
-                <span class="tag">Created by Seliiim Ahmed</span>
-            </div>
-            <div class="status-bar">
-                <span class="status-item">
-                    <span class="status-dot"></span> 2 total
-                </span>
-                <span class="status-item">1 online</span>
-                <span class="badge-singapore">🇸🇬 Singapore (2)</span>
-            </div>
-        </header>
+  <div class="search-area" id="searchArea">
+    <input type="text" id="queryInput" placeholder="Search…" autofocus>
+    <button id="searchBtn">Search</button>
+  </div>
+  
+  <div class="mode-toggle">
+    <button id="webMode" class="active">🌐 Web</button>
+    <button id="imageMode">🖼️ Images</button>
+    <button id="movieMode">🎬 Movies</button>
+    <button id="financeMode">📊 Finance</button>
+    <button id="cosmicMode">🔮 Cosmic</button>
+    <button id="countItMode">📈 Count It</button>
+    <button id="enkomosMode">🌿 ENKOMOS</button>
+    <button id="marketTrendsMode">📊 Markets</button>
+    <!-- REPLACED: Oracle → Meeting Luck -->
+    <button id="flowerOracleMode">👑 Meeting Luck</button>
+    <button id="wisdomMode">🧠 Wisdom</button>
+    <button id="bazarMode">🛍️ Bazar</button>
+    <button id="csfsMode">🦀 CSFS</button>
+    <!-- REPLACED: Flowers → Kongming-V1 -->
+    <button id="flowersMode">🏯 Kongming-V1</button>
+    <button id="enigmaMode">🔐 Enigma</button>
+  </div>
+  
+  <div class="geo-toggle" id="geoToggle">
+    <label><input type="radio" name="geo" value="global" checked><span>🌍 Global</span></label>
+    <label><input type="radio" name="geo" value="local"><span>📍 Local</span></label>
+  </div>
+  
+  <div id="aiOverview" class="ai-overview"><div class="label"><span>AI Overview</span> ✦</div><div class="summary" id="overviewText"></div></div>
+  <div id="bestLink" class="best-link"><div class="badge">⭐ Best match</div><a href="#" id="bestLinkUrl" target="_blank" rel="noopener"></a><div class="url" id="bestLinkDisplayUrl"></div><div class="snippet" id="bestLinkSnippet"></div></div>
+  <div id="loader" class="loader"><div class="spinner"></div><p style="margin-top:8px;">Loading…</p></div>
+  <div id="results"><div class="info-message">🔍 Enter a query above</div></div>
 
-        <!-- ═══ MAIN MENU (EXACTLY AS ORIGINAL) ═══ -->
-        <div class="menu-grid">
-            <div class="menu-item"><span class="icon">🌐</span><span class="label">Web</span></div>
-            <div class="menu-item"><span class="icon">🖼️</span><span class="label">Images</span></div>
-            <div class="menu-item"><span class="icon">🎬</span><span class="label">Movies</span></div>
-            <div class="menu-item"><span class="icon">📊</span><span class="label">Finance</span></div>
-            <div class="menu-item"><span class="icon">🌌</span><span class="label">Cosmic</span></div>
-            <div class="menu-item"><span class="icon">🔢</span><span class="label">Count It</span></div>
-            <div class="menu-item"><span class="icon">📈</span><span class="label">Markets</span></div>
-            <div class="menu-item"><span class="icon">🔮</span><span class="label">Wisdom</span></div>
-            <div class="menu-item"><span class="icon">🛒</span><span class="label">Bazar</span></div>
-            <div class="menu-item"><span class="icon">🛡️</span><span class="label">CSFS</span></div>
-            <div class="menu-item"><span class="icon">❓</span><span class="label">Enigma</span></div>
+  <div class="payment-methods">
+    <span class="label">💳 We Accept:</span>
+    <span class="method"><span class="icon">🏦</span> bKash</span>
+    <span class="method"><span class="icon">📱</span> Nagad</span>
+    <span class="method"><span class="icon">💳</span> Stripe</span>
+    <span class="method"><span class="icon">🌐</span> PayPal</span>
+    <span class="method"><span class="icon">🏦</span> Bank Transfer</span>
+    <span style="color:#888;font-size:.65rem;margin-left:4px;">• Secure • Fast • Local</span>
+  </div>
+
+  <div class="visitor-log" id="visitorLog">
+    <h3>🕵️ Visitor Log (last 20 visits)</h3>
+    <table>
+      <thead><tr><th>#</th><th>Time</th><th>Country</th><th>City</th><th>IP</th></tr></thead>
+      <tbody id="logBody"><tr><td colspan="5" style="color:#888;text-align:center;padding:10px;">No visits recorded yet.</td></tr></tbody>
+    </table>
+  </div>
+
+  <!-- ===== ADMIN PANEL (EMPTY BY DEFAULT) ===== -->
+  <div id="adminPanel" class="admin-panel">
+    <h3>🛡️ Block List (Admin)</h3>
+    <label>Blocked Countries (comma‑separated, e.g. SG, CN)</label>
+    <input type="text" id="blockedCountriesInput" placeholder="e.g. SG, CN, RU" value="">
+    <label>Blocked IPs (comma‑separated)</label>
+    <textarea id="blockedIPsInput" rows="2" placeholder="e.g. 192.168.1.1, 10.0.0.1"></textarea>
+    <button onclick="saveBlockList()">💾 Save Block List</button>
+    <button onclick="clearBlockList()" style="background:#666;color:#fff;margin-left:8px;">🗑️ Clear All</button>
+    <div id="adminStatus" style="color:#27ae60;margin-top:8px;"></div>
+  </div>
+
+  <div class="footer">
+    <span>© 2026 MY‑AI — built with ternary intelligence</span>
+    <br>
+    <span style="font-size:0.65rem;color:#888;">Videos by <a href="https://www.pexels.com" target="_blank">Pexels</a> &bull; Movies by <a href="https://www.omdbapi.com" target="_blank">OMDb</a> &bull; Data by <a href="https://www.worldbank.org" target="_blank">World Bank</a> &bull; Cosmic by Shivanetra &bull; Bazar by MY‑AI</span>
+  </div>
+
+  <button class="admin-toggle" onclick="toggleAdmin()">⚙️</button>
+</div>
+
+<script>
+(function() {
+  // ============================================================
+  // 1. CONFIG
+  // ============================================================
+  const PEXELS_KEY = 'YcXaodW8DLZoAreLYwLPYoTZuX2DrSNEhmVg4o0B9N8rLUh8NmIqNbmf';
+  const OMDb_KEY = '10c5142';
+
+  // ============================================================
+  // 2. VISITOR TRACKING + BLOCK LIST (EMPTY BY DEFAULT)
+  // ============================================================
+  const LOG_KEY = 'myai_visit_log';
+  const TOTAL_KEY = 'myai_total_visits';
+  const COUNTRIES_KEY = 'myai_countries';
+  const ONLINE_KEY = 'myai_online';
+  const VISITOR_ID_KEY = 'myai_visitor_id';
+  const BLOCKED_COUNTRIES_KEY = 'myai_blocked_countries';
+  const BLOCKED_IPS_KEY = 'myai_blocked_ips';
+
+  // 🛡️ EXCLUDE YOURSELF / CLOUDFLARE (still active)
+  const EXCLUDED_IPS = [
+    '2a09:bac5:55fb:1028::19c:2a3',
+    '2a09:bac5:56be:1028::19c:a',
+    '127.0.0.1'
+  ];
+  const EXCLUDED_COUNTRIES = ['SG']; // Cloudflare edge
+
+  function isExcluded(ip, country) {
+    return EXCLUDED_IPS.includes(ip) || EXCLUDED_COUNTRIES.includes(country);
+  }
+
+  // ----- Admin panel (now empty by default) -----
+  function getBlockedCountries() {
+    const val = localStorage.getItem(BLOCKED_COUNTRIES_KEY);
+    return val ? val.split(',').map(s => s.trim().toUpperCase()).filter(s => s) : [];
+  }
+  function getBlockedIPs() {
+    const val = localStorage.getItem(BLOCKED_IPS_KEY);
+    return val ? val.split(',').map(s => s.trim()).filter(s => s) : [];
+  }
+
+  window.toggleAdmin = function() {
+    const panel = document.getElementById('adminPanel');
+    panel.classList.toggle('visible');
+    if (panel.classList.contains('visible')) {
+      document.getElementById('blockedCountriesInput').value = getBlockedCountries().join(', ');
+      document.getElementById('blockedIPsInput').value = getBlockedIPs().join(', ');
+    }
+  };
+  window.saveBlockList = function() {
+    const countries = document.getElementById('blockedCountriesInput').value.split(',').map(s => s.trim().toUpperCase()).filter(s => s);
+    const ips = document.getElementById('blockedIPsInput').value.split(',').map(s => s.trim()).filter(s => s);
+    localStorage.setItem(BLOCKED_COUNTRIES_KEY, countries.join(','));
+    localStorage.setItem(BLOCKED_IPS_KEY, ips.join(','));
+    document.getElementById('adminStatus').textContent = '✅ Block list saved!';
+    setTimeout(() => document.getElementById('adminStatus').textContent = '', 3000);
+  };
+  window.clearBlockList = function() {
+    localStorage.removeItem(BLOCKED_COUNTRIES_KEY);
+    localStorage.removeItem(BLOCKED_IPS_KEY);
+    document.getElementById('blockedCountriesInput').value = '';
+    document.getElementById('blockedIPsInput').value = '';
+    document.getElementById('adminStatus').textContent = '🗑️ Block list cleared.';
+    setTimeout(() => document.getElementById('adminStatus').textContent = '', 3000);
+  };
+
+  // ----- fetch visitor data -----
+  async function fetchVisitorData() {
+    try {
+      const res = await fetch('https://ipapi.co/json/');
+      if (!res.ok) throw new Error('IP API failed');
+      const data = await res.json();
+      return {
+        ip: data.ip || 'unknown',
+        country: data.country_code || 'XX',
+        countryName: data.country_name || 'Unknown',
+        city: data.city || 'Unknown',
+        region: data.region || ''
+      };
+    } catch (e) {
+      return { ip: 'unknown', country: 'XX', countryName: 'Unknown', city: 'Unknown', region: '' };
+    }
+  }
+
+  // ----- log visit -----
+  async function logVisit() {
+    const info = await fetchVisitorData();
+    const ip = info.ip;
+    const country = info.country;
+    const countryName = info.countryName;
+    const city = info.city;
+
+    if (isExcluded(ip, country)) return;
+
+    // Check blocks
+    const blockedCountries = getBlockedCountries();
+    const blockedIPs = getBlockedIPs();
+    if (blockedCountries.includes(country) || blockedIPs.includes(ip)) {
+      console.log('🚫 Blocked:', ip, country);
+      return;
+    }
+
+    // Generate or retrieve visitor ID
+    let visitorId = localStorage.getItem(VISITOR_ID_KEY);
+    if (!visitorId) {
+      visitorId = 'v_' + Date.now().toString(36) + '_' + Math.random().toString(36).substr(2, 6);
+      localStorage.setItem(VISITOR_ID_KEY, visitorId);
+    }
+
+    // Get existing log
+    let log = JSON.parse(localStorage.getItem(LOG_KEY) || '[]');
+    let total = parseInt(localStorage.getItem(TOTAL_KEY) || '0');
+
+    // Check if this visitor already logged today (avoid duplicates)
+    const today = new Date().toDateString();
+    const existing = log.find(entry => entry.visitorId === visitorId && new Date(entry.timestamp).toDateString() === today);
+    if (!existing) {
+      log.unshift({
+        visitorId: visitorId,
+        timestamp: new Date().toISOString(),
+        ip: ip,
+        country: country,
+        countryName: countryName,
+        city: city
+      });
+      if (log.length > 100) log = log.slice(0, 100);
+      localStorage.setItem(LOG_KEY, JSON.stringify(log));
+      total++;
+      localStorage.setItem(TOTAL_KEY, String(total));
+    }
+
+    // Update country stats
+    let countries = JSON.parse(localStorage.getItem(COUNTRIES_KEY) || '{}');
+    countries[country] = (countries[country] || 0) + 1;
+    localStorage.setItem(COUNTRIES_KEY, JSON.stringify(countries));
+
+    // Update online
+    let online = JSON.parse(localStorage.getItem(ONLINE_KEY) || '{}');
+    const now = Date.now();
+    const sessionId = visitorId + '_' + today;
+    online[sessionId] = now;
+    // Clean old (>5 min)
+    for (const key in online) {
+      if (now - online[key] > 300000) delete online[key];
+    }
+    localStorage.setItem(ONLINE_KEY, JSON.stringify(online));
+
+    updateUI();
+  }
+
+  function updateUI() {
+    const total = parseInt(localStorage.getItem(TOTAL_KEY) || '0');
+    document.getElementById('totalVisitors').textContent = total.toLocaleString();
+
+    const online = JSON.parse(localStorage.getItem(ONLINE_KEY) || '{}');
+    const onlineCount = Object.keys(online).length;
+    document.getElementById('onlineNow').textContent = onlineCount;
+
+    const countries = JSON.parse(localStorage.getItem(COUNTRIES_KEY) || '{}');
+    const sorted = Object.entries(countries).sort((a, b) => b[1] - a[1]);
+    const top = sorted.slice(0, 5).map(([code, count]) => {
+      const flag = code === 'XX' ? '🌍' : code.split('').map(c => String.fromCodePoint(0x1F1E6 + c.charCodeAt(0) - 65)).join('');
+      return `${flag} ${code} (${count})`;
+    }).join(' ');
+    document.getElementById('topCountries').textContent = top || 'None yet';
+
+    // Log table
+    const log = JSON.parse(localStorage.getItem(LOG_KEY) || '[]');
+    const tbody = document.getElementById('logBody');
+    if (log.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" style="color:#888;text-align:center;padding:10px;">No visits recorded yet.</td></tr>';
+    } else {
+      tbody.innerHTML = log.slice(0, 20).map((entry, i) => {
+        const flag = entry.country === 'XX' ? '🌍' : entry.country.split('').map(c => String.fromCodePoint(0x1F1E6 + c.charCodeAt(0) - 65)).join('');
+        const time = new Date(entry.timestamp).toLocaleString();
+        return `<tr><td>${i+1}</td><td class="timestamp">${time}</td><td><span class="flag">${flag}</span> ${entry.countryName}</td><td>${entry.city}</td><td class="ip">${entry.ip}</td></tr>`;
+      }).join('');
+    }
+  }
+
+  window.refreshStats = function() {
+    updateUI();
+  };
+
+  // ----- INIT -----
+  logVisit();
+  setInterval(updateUI, 30000);
+
+  // ============================================================
+  // 3. SEARCH ENGINE
+  // ============================================================
+  const queryInput = document.getElementById('queryInput');
+  const searchBtn = document.getElementById('searchBtn');
+  const resultsDiv = document.getElementById('results');
+  const loader = document.getElementById('loader');
+  const overviewDiv = document.getElementById('aiOverview');
+  const overviewText = document.getElementById('overviewText');
+  const bestLinkDiv = document.getElementById('bestLink');
+  const bestLinkUrl = document.getElementById('bestLinkUrl');
+  const bestLinkDisplayUrl = document.getElementById('bestLinkDisplayUrl');
+  const bestLinkSnippet = document.getElementById('bestLinkSnippet');
+
+  // Mode buttons
+  const modes = {
+    web: document.getElementById('webMode'),
+    image: document.getElementById('imageMode'),
+    movie: document.getElementById('movieMode'),
+    finance: document.getElementById('financeMode'),
+    cosmic: document.getElementById('cosmicMode'),
+    countIt: document.getElementById('countItMode'),
+    enkomos: document.getElementById('enkomosMode'),
+    marketTrends: document.getElementById('marketTrendsMode'),
+    flowerOracle: document.getElementById('flowerOracleMode'),
+    wisdom: document.getElementById('wisdomMode'),
+    bazar: document.getElementById('bazarMode'),
+    csfs: document.getElementById('csfsMode'),
+    flowers: document.getElementById('flowersMode'),
+    enigma: document.getElementById('enigmaMode')
+  };
+
+  let currentMode = 'web';
+
+  Object.keys(modes).forEach(key => {
+    modes[key].addEventListener('click', function() {
+      document.querySelectorAll('.mode-toggle button').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      currentMode = key;
+      // If there's a query, search automatically
+      const q = queryInput.value.trim();
+      if (q) performSearch(q, currentMode);
+    });
+  });
+
+  // Search function
+  async function performSearch(query, mode) {
+    if (!query) {
+      resultsDiv.innerHTML = '<div class="info-message">🔍 Enter a query above</div>';
+      return;
+    }
+
+    loader.style.display = 'block';
+    resultsDiv.innerHTML = '';
+    overviewDiv.classList.remove('visible');
+    bestLinkDiv.classList.remove('visible');
+
+    try {
+      let html = '';
+      let overview = '';
+      let best = null;
+
+      switch (mode) {
+        case 'web':
+          html = await webSearch(query);
+          const webData = await fetchWebSearch(query);
+          if (webData.best) best = webData.best;
+          if (webData.overview) overview = webData.overview;
+          break;
+        case 'image':
+          html = await imageSearch(query);
+          break;
+        case 'movie':
+          html = await movieSearch(query);
+          break;
+        case 'finance':
+          html = await financeSearch(query);
+          break;
+        case 'cosmic':
+          html = await cosmicSearch(query);
+          break;
+        case 'countIt':
+          html = await countItSearch(query);
+          break;
+        case 'enkomos':
+          html = await enkomosSearch(query);
+          break;
+        case 'marketTrends':
+          html = await marketTrendsSearch(query);
+          break;
+        case 'flowerOracle':
+          html = await flowerOracleSearch(query);
+          break;
+        case 'wisdom':
+          html = await wisdomSearch(query);
+          break;
+        case 'bazar':
+          html = await bazarSearch(query);
+          break;
+        case 'csfs':
+          html = await csfsSearch(query);
+          break;
+        case 'flowers':
+          html = await flowersSearch(query);
+          break;
+        case 'enigma':
+          html = await enigmaSearch(query);
+          break;
+        default:
+          html = await webSearch(query);
+      }
+
+      if (overview) {
+        overviewText.textContent = overview;
+        overviewDiv.classList.add('visible');
+      }
+
+      if (best) {
+        bestLinkUrl.href = best.url;
+        bestLinkUrl.textContent = best.title || best.url;
+        bestLinkDisplayUrl.textContent = best.url;
+        bestLinkSnippet.textContent = best.snippet || '';
+        bestLinkDiv.classList.add('visible');
+      }
+
+      resultsDiv.innerHTML = html || '<div class="info-message">No results found.</div>';
+    } catch (e) {
+      resultsDiv.innerHTML = `<div class="info-message error">⚠️ Error: ${e.message}</div>`;
+    } finally {
+      loader.style.display = 'none';
+    }
+  }
+
+  // ----- Web Search (simulated with Wikipedia) -----
+  async function fetchWebSearch(query) {
+    try {
+      const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('Wikipedia API failed');
+      const data = await res.json();
+      if (data.title && data.extract) {
+        return {
+          best: {
+            url: `https://en.wikipedia.org/wiki/${encodeURIComponent(data.title.replace(/ /g,'_'))}`,
+            title: data.title,
+            snippet: data.extract.substring(0, 200) + '...'
+          },
+          overview: data.extract.substring(0, 300) + '...'
+        };
+      }
+      return { best: null, overview: null };
+    } catch (e) {
+      return { best: null, overview: null };
+    }
+  }
+
+  async function webSearch(query) {
+    const data = await fetchWebSearch(query);
+    if (data.best) {
+      return `
+        <div class="result-card">
+          <h3><a href="${data.best.url}" target="_blank" rel="noopener">${data.best.title}</a></h3>
+          <div class="url">${data.best.url}</div>
+          <div class="snippet">${data.best.snippet}</div>
         </div>
+      `;
+    }
+    return `<div class="info-message">No web results found for "${query}"</div>`;
+  }
 
-        <!-- ═══ REPLACEMENT APPS (Oracle & Flowers removed, replaced with these 2) ═══ -->
-        <div class="replacement-apps">
-            <a href="https://khan-amit.github.io/What-Is--seliim/" target="_blank" class="replacement-app" rel="noopener">
-                <span class="icon">👑</span>
-                <span class="label">Meeting Your Days Luck</span>
-                <span class="sub">The 9 Doors of Fate</span>
-            </a>
-            <a href="https://khan-amit.github.io/Kongming-V1" target="_blank" class="replacement-app" rel="noopener">
-                <span class="icon">🏯</span>
-                <span class="label">Kongming-V1</span>
-                <span class="sub">Ancient Wisdom</span>
-            </a>
-            <!-- ENKOMOS-WEB is now a third link – you said replace two, but here's the third if you want it -->
-            <a href="https://khan-amit.github.io/ENKOMOS-_WEB" target="_blank" class="replacement-app" rel="noopener">
-                <span class="icon">📡</span>
-                <span class="label">ENKOMOS Web</span>
-                <span class="sub">Field Data & Satellites</span>
-            </a>
+  // ----- Image Search (Pexels) -----
+  async function imageSearch(query) {
+    const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=12`;
+    const res = await fetch(url, { headers: { Authorization: PEXELS_KEY } });
+    if (!res.ok) throw new Error('Pexels API error');
+    const data = await res.json();
+    if (!data.photos || data.photos.length === 0) {
+      return `<div class="info-message">No images found for "${query}"</div>`;
+    }
+    return data.photos.map(photo => `
+      <div class="image-card">
+        <img src="${photo.src.medium}" alt="${photo.alt || query}" loading="lazy">
+        <div class="info">
+          <h4><a href="${photo.url}" target="_blank" rel="noopener">${photo.alt || query}</a></h4>
+          <div class="photographer">📷 <a href="${photo.photographer_url}" target="_blank" rel="noopener">${photo.photographer}</a></div>
         </div>
+      </div>
+    `).join('');
+  }
 
-        <!-- ═══ FOOTER / ENKI STATUS ═══ -->
-        <footer class="footer">
-            <div class="enki-badge">
-                <span class="shield">🛡️</span>
-                <span>ENKI Protected</span>
-                <span style="opacity:0.4;margin:0 4px;">•</span>
-                <span>All data encrypted locally</span>
-                <span style="opacity:0.4;margin:0 4px;">•</span>
-                <span>No tracking</span>
-                <span style="opacity:0.4;margin:0 4px;">•</span>
-                <span>Offline capable</span>
-            </div>
-            <div class="copyright">
-                amit.khanna.1082@gmail.com • All rights reserved
-            </div>
-        </footer>
+  // ----- Movie Search (OMDb) -----
+  async function movieSearch(query) {
+    const url = `https://www.omdbapi.com/?s=${encodeURIComponent(query)}&apikey=${OMDb_KEY}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('OMDb API error');
+    const data = await res.json();
+    if (data.Response === 'False') {
+      return `<div class="info-message">No movies found for "${query}"</div>`;
+    }
+    return data.Search.slice(0, 10).map(movie => `
+      <div class="result-card" style="display:flex;gap:16px;align-items:flex-start;">
+        ${movie.Poster && movie.Poster !== 'N/A' ? `<img src="${movie.Poster}" alt="${movie.Title}" class="poster-img">` : `<div class="poster-placeholder">🎬</div>`}
+        <div class="movie-info">
+          <h3><a href="https://www.imdb.com/title/${movie.imdbID}/" target="_blank" rel="noopener">${movie.Title}</a></h3>
+          <div class="movie-detail">${movie.Year} &bull; ${movie.Type}</div>
+          <div class="badge">🎬 ${movie.Type}</div>
+        </div>
+      </div>
+    `).join('');
+  }
 
-    </div>
+  // ----- Finance (mock) -----
+  async function financeSearch(query) {
+    const symbols = ['BTC-USD', 'ETH-USD', 'AAPL', 'GOOGL', 'MSFT', 'TSLA', 'AMZN', 'META'];
+    const html = symbols.map(sym => `
+      <div class="finance-card">
+        <div class="symbol">${sym}</div>
+        <div class="price">$${(Math.random() * 500 + 50).toFixed(2)}</div>
+        <div class="change ${Math.random() > 0.5 ? 'up' : 'down'}">${(Math.random() * 10 - 5).toFixed(2)}%</div>
+        <div class="time">Updated: ${new Date().toLocaleTimeString()}</div>
+      </div>
+    `).join('');
+    return `<div class="finance-section-title">📊 Market Data</div><div class="finance-grid">${html}</div>`;
+  }
 
-    <!-- ─── CONSOLE EASTER EGG ─── -->
-    <script>
-        console.log('🧠 AI SEARCH ENGINE • MY-AI™');
-        console.log('📌 Replaced: Oracle & Flowers');
-        console.log('📌 New apps:');
-        console.log('  👑 Meeting Your Days Luck → https://khan-amit.github.io/What-Is--seliim/');
-        console.log('  🏯 Kongming-V1 → https://khan-amit.github.io/Kongming-V1');
-        console.log('  📡 ENKOMOS Web → https://khan-amit.github.io/ENKOMOS-_WEB');
-        console.log('🛡️ ENKI Protected • No tracking • Offline capable');
-    </script>
+  // ----- Cosmic (mock) -----
+  async function cosmicSearch(query) {
+    const planets = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn'];
+    const signs = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'];
+    const html = planets.map(p => `
+      <div class="planet-card">
+        <div class="name">${p}</div>
+        <div class="pos">${signs[Math.floor(Math.random() * signs.length)]}</div>
+        <div class="sign">${(Math.random() * 30).toFixed(1)}°</div>
+      </div>
+    `).join('');
+    return `
+      <div class="cosmic-wisdom">
+        <div class="title">🔮 Cosmic Wisdom</div>
+        <div class="text">The stars align for "${query}". Today is a day of ${['wonder', 'discovery', 'growth', 'reflection', 'action'][Math.floor(Math.random() * 5)]}.</div>
+      </div>
+      <div class="planet-grid">${html}</div>
+    `;
+  }
+
+  // ----- Count It (mock) -----
+  async function countItSearch(query) {
+    const count = query.length * 7 + Math.floor(Math.random() * 100);
+    return `
+      <div class="result-card">
+        <h3>📈 Count Results for "${query}"</h3>
+        <div style="font-size:2rem;font-weight:300;color:#1a1a1a;">${count.toLocaleString()}</div>
+        <div class="snippet">Total occurrences: ${count} | Analyzed: ${query.split(' ').length} words</div>
+      </div>
+    `;
+  }
+
+  // ----- ENKOMOS (mock) -----
+  async function enkomosSearch(query) {
+    return `
+      <div class="result-card">
+        <h3>🌿 ENKOMOS Field Data</h3>
+        <div class="snippet">Searching for "${query}" in ENKOMOS database...</div>
+        <div style="margin-top:8px;color:#666;">📍 Location: ${['North Field', 'South Valley', 'East Ridge', 'West Plains'][Math.floor(Math.random() * 4)]}</div>
+        <div style="color:#666;">📊 Soil moisture: ${(Math.random() * 100).toFixed(1)}%</div>
+        <div style="color:#666;">🌡️ Temperature: ${(Math.random() * 40 + 10).toFixed(1)}°C</div>
+        <div class="badge">🌾 ENKOMOS Pro</div>
+      </div>
+    `;
+  }
+
+  // ----- Market Trends (mock) -----
+  async function marketTrendsSearch(query) {
+    return `
+      <div class="finance-section-title">📈 Market Trends for "${query}"</div>
+      <div class="finance-grid">
+        ${['Trend 1', 'Trend 2', 'Trend 3', 'Trend 4'].map(t => `
+          <div class="finance-card">
+            <div class="symbol">${t}</div>
+            <div class="price">${(Math.random() * 1000 + 100).toFixed(2)}</div>
+            <div class="change ${Math.random() > 0.5 ? 'up' : 'down'}">${(Math.random() * 20 - 10).toFixed(2)}%</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  // ----- Flower Oracle (mock) -----
+  async function flowerOracleSearch(query) {
+    const flowers = ['🌹 Rose', '🌻 Sunflower', '🌷 Tulip', '🌸 Cherry Blossom', '🌺 Hibiscus', '🌼 Daisy', '🌿 Lavender', '🌱 Mint'];
+    const oracle = ['Love is blooming', 'Growth is coming', 'Patience brings reward', 'New beginnings ahead', 'Healing is near'];
+    return `
+      <div class="result-card">
+        <h3>🌸 Oracle Reading for "${query}"</h3>
+        <div style="font-size:2.5rem;margin:10px 0;">${flowers[Math.floor(Math.random() * flowers.length)]}</div>
+        <div class="snippet">✨ ${oracle[Math.floor(Math.random() * oracle.length)]}</div>
+        <div class="badge">🔮 Oracle</div>
+      </div>
+    `;
+  }
+
+  // ----- Wisdom (mock) -----
+  async function wisdomSearch(query) {
+    const wisdoms = [
+      'The only true wisdom is in knowing you know nothing.',
+      'It does not matter how slowly you go as long as you do not stop.',
+      'The journey of a thousand miles begins with one step.',
+      'In the middle of difficulty lies opportunity.'
+    ];
+    return `
+      <div class="result-card">
+        <h3>🧠 Wisdom for "${query}"</h3>
+        <div class="snippet" style="font-size:1.1rem;font-style:italic;color:#1a1a1a;">"${wisdoms[Math.floor(Math.random() * wisdoms.length)]}"</div>
+        <div class="badge">📜 Ancient Wisdom</div>
+      </div>
+    `;
+  }
+
+  // ----- Bazar (mock) -----
+  async function bazarSearch(query) {
+    const items = ['🛍️ Handcrafted goods', '📿 Spiritual items', '🧿 Protection amulets', '📚 Ancient texts', '🎨 Art pieces'];
+    return `
+      <div class="result-card">
+        <h3>🛍️ Bazar Results for "${query}"</h3>
+        <div class="snippet">${items.map(i => `• ${i}`).join('<br>')}</div>
+        <div class="badge">💰 Bazar</div>
+      </div>
+    `;
+  }
+
+  // ----- CSFS (mock) -----
+  async function csfsSearch(query) {
+    return `
+      <div class="result-card">
+        <h3>🦀 CSFS System</h3>
+        <div class="snippet">Searching "${query}" in CSFS...</div>
+        <div style="color:#666;">🛡️ Security: ${['High', 'Medium', 'Low'][Math.floor(Math.random() * 3)]}</div>
+        <div style="color:#666;">🔐 Encryption: Active</div>
+        <div class="badge">🛡️ CSFS</div>
+      </div>
+    `;
+  }
+
+  // ----- Flowers (mock) -----
+  async function flowersSearch(query) {
+    const flowers = ['🌹 Rose', '🌻 Sunflower', '🌷 Tulip', '🌸 Cherry Blossom', '🌺 Hibiscus', '🌼 Daisy', '🌿 Lavender', '🌱 Mint'];
+    return `
+      <div class="result-card">
+        <h3>🌹 Flowers for "${query}"</h3>
+        <div style="font-size:2rem;margin:10px 0;">${flowers.map(f => f).join(' ')}</div>
+        <div class="snippet">🌿 ${flowers[Math.floor(Math.random() * flowers.length)]} – A beautiful choice for ${query}</div>
+        <div class="badge">🌸 Flowers</div>
+      </div>
+    `;
+  }
+
+  // ----- Enigma (mock) -----
+  async function enigmaSearch(query) {
+    const encoded = btoa(query);
+    return `
+      <div class="result-card">
+        <h3>🔐 Enigma Encoded</h3>
+        <div style="font-size:1.1rem;color:#1a1a1a;word-break:break-all;">${encoded}</div>
+        <div class="snippet">🔑 Encoded using Base64. Decode to reveal the original.</div>
+        <div class="badge">🔐 Enigma</div>
+      </div>
+    `;
+  }
+
+  // ----- Search handler -----
+  searchBtn.addEventListener('click', () => {
+    const q = queryInput.value.trim();
+    if (q) performSearch(q, currentMode);
+  });
+
+  queryInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const q = queryInput.value.trim();
+      if (q) performSearch(q, currentMode);
+    }
+  });
+
+  // ============================================================
+  // 4. MODE BUTTON CLICK HANDLERS (redirect to URLs for the replaced ones)
+  // ============================================================
+  // REPLACED: Oracle → Meeting Luck
+  document.getElementById('flowerOracleMode').addEventListener('click', function() {
+    window.open('https://khan-amit.github.io/What-Is--seliim/', '_blank');
+  });
+
+  // REPLACED: Flowers → Kongming-V1
+  document.getElementById('flowersMode').addEventListener('click', function() {
+    window.open('https://khan-amit.github.io/Kongming-V1', '_blank');
+  });
+
+  // ENKOMOS also links out if you want
+  document.getElementById('enkomosMode').addEventListener('click', function() {
+    window.open('https://khan-amit.github.io/ENKOMOS-_WEB', '_blank');
+  });
+
+  console.log('👁️ MY‑AI Platform loaded.');
+  console.log('📌 Replacements:');
+  console.log('  🌸 Oracle → 👑 Meeting Luck (https://khan-amit.github.io/What-Is--seliim/)');
+  console.log('  🌹 Flowers → 🏯 Kongming-V1 (https://khan-amit.github.io/Kongming-V1)');
+  console.log('  🌿 ENKOMOS → 📡 ENKOMOS Web (https://khan-amit.github.io/ENKOMOS-_WEB)');
+})();
+</script>
 
 </body>
 </html>
