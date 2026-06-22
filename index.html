@@ -1,1 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>AI SEARCH ENGINE • MY-AI™</title>
+    <style>
+        /* ─── RESET & BASE ─── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            background: #0b0d14;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: #e8edf5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .dashboard {
+            max-width: 1300px;
+            width: 100%;
+            background: rgba(18, 22, 33, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 48px;
+            padding: 32px 30px 40px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(0, 180, 255, 0.12);
+            border: 1px solid rgba(0, 180, 255, 0.08);
+        }
+
+        /* ─── HEADER ─── */
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            gap: 16px 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand h1 {
+            font-size: 1.9rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #a0d0ff, #4a9eff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .brand .tag {
+            font-size: 0.7rem;
+            background: rgba(74, 158, 255, 0.15);
+            padding: 4px 14px;
+            border-radius: 40px;
+            border: 1px solid rgba(74, 158, 255, 0.2);
+            color: #8ab8ff;
+            letter-spacing: 0.5px;
+        }
+
+        .status-bar {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+            color: #9aaec9;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #2ecc71;
+            box-shadow: 0 0 12px rgba(46, 204, 113, 0.4);
+            margin-right: 6px;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 6px 14px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .badge-singapore {
+            background: rgba(255, 215, 0, 0.12);
+            color: #f1c40f;
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+        }
+
+        /* ─── MAIN MENU (SECTIONS) ─── */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 14px;
+            margin: 24px 0 30px;
+        }
+
+        .menu-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 16px 8px;
+            text-align: center;
+            transition: all 0.2s ease;
+            cursor: default;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-item:hover {
+            background: rgba(74, 158, 255, 0.06);
+            border-color: rgba(74, 158, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-item .icon {
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .menu-item .label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            color: #c8d6e5;
+        }
+
+        .menu-item .sub {
+            font-size: 0.6rem;
+            opacity: 0.4;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* ─── ENKOMOS SUITE (YOUR 3 LINKS) ─── */
+        .enkoma-section {
+            background: linear-gradient(145deg, rgba(0, 40, 80, 0.25), rgba(0, 20, 50, 0.15));
+            border-radius: 28px;
+            padding: 22px 24px 28px;
+            margin: 18px 0 28px;
+            border: 1px solid rgba(0, 180, 255, 0.10);
+            box-shadow: inset 0 0 40px rgba(0, 100, 255, 0.03);
+        }
+
+        .enkoma-section .section-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #5a8ab5;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .enkoma-section .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(0, 180, 255, 0.2), transparent);
+        }
+
+        .enkoma-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .enkoma-link {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 180, 255, 0.12);
+            border-radius: 60px;
+            padding: 12px 28px;
+            color: #b0d4f0;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(4px);
+            flex: 1 1 auto;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .enkoma-link:hover {
+            background: rgba(74, 158, 255, 0.12);
+            border-color: rgba(74, 158, 255, 0.3);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 100, 255, 0.15);
+        }
+
+        .enkoma-link .link-icon {
+            font-size: 1.2rem;
+        }
+
+        /* ─── FOOTER / ENKI STATUS ─── */
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            font-size: 0.75rem;
+            color: #5a7a99;
+        }
+
+        .footer .enki-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0, 255, 200, 0.04);
+            padding: 6px 18px 6px 14px;
+            border-radius: 60px;
+            border: 1px solid rgba(0, 255, 200, 0.06);
+        }
+
+        .footer .enki-badge .shield {
+            font-size: 1.1rem;
+        }
+
+        .footer .copyright {
+            opacity: 0.5;
+            letter-spacing: 0.3px;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 700px) {
+            .dashboard {
+                padding: 20px 16px 28px;
+                border-radius: 32px;
+            }
+            .brand h1 {
+                font-size: 1.4rem;
+            }
+            .menu-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+            }
+            .menu-item {
+                padding: 12px 4px;
+            }
+            .menu-item .icon {
+                font-size: 1.4rem;
+            }
+            .enkoma-link {
+                padding: 10px 18px;
+                font-size: 0.85rem;
+                min-width: 140px;
+            }
+            .status-bar {
+                font-size: 0.75rem;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .menu-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .enkoma-links {
+                flex-direction: column;
+            }
+            .enkoma-link {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard">
+
+        <!-- ═══ HEADER ═══ -->
+        <header class="header">
+            <div class="brand">
+                <h1>MY-AI™</h1>
+                <span class="tag">Created by Seliiim Ahmed</span>
+            </div>
+            <div class="status-bar">
+                <span class="status-item">
+                    <span class="status-dot"></span> 2 total
+                </span>
+                <span class="status-item">1 online</span>
+                <span class="badge-singapore">🇸🇬 Singapore (2)</span>
+            </div>
+        </header>
+
+        <!-- ═══ MAIN MENU (removed Oracle, Flowers, ENKOMOS) ═══ -->
+        <div class="menu-grid">
+            <div class="menu-item"><span class="icon">🌐</span><span class="label">Web</span></div>
+            <div class="menu-item"><span class="icon">🖼️</span><span class="label">Images</span></div>
+            <div class="menu-item"><span class="icon">🎬</span><span class="label">Movies</span></div>
+            <div class="menu-item"><span class="icon">📊</span><span class="label">Finance</span></div>
+            <div class="menu-item"><span class="icon">🌌</span><span class="label">Cosmic</span></div>
+            <div class="menu-item"><span class="icon">🔢</span><span class="label">Count It</span></div>
+            <div class="menu-item"><span class="icon">📈</span><span class="label">Markets</span></div>
+            <div class="menu-item"><span class="icon">🔮</span><span class="label">Wisdom</span></div>
+            <div class="menu-item"><span class="icon">🛒</span><span class="label">Bazar</span></div>
+            <div class="menu-item"><span class="icon">🛡️</span><span class="label">CSFS</span></div>
+            <div class="menu-item"><span class="icon">❓</span><span class="label">Enigma</span></div>
+            <!-- "Oracle" and "Flowers" have been removed as requested -->
+        </div>
+
+        <!-- ═══ ENKOMOS SUITE – YOUR 3 REPLACEMENT LINKS ═══ -->
+        <div class="enkoma-section">
+            <div class="section-title">
+                <span>🧩 ENKOMOS SUITE</span>
+            </div>
+            <div class="enkoma-links">
+                <a href="https://khan-amit.github.io/What-Is--seliim/" target="_blank" class="enkoma-link" rel="noopener">
+                    <span class="link-icon">👑</span> Meeting Your Days Luck
+                </a>
+                <a href="https://khan-amit.github.io/Kongming-V1" target="_blank" class="enkoma-link" rel="noopener">
+                    <span class="link-icon">🏯</span> Kongming-V1
+                </a>
+                <a href="https://khan-amit.github.io/ENKOMOS-_WEB" target="_blank" class="enkoma-link" rel="noopener">
+                    <span class="link-icon">📡</span> ENKOMOS Web
+                </a>
+            </div>
+        </div>
+
+        <!-- ═══ FOOTER / ENKI STATUS ═══ -->
+        <footer class="footer">
+            <div class="enki-badge">
+                <span class="shield">🛡️</span>
+                <span>ENKI Protected</span>
+                <span style="opacity:0.4;margin:0 4px;">•</span>
+                <span>All data encrypted locally</span>
+                <span style="opacity:0.4;margin:0 4px;">•</span>
+                <span>No tracking</span>
+                <span style="opacity:0.4;margin:0 4px;">•</span>
+                <span>Offline capable</span>
+            </div>
+            <div class="copyright">
+                amit.khanna.1082@gmail.com • All rights reserved
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- ─── SMALL CONSOLE EASTER EGG ─── -->
+    <script>
+        console.log('🧠 AI SEARCH ENGINE • MY-AI™');
+        console.log('📌 ENKOMOS Suite loaded:');
+        console.log('  👑 Meeting Your Days Luck → https://khan-amit.github.io/What-Is--seliim/');
+        console.log('  🏯 Kongming-V1 → https://khan-amit.github.io/Kongming-V1');
+        console.log('  📡 ENKOMOS Web → https://khan-amit.github.io/ENKOMOS-_WEB');
+        console.log('🛡️ ENKI Protected • No tracking • Offline capable');
+    </script>
+
+</body>
+</html>
